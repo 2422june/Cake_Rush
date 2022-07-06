@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int[] cost;
     public bool isSpawnable;
     private bool nowInGame;
-    public bool nowMatching;
+    public bool nowMatching, nowCloseMatching;
 
     private UiManager UIManager;
 
@@ -177,22 +177,25 @@ public class GameManager : MonoBehaviourPunCallbacks
         /*PN.JoinRandomOrCreateRoom(
             null, 2, Photon.Realtime.MatchmakingMode.FillRoom,
             null, null, $"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 });*/
-
-        if(PN.CountOfRooms > 0)
-        {
-            Debug.Log("있다.");
-            PN.JoinRandomRoom();
-        }
-        else
-        {
-            Debug.Log("없다.");
-            PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 },
-                null, null);
-        }
+        
+        PN.JoinRandomRoom();
+    }
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("없다.");
+        PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 },
+            null, null);
     }
     public void LeaveRoom()
     {
         PN.LeaveRoom();
+    }
+    public override void OnLeftRoom()
+    {
+        nowCloseMatching = false;
+        nowMatching = false;
+        UIManager.NoticeInLoby("매칭을 취소했습니다.");
+        UIManager.SetStartTextInLoby("매칭 시작");
     }
     public void OnClickExit()
     {

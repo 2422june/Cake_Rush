@@ -161,12 +161,18 @@ public class UiManager : MonoBehaviour //GameManager
     }
     public void OnClickStartInLobby()
     {
+        if(GameManager.instance.nowCloseMatching)
+        {
+            NoticeInLoby("매칭을 취소하는 중 입니다.");
+            return;
+        }
+
         if(GameManager.instance.nowMatching)
         {
+            GameManager.instance.nowCloseMatching = true;
+            NoticeInLoby("매칭을 취소합니다.");
+            SetStartTextInLoby("매칭 취소중");
             GameManager.instance.LeaveRoom();
-            GameManager.instance.nowMatching = false;
-            NoticeInLoby("매칭을 취소했습니다.");
-            SetStartTextInLoby("매칭 시작");
         }
         else
         {
