@@ -5730,13 +5730,13 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: Attack
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Lightning
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Die
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: ShootingStar
   m_SynchronizeLayers:
   - SynchronizeType: 1
@@ -5772,7 +5772,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 0
+  m_UseLocal: 1
 --- !u!114 &1786582494698096258
 MonoBehaviour:
   m_ObjectHideFlags: 0

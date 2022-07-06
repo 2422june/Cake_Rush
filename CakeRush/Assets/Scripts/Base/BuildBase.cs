@@ -27,6 +27,7 @@ public class BuildBase : EntityBase
             render.material = Resources.Load<Material>("Materials/Blueprint");
             curHp = 0f;
             buildEffect = transform.Find("BuildEffect").gameObject;
+            rtsController = GameManager.instance.rtsController;
         }
     }
     

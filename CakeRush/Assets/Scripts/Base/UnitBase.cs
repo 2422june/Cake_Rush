@@ -30,6 +30,7 @@ public class UnitBase : CharacterBase
 
     protected override void Update()
     {
+        base.Update();
         Idle();
         //Stop();
     }

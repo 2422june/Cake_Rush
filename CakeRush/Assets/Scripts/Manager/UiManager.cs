@@ -32,6 +32,10 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject loaddingPanel;
     private GameObject noticePanel;
 
+    //inGame
+    private GameObject playerPanel;
+    private GameObject playerUnitSlot;
+
     private Button startInTitle;
     private Button optionInTitle;
     private Button exitInTitle;
@@ -80,11 +84,14 @@ public class UiManager : MonoBehaviour //GameManager
 
         loaddingPanel  = FindElement("LoadingPanel");
 
-        titlePanel       = FindElement("TitlePanel2");
-        lobbyPanel       = FindElement("LobbyPanel3");
+        titlePanel       = FindElement("TitlePanel");
+        lobbyPanel       = FindElement("LobbyPanel");
         noticePanel      = FindElement("NoticePanel");
         lobbyOptionPanel = SetGameObj(lobbyPanel, "OptionMenus");
         noticeText       = SetText(noticePanel, "Text");
+
+        playerPanel      = FindElement("NoticePanel");
+        playerUnitSlot   = FindElement("UnitListPanel");
 
         startInTitle  = SetAny<Button>(titlePanel, "StartButton");
         exitInTitle   = SetAny<Button>(titlePanel, "ExitButton");

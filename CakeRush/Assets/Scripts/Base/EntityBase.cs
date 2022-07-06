@@ -94,7 +94,14 @@ public class EntityBase : MonoBehaviourPunCallbacks
     {
         isSelected = true;
 		Marker.SetActive(true);
-	}
+
+        OnSelect();
+    }
+
+    private void OnSelect()
+    {
+        //Send Stat Data
+    }
     
 	public void Deselect()
     {

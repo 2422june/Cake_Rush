@@ -2548,6 +2548,7 @@ MonoBehaviour:
   cost: 
   isSpawnable: 0
   nowMatching: 0
+  nowCloseMatching: 0
   UIManagerOBJ: {fileID: 0}
 --- !u!4 &1759907595
 Transform:

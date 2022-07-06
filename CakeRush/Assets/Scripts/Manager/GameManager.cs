@@ -34,8 +34,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool isSpawnable;
     private bool nowInGame;
     public bool nowMatching, nowCloseMatching;
-
-    private UiManager UIManager;
+    public UiManager UIManager;
 
     [SerializeField]
     private GameObject UIManagerOBJ;

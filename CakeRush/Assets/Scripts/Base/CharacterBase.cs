@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +13,7 @@ public class CharacterBase : EntityBase
     protected Data.StatureAbillty statureAbillty;
     protected bool isStun;
     float curStunTime;
+    private PhotonView PV;
 
     protected override void Awake()
     {
@@ -23,7 +26,8 @@ public class CharacterBase : EntityBase
     protected override void Update()
     {
         if (isStun) return;
-        if (team != rtsController.team) return;
+        //if (team != rtsController.team) return;
+        if (!PV.IsMine) return;
         base.Update();
     }
 

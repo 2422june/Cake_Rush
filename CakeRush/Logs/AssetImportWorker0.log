@@ -15,7 +15,7 @@ D:/UnityProject/Cake_Rush/CakeRush
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-65521
+50163
 Successfully changed project path to: D:/UnityProject/Cake_Rush/CakeRush
 D:/UnityProject/Cake_Rush/CakeRush
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,7 +47,7 @@ D:/UnityProject/Cake_Rush/CakeRush
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 192.68 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 130.16 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.0f1 (6eacc8284459)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/Unity 2021.3.0f1/Editor/Data/Resources/UnitySubsystems
@@ -63,90 +63,90 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/Unity 2021.3.0f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/Unity 2021.3.0f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/Unity 2021.3.0f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56492
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56620
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/Unity 2021.3.0f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.016256 seconds.
+Registered in 0.013207 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 219.90 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 133.00 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.114 seconds
+- Completed reload, in  0.789 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1115ms)
-		BeginReloadAssembly (132ms)
+	ReloadAssembly (789ms)
+		BeginReloadAssembly (107ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (797ms)
-			LoadAssemblies (127ms)
+		EndReloadAssembly (525ms)
+			LoadAssemblies (101ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (170ms)
+			SetupTypeCache (107ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (40ms)
-			SetupLoadedEditorAssemblies (500ms)
+			RebuildScriptCaches (29ms)
+			SetupLoadedEditorAssemblies (329ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (13ms)
+				InitializePlatformSupportModulesInManaged (9ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (220ms)
-				BeforeProcessingInitializeOnLoad (2ms)
-				ProcessInitializeOnLoadAttributes (191ms)
-				ProcessInitializeOnLoadMethodAttributes (73ms)
+				RefreshPlugins (133ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (129ms)
+				ProcessInitializeOnLoadMethodAttributes (56ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.011371 seconds.
+Registered in 0.008821 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image D:\UnityProject\Cake_Rush\CakeRush\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory is not a mono symbol file
 Symbol file LoadedFromMemory doesn't match image D:\UnityProject\Cake_Rush\CakeRush\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.44 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.09 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.628 seconds
+- Completed reload, in  1.210 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1629ms)
-		BeginReloadAssembly (178ms)
+	ReloadAssembly (1211ms)
+		BeginReloadAssembly (118ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
+			DisableScriptedObjects (6ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (25ms)
-		EndReloadAssembly (1268ms)
-			LoadAssemblies (151ms)
+			CreateAndSetChildDomain (18ms)
+		EndReloadAssembly (966ms)
+			LoadAssemblies (111ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (389ms)
+			SetupTypeCache (338ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (84ms)
-			SetupLoadedEditorAssemblies (602ms)
+			RebuildScriptCaches (64ms)
+			SetupLoadedEditorAssemblies (416ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (10ms)
+				InitializePlatformSupportModulesInManaged (7ms)
 				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (141ms)
-				ProcessInitializeOnLoadAttributes (392ms)
-				ProcessInitializeOnLoadMethodAttributes (38ms)
-				AfterProcessingInitializeOnLoad (19ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (94ms)
+				ProcessInitializeOnLoadAttributes (273ms)
+				ProcessInitializeOnLoadMethodAttributes (27ms)
+				AfterProcessingInitializeOnLoad (14ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (9ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
-Refreshing native plugins compatible for Editor in 1.49 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Refreshing native plugins compatible for Editor in 1.17 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3668 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 36 unused Assets / (497.3 KB). Loaded Objects now: 4153.
-Memory consumption went from 160.0 MB to 159.5 MB.
-Total: 4.644500 ms (FindLiveObjects: 0.363700 ms CreateObjectMapping: 0.312200 ms MarkObjects: 3.190100 ms  DeleteObjects: 0.777200 ms)
+Unloading 36 unused Assets / (498.5 KB). Loaded Objects now: 4157.
+Memory consumption went from 160.5 MB to 160.0 MB.
+Total: 3.273800 ms (FindLiveObjects: 0.292900 ms CreateObjectMapping: 0.241500 ms MarkObjects: 2.338400 ms  DeleteObjects: 0.400400 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -161,80 +161,65 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 176029.345715 seconds.
-  path: Assets/Scenes/FantasyWorld
-  artifactKey: Guid(58802f15f80d4144e9434f142909398b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld using Guid(58802f15f80d4144e9434f142909398b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '768edfe8d7b27720235096bce775199b') in 0.022180 seconds 
+  Time since last request: 195799.515910 seconds.
+  path: Assets/Scenes/Game/InGame.unity
+  artifactKey: Guid(fc88f6848fddd314d92c7a92f5402b1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Game/InGame.unity using Guid(fc88f6848fddd314d92c7a92f5402b1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '367221fc61fa92bb4fdd9aca482feced') in 0.011897 seconds 
 ========================================================================
-Received Import Request.
-  Time since last request: 0.000027 seconds.
-  path: Assets/Scenes/FantasyWorld/CandyScene_day.unity
-  artifactKey: Guid(351215211a92b894aaccf0a383451a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/CandyScene_day.unity using Guid(351215211a92b894aaccf0a383451a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe2f972f6a07d7eb1008abc63735f26d') in 0.013651 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 198.476450 seconds.
-  path: Assets/Scenes/FantasyWorld/CandyScene_daySettings.lighting
-  artifactKey: Guid(d648a87646dde8f409e548ca2a2b72b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/CandyScene_daySettings.lighting using Guid(d648a87646dde8f409e548ca2a2b72b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) LightingSettings: switching bake backend from 1 to 0.
- -> (artifact id: '054e789fff68165015552e3db4d2f4cf') in 0.049775 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 3.910876 seconds.
-  path: Assets/Scenes/FantasyWorld/Effects
-  artifactKey: Guid(b20f1d3f77dbbd148b6bf034102694d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/Effects using Guid(b20f1d3f77dbbd148b6bf034102694d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '838ebfedae07abeb355a8f728da1a842') in 0.012695 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.980304 seconds.
-  path: Assets/Scenes/FantasyWorld/CandyScene_night
-  artifactKey: Guid(a01dfda40abc90a4b8340c34578fb06c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/CandyScene_night using Guid(a01dfda40abc90a4b8340c34578fb06c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d0826b612c8d7b7338ee04294b5870f') in 0.010496 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.633103 seconds.
-  path: Assets/Scenes/FantasyWorld/CandyScene_day
-  artifactKey: Guid(f57113ab4659ac14390b6ea67f0473ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/CandyScene_day using Guid(f57113ab4659ac14390b6ea67f0473ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03a466e2fbfb7a95bf467e7b6a36b5e1') in 0.009951 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.028934 seconds.
-  path: Assets/Scenes/FantasyWorld/CandyScene_night/Lightmap-0_comp_light.exr
-  artifactKey: Guid(cdad5cfe053a2b44bb2803ce15daa06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/CandyScene_night/Lightmap-0_comp_light.exr using Guid(cdad5cfe053a2b44bb2803ce15daa06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ba52fdcccea78d5df43601b565eb5886') in 0.162116 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000040 seconds.
-  path: Assets/Scenes/FantasyWorld/CandyScene_night/ReflectionProbe-1.exr
-  artifactKey: Guid(55eb17bcf6d96e14398d36564a2a5dec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/CandyScene_night/ReflectionProbe-1.exr using Guid(55eb17bcf6d96e14398d36564a2a5dec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1bcf1c717c7e1b0dc2f07aeccd522662') in 0.085299 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.225875 seconds.
-  path: Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade
-  artifactKey: Guid(ae0b631f8c378e849a1ef9dee0bfea86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade using Guid(ae0b631f8c378e849a1ef9dee0bfea86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d27ff69569475d20d3a68be736a3c14') in 0.007893 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.082013 seconds.
-  path: Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade/layer_CandyGround_1CandyGround_NRM793646612c42751.terrainlayer
-  artifactKey: Guid(7d6fb3621637ce743a162be9c6e58902) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade/layer_CandyGround_1CandyGround_NRM793646612c42751.terrainlayer using Guid(7d6fb3621637ce743a162be9c6e58902) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9de00b331b3ee787bc0295396832293c') in 0.067181 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade/layer_SweetGround_2SweetGround_2_S_NRM2023054508611406.terrainlayer
-  artifactKey: Guid(09f2ae079daf9564bb2a19324a896806) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade/layer_SweetGround_2SweetGround_2_S_NRM2023054508611406.terrainlayer using Guid(09f2ae079daf9564bb2a19324a896806) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '074d3325c28c245a84d66282057f4c64') in 0.049431 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000036 seconds.
-  path: Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade/layer_SweetGround_1SweetGround_1_NRM2023054508611406.terrainlayer
-  artifactKey: Guid(94da639ab9e3f6049a8fbd0eb6f112b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade/layer_SweetGround_1SweetGround_1_NRM2023054508611406.terrainlayer using Guid(94da639ab9e3f6049a8fbd0eb6f112b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'beff1e57175e06e6011064e2a0f38f96') in 0.051784 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000065 seconds.
-  path: Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade/layer_CandyGround_4CandyGround_NRM793646612c42751.terrainlayer
-  artifactKey: Guid(f974f2e6705522a45ba933a93196a4fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/FantasyWorld/_TerrainAutoUpgrade/layer_CandyGround_4CandyGround_NRM793646612c42751.terrainlayer using Guid(f974f2e6705522a45ba933a93196a4fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2224e671589fd0e27929c38a8a9fe9b5') in 0.043066 seconds 
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.008365 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image D:\UnityProject\Cake_Rush\CakeRush\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file LoadedFromMemory doesn't match image D:\UnityProject\Cake_Rush\CakeRush\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.31 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.047 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1048ms)
+		BeginReloadAssembly (148ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (31ms)
+		EndReloadAssembly (797ms)
+			LoadAssemblies (110ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (291ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (40ms)
+			SetupLoadedEditorAssemblies (329ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (15ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (73ms)
+				ProcessInitializeOnLoadAttributes (203ms)
+				ProcessInitializeOnLoadMethodAttributes (24ms)
+				AfterProcessingInitializeOnLoad (13ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.35 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3589 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 28 unused Assets / (466.1 KB). Loaded Objects now: 4161.
+Memory consumption went from 153.1 MB to 152.6 MB.
+Total: 3.188400 ms (FindLiveObjects: 0.305000 ms CreateObjectMapping: 0.261400 ms MarkObjects: 2.387600 ms  DeleteObjects: 0.233100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 

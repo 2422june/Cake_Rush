@@ -11,19 +11,21 @@ public class PlayerController : UnitBase
     private Lightning lightning;
     private ShootingStar shootingStar;
     private Build build;
+    private UiManager UIMng;
     PhotonView PV;
 
     protected override void Awake()
     {
         DataLoad("Player");
         
-        levelSystem = GetComponent<LevelSystem>();
-        cakeRush = GetComponent<CakeRush>();
+        levelSystem  = GetComponent<LevelSystem>();
+        cakeRush     = GetComponent<CakeRush>();
         shootingStar = GetComponent<ShootingStar>();
-        lightning = GetComponent<Lightning>();
-        cokeShot = GetComponent<CokeShot>();
-        build = GetComponent<Build>();
-        PV = GetComponent<PhotonView>();
+        lightning    = GetComponent<Lightning>();
+        cokeShot     = GetComponent<CokeShot>();
+        build        = GetComponent<Build>();
+        PV           = GetComponent<PhotonView>();
+        UIMng        = GameManager.instance.UIManager;
 
         base.Awake();
         SkillInit();
