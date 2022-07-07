@@ -32,7 +32,7 @@ public class RTSController : MonoBehaviour
 	public int[] cost = new int[3];
 	public bool isSkill;
 
-	public int team;
+	private UiManager UIMng;
 
 	void Awake()
 	{
@@ -50,12 +50,9 @@ public class RTSController : MonoBehaviour
 		cost[0] += 100;
 		cost[1] += 100;
 		cost[2] += 100;
-	}
 
-	public void SetTeam(int team)
-    {
-		this.team = team;
-    }
+		UIMng = GameManager.instance.UIManager;
+	}
 
     void Update() 
 	{
@@ -84,6 +81,7 @@ public class RTSController : MonoBehaviour
 					selectedEntity.Deselect();
 
 				selectedEntity = hit.transform.gameObject.GetComponent<EntityBase>();
+				ShowUI();
 				selectedEntity.Select();
 			}
 			//When ray is hitting ground.
@@ -91,6 +89,7 @@ public class RTSController : MonoBehaviour
 			{
 				if(selectedEntity != null)
 				{
+					UIMng.ShowInGamePanel(UiManager.inGameUIs.main);
 					selectedEntity.Deselect();	
 					selectedEntity = null;
 				}
@@ -111,8 +110,8 @@ public class RTSController : MonoBehaviour
 			}
 			Debug.DrawLine(teamCamera.transform.position, hit.point, Color.red, 1f);
 		}
-
 	}
+
 	void ChangeCursor()
 	{
 		Ray ray = teamCamera.ScreenPointToRay(Input.mousePosition);
@@ -166,6 +165,25 @@ public class RTSController : MonoBehaviour
 		}
 	}
 
+	private void ShowUI()
+	{
+		if (selectedEntity is PlayerController)
+		{
+			UIMng.ShowInGamePanel(UiManager.inGameUIs.player);
+			return;
+		}
+		if (selectedEntity is PlayerController)
+		{
+			UIMng.ShowInGamePanel(UiManager.inGameUIs.player);
+			return;
+		}
+		if (selectedEntity is PlayerController)
+		{
+			UIMng.ShowInGamePanel(UiManager.inGameUIs.player);
+			return;
+		}
+
+	}
 
 
 	/*

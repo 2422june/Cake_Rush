@@ -139,8 +139,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-
-        UIManager.NoticeInLoby(PN.CurrentRoom.Name);
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             UIManager.SetStartTextInLoby("¸ÅÄª ½ÃÀÛ");
@@ -255,6 +253,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
                 SetingMap();
+                UIManager.ShowInGamePanel(UiManager.inGameUIs.main);
 
                 yield return null;
                 break;
@@ -272,6 +271,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void SetingMap()
     {
         PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+        PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
+        PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
     }
 
     public bool isNullableNickName()
