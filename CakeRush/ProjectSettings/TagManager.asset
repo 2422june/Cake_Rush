@@ -9,8 +9,8 @@ TagManager:
   - Monster
   - Bullet
   - Build
-  - Team1
-  - Team2
+  - My
+  - Other
   layers:
   - Default
   - TransparentFX

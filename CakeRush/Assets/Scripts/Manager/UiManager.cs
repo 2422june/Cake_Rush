@@ -34,7 +34,12 @@ public class UiManager : MonoBehaviour //GameManager
 
     //inGame
     private GameObject playerPanel;
+    private GameObject statPanel;
+    private GameObject buildPanel;
     private GameObject playerUnitSlot;
+    private GameObject downUnitSlot;
+    private Button statButton;
+    private Button buildButton;
 
     private Button startInTitle;
     private Button optionInTitle;
@@ -90,11 +95,12 @@ public class UiManager : MonoBehaviour //GameManager
         lobbyOptionPanel = SetGameObj(lobbyPanel, "OptionMenus");
         noticeText       = SetText(noticePanel, "Text");
 
-        playerPanel      = FindElement("NoticePanel");
+        playerPanel      = FindElement("PlayerPanel");
         playerUnitSlot   = FindElement("UnitListPanel");
+        downUnitSlot     = FindElement("UnitListPanelDown");
 
-        startInTitle  = SetAny<Button>(titlePanel, "StartButton");
-        exitInTitle   = SetAny<Button>(titlePanel, "ExitButton");
+        startInTitle     = SetAny<Button>(titlePanel, "StartButton");
+        exitInTitle      = SetAny<Button>(titlePanel, "ExitButton");
 
         startInLobby     = SetAny<Button>(lobbyPanel, "StartButton");
         startTextInLobby = SetText(startInLobby.gameObject, "Text");
@@ -105,10 +111,14 @@ public class UiManager : MonoBehaviour //GameManager
         infoInLobby      = SetAny<Button>(lobbyOptionPanel, "InfoButton");
 
 
-        //skillCokeShot    = SetButton(commandPanel, "CokeShot");
-        //skillCakeRush    = SetButton(commandPanel, "CakeRush");
-        //skillShotingStar = SetButton(commandPanel, "ShotingStar");
-        //skillLightning   = SetButton(commandPanel, "Lightning");
+        statPanel        = SetGameObj(playerPanel, "AbilltyPanel");
+        buildPanel       = SetGameObj(playerPanel, "BuildingPanel");
+        buildButton      = SetAny<Button>(playerPanel, "BuildButton");
+        statButton       = SetAny<Button>(playerPanel, "StatButton");
+        skillCokeShot    = SetAny<Button>(playerPanel, "CokeShot");
+        skillCakeRush    = SetAny<Button>(playerPanel, "CakeRush");
+        skillShotingStar = SetAny<Button>(playerPanel, "ShotingStar");
+        skillLightning   = SetAny<Button>(playerPanel, "Lightning");
 
 
 
@@ -124,29 +134,32 @@ public class UiManager : MonoBehaviour //GameManager
         infoInLobby.onClick.AddListener(OnClickInfo);
         nameInputInLoby.onEndEdit.AddListener(OnClickNameSubmit);
 
-        //skillCakeRush.onClick.AddListener(OnClickCakeRush);
-        //skillShotingStar.onClick.AddListener(OnClickShotingStar);
-        //skillCokeShot.onClick.AddListener(OnClickCokeShot);
-        //skillLightning.onClick.AddListener(OnClickLightning);
+        statButton.onClick.AddListener(OnClickStat);
+        buildButton.onClick.AddListener(OnClickBuild);
+
+        skillCakeRush.onClick.AddListener(OnClickCakeRush);
+        skillShotingStar.onClick.AddListener(OnClickShotingStar);
+        skillCokeShot.onClick.AddListener(OnClickCokeShot);
+        skillLightning.onClick.AddListener(OnClickLightning);
     }
 
     #region skill
-    public void OnClickShotingStar()
+    private void OnClickShotingStar()
     {
 
     }
 
-    public void OnClickLightning()
+    private void OnClickLightning()
     {
 
     }
 
-    public void OnClickCokeShot()
+    private void OnClickCokeShot()
     {
 
     }
 
-    public void OnClickCakeRush()
+    private void OnClickCakeRush()
     {
 
     }
@@ -238,6 +251,42 @@ public class UiManager : MonoBehaviour //GameManager
     }
     #endregion
 
+    #region inGame
+    public enum inGameUIs
+    {
+        main, player
+    }
+
+    private void OnClickBuild()
+    {
+        buildPanel.SetActive(!buildPanel.active);
+    }
+
+    private void OnClickStat()
+    {
+        statPanel.SetActive(!statPanel.active);
+    }
+
+    public void ShowInGamePanel(inGameUIs target)
+    {
+        playerPanel.SetActive(false);
+        playerUnitSlot.SetActive(false);
+        downUnitSlot.SetActive(false);
+
+        switch(target)
+        {
+            case inGameUIs.main:
+                downUnitSlot.SetActive(true);
+                break;
+
+            case inGameUIs.player:
+                playerPanel.SetActive(true);
+                playerUnitSlot.SetActive(true);
+                break;
+        }
+    }
+
+    #endregion
     public void ShowUI(Scene nowScene)
     {
         titlePanel.SetActive(nowScene == Scene.title);

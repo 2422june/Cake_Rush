@@ -34,6 +34,7 @@ public class EntityBase : MonoBehaviourPunCallbacks
     public bool isActive;
 
     public int team;
+    protected PhotonView PV;
 
     #endregion
 
@@ -42,6 +43,12 @@ public class EntityBase : MonoBehaviourPunCallbacks
         Marker = transform.Find("Marker").gameObject;
         Marker.transform.localPosition = Vector3.zero;
         Marker.SetActive(false);
+        PV = GetComponent<PhotonView>();
+
+        if (PV.IsMine)
+            tag = "My";
+        else
+            tag = "Other";
 
         Init();
     }
@@ -111,7 +118,6 @@ public class EntityBase : MonoBehaviourPunCallbacks
     
     protected virtual void Update()
     {
-
     }
 
     protected virtual void Respawn()

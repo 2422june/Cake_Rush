@@ -139,8 +139,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-
-        UIManager.NoticeInLoby(PN.CurrentRoom.Name);
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             UIManager.SetStartTextInLoby("¸ÅÄª ½ÃÀÛ");
@@ -176,7 +174,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         /*PN.JoinRandomOrCreateRoom(
             null, 2, Photon.Realtime.MatchmakingMode.FillRoom,
             null, null, $"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 });*/
-        
+
         PN.JoinRandomRoom();
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -254,7 +252,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             if(SceneManager.GetActiveScene().name == "InGame")
             {
                 rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
-                PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+                SetingMap();
+                UIManager.ShowInGamePanel(UiManager.inGameUIs.main);
 
                 yield return null;
                 break;
@@ -267,6 +266,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             //break;
             yield return null;
         }
+    }
+
+    private void SetingMap()
+    {
+        PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+        PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
+        PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
     }
 
     public bool isNullableNickName()
