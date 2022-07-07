@@ -41,6 +41,11 @@ MonoBehaviour:
   - RespawnSpaceship
   - Chat
   - PrintRoomName
+  - PlayDieAnimation
+  - PlayDie
+  - OnDie
+  - OnHit
+  - SetTag
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -12,7 +12,6 @@ public class PlayerController : UnitBase
     private ShootingStar shootingStar;
     private Build build;
     private UiManager UIMng;
-    PhotonView PV;
 
     protected override void Awake()
     {
@@ -24,7 +23,6 @@ public class PlayerController : UnitBase
         lightning    = GetComponent<Lightning>();
         cokeShot     = GetComponent<CokeShot>();
         build        = GetComponent<Build>();
-        PV           = GetComponent<PhotonView>();
         UIMng        = GameManager.instance.UIManager;
 
         base.Awake();
@@ -101,32 +99,32 @@ public class PlayerController : UnitBase
             StartCoroutine(BuildMode());
         }
 
-        /*if (PV.IsMine)
-        {
-            base.Update();
+        //if (PV.IsMine)
+        //{
+        //    base.Update();
 
-            if (isSelected == false) return;
-            if (Input.GetKey(KeyCode.Q))             //Lightning
-            {
-                StartCoroutine(Lightning());
-            }
-            else if (Input.GetKey(KeyCode.W))        //Coke shot
-            {
-                StartCoroutine(CokeShot());
-            }
-            else if (Input.GetKey(KeyCode.E))        //Shooting star
-            {
-                ShootingStar();
-            }
-            else if (Input.GetKeyDown(KeyCode.R))        //Cake rush
-            {
-                CakeRush();
-            }
-            else if (Input.GetKeyDown(KeyCode.B) && build.isBuildMode == false)
-            {
-                StartCoroutine(BuildMode());
-            }
-        }*/
+        //    if (isSelected == false) return;
+        //    if (Input.GetKey(KeyCode.Q))             //Lightning
+        //    {
+        //        StartCoroutine(Lightning());
+        //    }
+        //    else if (Input.GetKey(KeyCode.W))        //Coke shot
+        //    {
+        //        StartCoroutine(CokeShot());
+        //    }
+        //    else if (Input.GetKey(KeyCode.E))        //Shooting star
+        //    {
+        //        ShootingStar();
+        //    }
+        //    else if (Input.GetKeyDown(KeyCode.R))        //Cake rush
+        //    {
+        //        CakeRush();
+        //    }
+        //    else if (Input.GetKeyDown(KeyCode.B) && build.isBuildMode == false)
+        //    {
+        //        StartCoroutine(BuildMode());
+        //    }
+        //}
     }
 
     protected override void Attack (Transform target)
@@ -362,6 +360,12 @@ public class PlayerController : UnitBase
         }
     }
     protected override void Die()
+    {
+        PV.RPC("PlayDie", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void PlayDie()
     {
         animator.SetTrigger("Die");
         base.Die();

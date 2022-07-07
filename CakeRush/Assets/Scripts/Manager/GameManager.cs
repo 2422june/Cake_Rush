@@ -176,7 +176,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         /*PN.JoinRandomOrCreateRoom(
             null, 2, Photon.Realtime.MatchmakingMode.FillRoom,
             null, null, $"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 });*/
-        
+
         PN.JoinRandomRoom();
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if(SceneManager.GetActiveScene().name == "InGame")
             {
                 rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
-                PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+                SetingMap();
 
                 yield return null;
                 break;
@@ -267,6 +267,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             //break;
             yield return null;
         }
+    }
+
+    private void SetingMap()
+    {
+        PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
     }
 
     public bool isNullableNickName()

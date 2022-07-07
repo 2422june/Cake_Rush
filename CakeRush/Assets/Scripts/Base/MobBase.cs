@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public enum State
 {
@@ -59,10 +61,16 @@ public class MobBase : CharacterBase
 
     protected override void Die()
     {
-        base.Die();
+        PV.RPC("OnDie", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void OnDie()
+    {
         animator.SetTrigger("Die");
         state = State.die;
         Destroy(gameObject, 3f);
+        base.Die();
     }
 
     protected IEnumerator Attack()
@@ -134,6 +142,12 @@ public class MobBase : CharacterBase
     }
 
     public virtual void Hit(float hitDamage, Transform attacker)
+    {
+        PV.RPC("OnHit", RpcTarget.All, hitDamage, attacker);
+    }
+
+    [PunRPC]
+    private void OnHit(float hitDamage, Transform attacker)
     {
         base.Hit(hitDamage);
 

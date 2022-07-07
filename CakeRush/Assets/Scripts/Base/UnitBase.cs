@@ -31,6 +31,7 @@ public class UnitBase : CharacterBase
     protected override void Update()
     {
         base.Update();
+        if (!PV.IsMine) return;
         Idle();
         //Stop();
     }
