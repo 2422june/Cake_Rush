@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637926804091905463
-    m_Hash: 3521293456
+      ticks: 637927844862277994
+    m_Hash: 1341935307
   m_LockFileStatus:
     m_FilePath: D:/UnityProject/Cake_Rush/CakeRush/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637926804550521535
-    m_Hash: 2797659484
+      ticks: 637927844862277994
+    m_Hash: 4068469782
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:

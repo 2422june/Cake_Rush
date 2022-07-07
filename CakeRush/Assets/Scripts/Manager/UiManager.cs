@@ -115,10 +115,10 @@ public class UiManager : MonoBehaviour //GameManager
         buildPanel       = SetGameObj(playerPanel, "BuildingPanel");
         buildButton      = SetAny<Button>(playerPanel, "BuildButton");
         statButton       = SetAny<Button>(playerPanel, "StatButton");
-        skillCokeShot    = SetAny<Button>(playerPanel, "CokeShot");
-        skillCakeRush    = SetAny<Button>(playerPanel, "CakeRush");
-        skillShotingStar = SetAny<Button>(playerPanel, "ShotingStar");
-        skillLightning   = SetAny<Button>(playerPanel, "Lightning");
+        //skillCokeShot    = SetAny<Button>(playerPanel, "CokeShot");
+        //skillCakeRush    = SetAny<Button>(playerPanel, "CakeRush");
+        //skillShotingStar = SetAny<Button>(playerPanel, "ShotingStar");
+        //skillLightning   = SetAny<Button>(playerPanel, "Lightning");
 
 
 
@@ -137,10 +137,10 @@ public class UiManager : MonoBehaviour //GameManager
         statButton.onClick.AddListener(OnClickStat);
         buildButton.onClick.AddListener(OnClickBuild);
 
-        skillCakeRush.onClick.AddListener(OnClickCakeRush);
-        skillShotingStar.onClick.AddListener(OnClickShotingStar);
-        skillCokeShot.onClick.AddListener(OnClickCokeShot);
-        skillLightning.onClick.AddListener(OnClickLightning);
+        //skillCakeRush.onClick.AddListener(OnClickCakeRush);
+        //skillShotingStar.onClick.AddListener(OnClickShotingStar);
+        //skillCokeShot.onClick.AddListener(OnClickCokeShot);
+        //skillLightning.onClick.AddListener(OnClickLightning);
     }
 
     #region skill
