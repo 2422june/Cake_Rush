@@ -2599,6 +2599,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   rtsController: {fileID: 0}
+  team1Ready: 0
+  team2Ready: 0
 --- !u!1 &1787549373
 GameObject:
   m_ObjectHideFlags: 0
