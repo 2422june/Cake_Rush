@@ -29,15 +29,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
     public float playerLevel;
-    public RTSController rtsController;
     public int[] cost;
     public bool isSpawnable;
     private bool nowInGame;
     public bool nowMatching, nowCloseMatching;
     public UiManager UIManager;
+    public bool inGameStart;
 
     [SerializeField]
     private GameObject UIManagerOBJ;
+    public RTSController rtsController;
 
     #endregion
 
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             instance = this;
             PV = GetComponent<PhotonView>();
+            GameProgress.instance = GetComponent<GameProgress>();
             DontDestroyOnLoad(instance);
         }
 
@@ -78,9 +80,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             SetScene("title");
         }
-        else
+        else if (SceneManager.GetActiveScene().name.Contains("InGame"))
         {
-            //developer version
             rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
         }
     }
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
+        instance.tag = "Team_1";
     }
 
     public override void OnConnectedToMaster()
@@ -141,8 +143,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
+            instance.tag = "Team_2";
             UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.");
+            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
         }
@@ -153,7 +156,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.");
+            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
         }
@@ -179,7 +182,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.Log("없다.");
         PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 },
             null, null);
     }
@@ -191,7 +193,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         nowCloseMatching = false;
         nowMatching = false;
-        UIManager.NoticeInLoby("매칭을 취소했습니다.");
+        UIManager.NoticeInLoby("매칭을 취소했습니다.", 1);
         UIManager.SetStartTextInLoby("매칭 시작");
     }
     public void OnClickExit()
@@ -231,7 +233,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             nowScene = Scene.inGame;
             SceneManager.LoadScene("InGame");
             nowInGame = true;
-            StartCoroutine(InGameProcess());
+            StartCoroutine(InGameSeting());
         }
         if (targetScene.Equals("victory"))
         {
@@ -245,34 +247,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         UIManager.ShowUI(nowScene);
     }
 
-    private IEnumerator InGameProcess()
+    private IEnumerator InGameSeting()
     {
         while(true)
         {
-            if(SceneManager.GetActiveScene().name == "InGame")
+            if(SceneManager.GetActiveScene().name.Equals("InGame"))
             {
                 rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
-                SetingMap();
-                UIManager.ShowInGamePanel(UiManager.inGameUIs.main);
-
-                yield return null;
+                GameProgress.instance.NowArriveInGame();
                 break;
             }
 
-            //rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
-            //PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
-
-            //yield return null;
-            //break;
             yield return null;
         }
-    }
-
-    private void SetingMap()
-    {
-        PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
-        PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
-        PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
     }
 
     public bool isNullableNickName()

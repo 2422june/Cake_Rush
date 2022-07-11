@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 992
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Inspector
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 18
+  controlID: 464
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 19
+  controlID: 32
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneView
+  m_Name: BuildPlayerWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -165,15 +165,15 @@ MonoBehaviour:
     y: 0
     width: 907
     height: 485
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 12}
+  m_MinSize: {x: 640, y: 580}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 12}
   - {fileID: 13}
   - {fileID: 14}
-  m_Selected: 0
-  m_LastSelected: 2
+  m_Selected: 2
+  m_LastSelected: 0
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -220,8 +220,8 @@ MonoBehaviour:
     y: 0
     width: 446
     height: 942
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: InspectorWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -246,14 +246,14 @@ MonoBehaviour:
     y: 0
     width: 567
     height: 942
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 17}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -323,23 +323,23 @@ MonoBehaviour:
     m_DrawArea:
       serializedVersion: 2
       x: 0
-      y: 0
+      y: 21
       width: 906
-      height: 436
-    m_Scale: {x: 0.4037037, y: 0.4037037}
-    m_Translation: {x: 453, y: 218}
+      height: 415
+    m_Scale: {x: 0.38425925, y: 0.38425925}
+    m_Translation: {x: 453, y: 207.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1122.1101
+      x: -1178.8916
       y: -540
-      width: 2244.2202
+      width: 2357.7832
       height: 1080
     m_MinimalGUI: 1
-  m_defaultScale: 0.4037037
+  m_defaultScale: 0.38425925
   m_LastWindowPixelSize: {x: 906, y: 436}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
@@ -571,9 +571,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -198.48674, y: 20.611692, z: 83.35169}
+    m_Target: {x: 258.0507, y: 42.944885, z: 280.37906}
     speed: 2
-    m_Value: {x: -198.48674, y: 20.611692, z: 83.35169}
+    m_Value: {x: 258.0507, y: 42.944885, z: 280.37906}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -620,13 +620,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.11907658, y: -0.69945997, z: 0.11992216, w: 0.694429}
+    m_Target: {x: 0.55272496, y: -0.074792475, z: 0.0498591, w: 0.82852995}
     speed: 2
-    m_Value: {x: 0.11993429, y: -0.7003072, z: 0.12114909, w: 0.6931873}
+    m_Value: {x: 0.5527121, y: -0.07479074, z: 0.04985794, w: 0.8285107}
   m_Size:
-    m_Target: 21.226988
+    m_Target: 12.124355
     speed: 2
-    m_Value: 22.227213
+    m_Value: 12.124355
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -744,7 +744,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_TreeViewState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 10}
     m_SelectedIDs: 
     m_LastClickedID: 0
     m_ExpandedIDs: 
@@ -806,22 +806,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Prefabs/UI
+    - Assets/Scripts/Manager
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/Prefabs/UI
+  - Assets/Scripts/Manager
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\UnityProject\Cake_Rush\CakeRush
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 208}
-    m_SelectedIDs: 286f0000
-    m_LastClickedID: 28456
-    m_ExpandedIDs: 0000000076630000786300007a6300007c6300007e63000080630000826300008463000000ca9a3b
+    scrollPos: {x: 0, y: 480}
+    m_SelectedIDs: 366f0000
+    m_LastClickedID: 28470
+    m_ExpandedIDs: 0000000066630000686300006a6300006c6300006e63000070630000726300007463000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -849,7 +849,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000076630000786300007a6300007c6300007e630000806300008263000084630000
+    m_ExpandedIDs: 0000000066630000686300006a6300006c6300006e630000706300007263000074630000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -938,7 +938,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 20fbffff
+      m_ExpandedIDs: 2630ffff6230ffff0c36ffffa236ffffa249ffff5e4effff9a4effff4454ffffda54ffff7467ffff366bffff3c6bffff306cffff6c6cffff1672ffffac72ffff2685ffffe289ffff1e8affffc88fffff5e90ffffd8a2ffff98a7ffffd4a7ffff7eadffff14aeffff42b6ffff78b6ffff28bcffffc2bcffff30d4ffffbcd4ffff68dafffffedaffff30f2ffffbaf2ffff66f8fffffcf8ffff32fbfffff4ffffff16ad0100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
