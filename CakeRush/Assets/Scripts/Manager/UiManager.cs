@@ -183,14 +183,14 @@ public class UiManager : MonoBehaviour //GameManager
     {
         if(GameManager.instance.nowCloseMatching)
         {
-            NoticeInLoby("매칭을 취소하는 중 입니다.");
+            NoticeInLoby("매칭을 취소하는 중 입니다.", 1);
             return;
         }
 
         if(GameManager.instance.nowMatching)
         {
             GameManager.instance.nowCloseMatching = true;
-            NoticeInLoby("매칭을 취소합니다.");
+            NoticeInLoby("매칭을 취소합니다.", 1);
             SetStartTextInLoby("매칭 취소중");
             GameManager.instance.LeaveRoom();
         }
@@ -198,13 +198,13 @@ public class UiManager : MonoBehaviour //GameManager
         {
             if (GameManager.instance.isNullableNickName())
             {
-                NoticeInLoby("닉네임을 입력해 주세요.");
+                NoticeInLoby("닉네임을 입력해 주세요.", 1);
             }
             else
             {
                 GameManager.instance.OnClickStartInLobby();
                 GameManager.instance.nowMatching = true;
-                NoticeInLoby("매칭을 시작했습니다.");
+                NoticeInLoby("매칭을 시작했습니다.", 1);
                 SetStartTextInLoby("매칭 취소");
             }
         }
@@ -215,12 +215,12 @@ public class UiManager : MonoBehaviour //GameManager
         startTextInLobby.text = text;
     }
 
-    public void NoticeInLoby(string text)
+    public void NoticeInLoby(string text, float time)
     {
         noticePanel.transform.localPosition = Vector3.zero;
         noticeText.text = text;
         noticePanel.SetActive(true);
-        Invoke("UnNoticeInLoby", 2f);
+        Invoke("UnNoticeInLoby", time);
     }
     private void UnNoticeInLoby()
     {
@@ -247,7 +247,7 @@ public class UiManager : MonoBehaviour //GameManager
     public void OnClickNameSubmit(string text)
     {
         GameManager.instance.SetNickName(text);
-        NoticeInLoby($"닉네임을 '{text}'로 지정했습니다.");
+        NoticeInLoby($"닉네임을 '{text}'로 지정했습니다.", 1);
     }
     #endregion
 

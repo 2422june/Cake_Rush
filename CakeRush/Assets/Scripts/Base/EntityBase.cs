@@ -45,10 +45,7 @@ public class EntityBase : MonoBehaviourPunCallbacks
         Marker.SetActive(false);
         PV = GetComponent<PhotonView>();
 
-        if (PV.IsMine)
-            tag = "My";
-        else
-            tag = "Other";
+        tag = GameManager.instance.tag;
 
         Init();
     }
@@ -99,6 +96,9 @@ public class EntityBase : MonoBehaviourPunCallbacks
     }
     public void Select()
     {
+        if (!GameProgress.instance.inGameStart)
+            return;
+
         isSelected = true;
 		Marker.SetActive(true);
 

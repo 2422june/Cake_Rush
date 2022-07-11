@@ -5,14 +5,14 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     RTSController rtsController;
-    Vector3 originPos;
+    //Vector3 originPos;
     Transform playerTransform;
     float speed;
     bool isLock;
 
     void Awake()
     {
-        originPos = new Vector3(0.0f, 17.0f, -15.0f);
+        //originPos = new Vector3(0.0f, 17.0f, -15.0f);
         rtsController = GameObject.FindWithTag("GameController").GetComponent<RTSController>();
         isLock = false;
         speed = 20f;

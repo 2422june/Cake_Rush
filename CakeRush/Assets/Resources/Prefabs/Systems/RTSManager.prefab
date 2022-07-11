@@ -45,19 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickEffectPrefab: {fileID: 119942, guid: 3aa6fdaecec603745ab140423e93e009, type: 3}
-  unitList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  unitList: []
   buildList: []
   selectedEntity: {fileID: 0}
+  maxUnit: 10
   layerGround:
     serializedVersion: 2
     m_Bits: 64
@@ -65,3 +56,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   cost: 000000000000000000000000
+  isSkill: 0

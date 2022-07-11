@@ -2510,6 +2510,7 @@ GameObject:
   - component: {fileID: 1759907595}
   - component: {fileID: 1759907594}
   - component: {fileID: 1759907596}
+  - component: {fileID: 1759907597}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2532,13 +2533,14 @@ MonoBehaviour:
   PV: {fileID: 0}
   nowScene: 0
   playerLevel: 0
-  rtsController: {fileID: 0}
   cost: 
   isSpawnable: 0
   nowMatching: 0
   nowCloseMatching: 0
   UIManager: {fileID: 0}
+  inGameStart: 0
   UIManagerOBJ: {fileID: 0}
+  rtsController: {fileID: 0}
 --- !u!4 &1759907595
 Transform:
   m_ObjectHideFlags: 0
@@ -2576,6 +2578,29 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1759907597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759907593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc73d28f0953384ca6c28098d9f7a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inGameStart: 0
+  isGameOver: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  selectableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  rtsController: {fileID: 0}
+  team1Ready: 0
+  team2Ready: 0
 --- !u!1 &1787549373
 GameObject:
   m_ObjectHideFlags: 0

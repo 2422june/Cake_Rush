@@ -25,8 +25,8 @@ public class CharacterBase : EntityBase
     protected override void Update()
     {
         if (isStun) return;
-        if (!PV.IsMine) return;
-        base.Update();
+        if (!GameManager.instance.CompareTag(tag)) return;
+        //base.Update();
     }
 
     public IEnumerator Stun(float stunTime)

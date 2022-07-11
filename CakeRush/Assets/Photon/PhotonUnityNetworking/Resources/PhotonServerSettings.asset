@@ -46,6 +46,9 @@ MonoBehaviour:
   - OnDie
   - OnHit
   - SetTag
+  - InGameCountDown
+  - Team1Ready
+  - Team2Ready
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
