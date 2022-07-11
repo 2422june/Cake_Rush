@@ -27,6 +27,7 @@ public class SugarMinerController : BuildBase
     IEnumerator MineSugar()
     {
         yield return new WaitUntil(()=> isActive == true);
+        yield return new WaitForSeconds(1f);
         while(true)
         {
             rtsController.cost[0] += sugarPerSec;   

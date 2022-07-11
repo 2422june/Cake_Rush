@@ -148,6 +148,7 @@ public class PlayerController : UnitBase
         {
             SearchTarget(target.GetComponent<UnitBase>());
         }
+        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_Attack);
     }
 
     private void SearchTarget <T> (T target) where T : EntityBase
@@ -214,6 +215,7 @@ public class PlayerController : UnitBase
                     lightning.UseSkill(lightning.level, hit.collider);
 
                     animator.SetBool("Idle", true);
+                    SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_Lightning);
                 }
             }
         }
@@ -239,6 +241,8 @@ public class PlayerController : UnitBase
                 navMashAgent.Stop();
                 animator.SetBool("Move", false);
                 state = CharacterState.Idle;
+
+                SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_CokeShot);
             }
         }
     }
@@ -268,12 +272,15 @@ public class PlayerController : UnitBase
                 animator.SetBool("Idle", true);
                 state = CharacterState.Idle;
                 Debug.DrawRay(Camera.main.transform.position, hit.point, Color.blue, 1f);
+
+                SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_ShootingStar);
             }
         }
     }
     private void CakeRush()
     {
         cakeRush.UseSkill(cakeRush.level);
+        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_CakeRush);
     }
     #endregion
 

@@ -30,13 +30,14 @@ public class RTSController : MonoBehaviour
 	private Vector2 end = Vector2.zero;
 
 	//sugar chocolate, wheat
-	public int[] cost = new int[3];
+	public int[] cost;
 	public bool isSkill;
 
 	private UiManager UIMng;
 
 	void Awake()
 	{
+		cost = new int[3];
 		defaultCursor = Resources.Load<Texture2D>("Textures/MouseCursor/DefaultCursor");
 		attackCursor = Resources.Load<Texture2D>("Textures/MouseCursor/AttackCursor");
 		teamCursor = Resources.Load<Texture2D>("Textures/MouseCursor/TeamCursor");
