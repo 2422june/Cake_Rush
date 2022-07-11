@@ -96,8 +96,6 @@ public class EntityBase : MonoBehaviourPunCallbacks
     }
     public void Select()
     {
-        if (!GameProgress.instance.inGameStart)
-            return;
 
         isSelected = true;
 		Marker.SetActive(true);
