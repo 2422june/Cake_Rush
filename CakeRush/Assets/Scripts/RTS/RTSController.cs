@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // 게임 내 Entity를 관리하는 시스템 클래스
 public class RTSController : MonoBehaviour
@@ -29,13 +30,14 @@ public class RTSController : MonoBehaviour
 	private Vector2 end = Vector2.zero;
 
 	//sugar chocolate, wheat
-	public int[] cost = new int[3];
+	public int[] cost;
 	public bool isSkill;
 
 	private UiManager UIMng;
 
 	void Awake()
 	{
+		cost = new int[3];
 		defaultCursor = Resources.Load<Texture2D>("Textures/MouseCursor/DefaultCursor");
 		attackCursor = Resources.Load<Texture2D>("Textures/MouseCursor/AttackCursor");
 		teamCursor = Resources.Load<Texture2D>("Textures/MouseCursor/TeamCursor");
@@ -67,7 +69,7 @@ public class RTSController : MonoBehaviour
 	void Click()
 	{
 		// When there is an object hitting the ray (= clicking on the unit)
-		if ( Input.GetMouseButtonDown(0))
+		if (!IsPointerOverUIObject() && Input.GetMouseButtonDown(0))
 		{
 			Ray	ray = teamCamera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
@@ -77,7 +79,9 @@ public class RTSController : MonoBehaviour
 			{
 				if (hit.transform.gameObject.GetComponent<EntityBase>() == null)
 					return;
-				if(selectedEntity != null)
+				if (!GameProgress.instance.inGameStart)
+					return;
+				if (selectedEntity != null)
 					selectedEntity.Deselect();
 
 				selectedEntity = hit.transform.gameObject.GetComponent<EntityBase>();
@@ -94,12 +98,14 @@ public class RTSController : MonoBehaviour
 					selectedEntity = null;
 				}
 			}
-				Debug.DrawLine(teamCamera.transform.position, hit.point, Color.red, 1f);
-				return;
+			Debug.DrawLine(teamCamera.transform.position, hit.point, Color.red, 1f);
+			return;
 		}
 		// move units by right-clicking
-		else if (Input.GetMouseButtonDown(1) && selectedEntity != null && isSkill == false)
+		else if (!IsPointerOverUIObject() && Input.GetMouseButtonDown(1) && selectedEntity != null && isSkill == false)
 		{
+			if (!GameProgress.instance.inGameStart)
+				return;
 			RaycastHit	hit;
 			Ray	ray = teamCamera.ScreenPointToRay(Input.mousePosition);
 			// When the unit object (layerUnit) is clicked
@@ -110,6 +116,15 @@ public class RTSController : MonoBehaviour
 			}
 			Debug.DrawLine(teamCamera.transform.position, hit.point, Color.red, 1f);
 		}
+	}
+
+	private bool IsPointerOverUIObject()
+	{
+		PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+		eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+		List<RaycastResult> results = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+		return results.Count > 0;
 	}
 
 	void ChangeCursor()

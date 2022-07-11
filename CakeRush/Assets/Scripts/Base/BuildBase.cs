@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-// this is a Build Component class that is spwanable. 
+// this is a Build Component class that is spwanable.
+
 public class BuildBase : EntityBase
 {
     public GameObject buildEffect;
@@ -27,7 +28,6 @@ public class BuildBase : EntityBase
             render.material = Resources.Load<Material>("Materials/Blueprint");
             curHp = 0f;
             buildEffect = transform.Find("BuildEffect").gameObject;
-            rtsController = GameManager.instance.rtsController;
         }
     }
     
@@ -64,6 +64,7 @@ public class BuildBase : EntityBase
             yield return null;
         }
         curHp = maxHp;
+        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Build_BuildSuccess);
         Debug.Log("Build() Completed");
         isActive = true;
         buildEffect.SetActive(false);

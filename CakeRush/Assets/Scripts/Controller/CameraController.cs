@@ -69,19 +69,19 @@ public class CameraController : MonoBehaviour
 
     void Move()
     {
-        if(Input.GetKey(KeyCode.UpArrow) || (Input.mousePosition.y >= Screen.height - 100 ))
+        if(Input.GetKey(KeyCode.UpArrow) || (Input.mousePosition.y >= Screen.height - 50 ))
         { 
             transform.position += Vector3.forward * speed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.DownArrow) || (Input.mousePosition.y <= 100 ))
+        else if (Input.GetKey(KeyCode.DownArrow) || (Input.mousePosition.y <= 50 ))
         {  
             transform.position += Vector3.back * speed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.LeftArrow) ||  (Input.mousePosition.x <= 100))
+        if (Input.GetKey(KeyCode.LeftArrow) ||  (Input.mousePosition.x <= 50))
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
         }   
-        else if (Input.GetKey(KeyCode.RightArrow) || (Input.mousePosition.x >= Screen.width - 100))
+        else if (Input.GetKey(KeyCode.RightArrow) || (Input.mousePosition.x >= Screen.width - 50))
         {
             transform.position += Vector3.right * speed * Time.deltaTime;
         }

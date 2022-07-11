@@ -27,6 +27,8 @@ public class EggCandyController : UnitBase
     {        
         animator.SetBool("Move", false);
         animator.SetBool("Attack", true);
+        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Unit_Attack);
+
     }
 
     protected override void Stop()

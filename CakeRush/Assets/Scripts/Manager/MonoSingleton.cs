@@ -18,7 +18,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
             {
                 return null;
             }
-
+            
             lock (m_Lock)
             {
                 if (m_Instance == null)

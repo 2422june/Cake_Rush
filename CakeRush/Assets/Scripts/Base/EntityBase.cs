@@ -17,7 +17,7 @@ public class EntityBase : MonoBehaviourPunCallbacks
     public float returnExp { get; set; }
     [SerializeField] protected float attackRange;
     protected float eyeSight;
-    public int[] cost = new int[3];
+    public int[] cost;
     [SerializeField] protected int[] dropCost = new int[3];
     protected float defensive;
 
@@ -25,6 +25,8 @@ public class EntityBase : MonoBehaviourPunCallbacks
     [SerializeField]
     protected RTSController rtsController;
     public GameObject Marker;
+
+    protected AudioSource source;
 
     public int Sugar {get {return cost[1];} protected set{cost[1] = value;} }
     public int Chocolate {get {return cost[1];} protected set{cost[1] = value;} }
@@ -45,7 +47,13 @@ public class EntityBase : MonoBehaviourPunCallbacks
         Marker.SetActive(false);
         PV = GetComponent<PhotonView>();
 
+        source = GetComponent<AudioSource>();
+        if (source == null)
+            source = GetComponent<AudioSource>();
+
         tag = GameManager.instance.tag;
+
+        cost = new int[3];
 
         Init();
     }
@@ -96,8 +104,6 @@ public class EntityBase : MonoBehaviourPunCallbacks
     }
     public void Select()
     {
-        if (!GameProgress.instance.inGameStart)
-            return;
 
         isSelected = true;
 		Marker.SetActive(true);
