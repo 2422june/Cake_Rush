@@ -86,6 +86,19 @@ public class GameProgress : MonoBehaviourPunCallbacks
             }
         }
         yield return null;
+        StartCoroutine(InGameProcess());
+    }
+
+    private IEnumerator InGameProcess()
+    {
+        while(true)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                UIManager.OnClickOption();
+            }
+            yield return null;
+        }
     }
 
     [PunRPC]
