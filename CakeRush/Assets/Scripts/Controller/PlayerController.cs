@@ -375,6 +375,8 @@ public class PlayerController : UnitBase
     private void PlayDie()
     {
         animator.SetTrigger("Die");
+        UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.main);
+        GameManager.instance.inGameStart = false;
         base.Die();
     }
 }

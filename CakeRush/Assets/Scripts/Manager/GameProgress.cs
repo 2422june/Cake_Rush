@@ -24,6 +24,8 @@ public class GameProgress : MonoBehaviourPunCallbacks
     public bool team2Ready;
 
     private UiManager UIManager;
+    private int timeI;
+    private float timeF;
 
     private void Awake()
     {
@@ -45,13 +47,20 @@ public class GameProgress : MonoBehaviourPunCallbacks
         camera = GameObject.Find("MainCamera");
 
         SetingMap();
-        UIManager.ShowInGamePanel(UiManager.inGameUIs.main);
+        UIManager.ShowInGameStaticPanel();
+        UIManager.ShowInGameDynamicPanel(UiManager.inGameUIs.main);
 
 
         if (tag == "Team_1")
+        {
             PV.RPC("Team1Ready", RpcTarget.All);
+            camera.GetComponent<CameraController>().SetUpsideDown(false);
+        }
         else
+        {
             PV.RPC("Team2Ready", RpcTarget.All);
+            camera.GetComponent<CameraController>().SetUpsideDown(true);
+        }
 
         StartCoroutine(InGameCountDown());
 
@@ -82,21 +91,38 @@ public class GameProgress : MonoBehaviourPunCallbacks
                 yield return one;
                 UIManager.NoticeInLoby("GameStart!!", 1f);
                 inGameStart = true;
+                timeI = 0;
+                timeF = 0;
                 break;
             }
         }
         yield return null;
+
+        PV.RPC("ProcessStarter", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void ProcessStarter()
+    {
+        rtsController.ChangeCost(0, 0, 0);
         StartCoroutine(InGameProcess());
     }
 
     private IEnumerator InGameProcess()
     {
-        while(true)
+        while (true)
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 UIManager.OnClickOption();
             }
+
+            if(timeF - timeI >= 1)
+            {
+                timeI = UIManager.FlowTime(timeI);
+            }
+
+            timeF += Time.deltaTime;
             yield return null;
         }
     }
@@ -125,7 +151,8 @@ public class GameProgress : MonoBehaviourPunCallbacks
         {
             PN.Instantiate("Prefabs/Units/Player", ((Vector3.right + Vector3.forward) * 300), Quaternion.identity);
             PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
-            camera.transform.localPosition = ((Vector3.right * 26) + (Vector3.up * 5) + (Vector3.forward * 27)) * 10;
+            camera.transform.localPosition = ((Vector3.right * 26) + (Vector3.up * 5) + (Vector3.forward * 30)) * 10;
+            camera.transform.rotation = Quaternion.Euler(((Vector3.right * 7) + (Vector3.up * 18)) * 10);
         }
     }
 

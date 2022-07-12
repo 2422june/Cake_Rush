@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     Transform playerTransform;
     float speed;
     bool isLock;
+    float dir = 1;
 
     void Awake()
     {
@@ -23,9 +24,17 @@ public class CameraController : MonoBehaviour
     void LateUpdate()
     {
         Move();
-        SetPosToSelectedEntity();
+        //SetPosToSelectedEntity();
         PosLockToUnitPos();
         
+    }
+
+    public void SetUpsideDown(bool isTurn)
+    {
+        if (isTurn)
+            dir = -1;
+        else
+            dir = 1;
     }
 
     void SetPosToSelectedEntity()
@@ -45,12 +54,24 @@ public class CameraController : MonoBehaviour
     {
         if(isLock && rtsController.selectedEntity != null)
         {
-            transform.position = new Vector3
-            (
-                rtsController.selectedEntity.transform.position.x,
-                transform.position.y,
-                rtsController.selectedEntity.transform.position.z - 11f
-            );
+            if(dir == 1)
+            {
+                transform.position = new Vector3
+                (
+                    rtsController.selectedEntity.transform.position.x,
+                    transform.position.y,
+                    rtsController.selectedEntity.transform.position.z - 11f
+                );
+            }
+            else
+            {
+                transform.position = new Vector3
+                (
+                    rtsController.selectedEntity.transform.position.x,
+                    transform.position.y,
+                    rtsController.selectedEntity.transform.position.z + 11f
+                );
+            }
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
@@ -71,19 +92,19 @@ public class CameraController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.UpArrow) || (Input.mousePosition.y >= Screen.height - 50 ))
         { 
-            transform.position += Vector3.forward * speed * Time.deltaTime;
+            transform.position += Vector3.forward * speed * Time.deltaTime * dir;
         }
         else if (Input.GetKey(KeyCode.DownArrow) || (Input.mousePosition.y <= 50 ))
         {  
-            transform.position += Vector3.back * speed * Time.deltaTime;
+            transform.position += Vector3.back * speed * Time.deltaTime * dir;
         }
         if (Input.GetKey(KeyCode.LeftArrow) ||  (Input.mousePosition.x <= 50))
         {
-            transform.position += Vector3.left * speed * Time.deltaTime;
+            transform.position += Vector3.left * speed * Time.deltaTime * dir;
         }   
         else if (Input.GetKey(KeyCode.RightArrow) || (Input.mousePosition.x >= Screen.width - 50))
         {
-            transform.position += Vector3.right * speed * Time.deltaTime;
+            transform.position += Vector3.right * speed * Time.deltaTime * dir;
         }
     }
 }

@@ -27,6 +27,8 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject matchingPanel;
     private GameObject loadingPanel;
     private GameObject noticePanel;
+    private GameObject timePanel;
+    private GameObject resourcePanel;
 
     //inGame
     private GameObject playerPanel;
@@ -56,6 +58,12 @@ public class UiManager : MonoBehaviour //GameManager
     private Button skillCakeRush;
     private Button skillShotingStar;
     private Button skillLightning;
+
+    private TMP_Text timeTxt;
+
+    private TMP_Text chocolateTxt;
+    private TMP_Text sugarTxt;
+    private TMP_Text doughTxt;
 
     #endregion
 
@@ -89,13 +97,13 @@ public class UiManager : MonoBehaviour //GameManager
         loadingPanel  = FindElement("LoadingPanel");
         loadingBar    = SetAny<Slider>(loadingPanel, "LoadingSlider");
         StartCoroutine(Loading());
-        Loading();
 
         titlePanel       = FindElement("TitlePanel");
         lobbyPanel       = FindElement("LobbyPanel");
         noticePanel      = FindElement("NoticePanel");
         lobbyOptionPanel = SetGameObj(lobbyPanel, "OptionMenus");
         noticeText       = SetText(noticePanel, "Text");
+        timePanel        = FindElement("TimePanel");
 
         playerPanel      = FindElement("PlayerPanel");
         playerUnitSlot   = FindElement("UnitListPanel");
@@ -117,6 +125,12 @@ public class UiManager : MonoBehaviour //GameManager
         buildPanel       = SetGameObj(playerPanel, "BuildingPanel");
         buildButton      = SetAny<Button>(playerPanel, "BuildButton");
         statButton       = SetAny<Button>(playerPanel, "StatButton");
+        timeTxt          = SetText(timePanel, "time");
+
+        resourcePanel    = FindElement("ResourcePanel");
+        chocolateTxt     = SetText(resourcePanel, "Chocolate");
+        sugarTxt         = SetText(resourcePanel, "Sugar");
+        doughTxt         = SetText(resourcePanel, "Dough");
         //skillCokeShot    = SetAny<Button>(playerPanel, "CokeShot");
         //skillCakeRush    = SetAny<Button>(playerPanel, "CakeRush");
         //skillShotingStar = SetAny<Button>(playerPanel, "ShotingStar");
@@ -284,10 +298,6 @@ public class UiManager : MonoBehaviour //GameManager
     {
         GameManager.instance.OnClickInfo();
     }
-    public void OnClickMaker()
-    {
-        GameManager.instance.OnClickMaker();
-    }
     public void OnClickNameSubmit(string text)
     {
         GameManager.instance.SetNickName(text);
@@ -301,6 +311,13 @@ public class UiManager : MonoBehaviour //GameManager
         main, player
     }
 
+    public void ChangeCost(int cho, int sug, int dou)
+    {
+        chocolateTxt.text = $"{cho}";
+        sugarTxt.text     = $"{sug}";
+        doughTxt.text     = $"{dou}";
+    }
+
     private void OnClickBuild()
     {
         buildPanel.SetActive(!buildPanel.active);
@@ -311,7 +328,28 @@ public class UiManager : MonoBehaviour //GameManager
         statPanel.SetActive(!statPanel.active);
     }
 
-    public void ShowInGamePanel(inGameUIs target)
+    public void ShowInGameStaticPanel()
+    {
+        timePanel.SetActive(true);
+        timeTxt.text = "00:00";
+    }
+
+    public int FlowTime(int time)
+    {
+        if ((time / 60) < 10)
+            timeTxt.text = $"0{time / 60}:";
+        else
+            timeTxt.text = $"{time / 60}:";
+
+        if ((time % 60) < 10)
+            timeTxt.text += $"0{time % 60}";
+        else
+            timeTxt.text += $"{time % 60}";
+
+        return (time + 1);
+    }
+
+    public void ShowInGameDynamicPanel(inGameUIs target)
     {
         playerPanel.SetActive(false);
         playerUnitSlot.SetActive(false);
@@ -335,19 +373,6 @@ public class UiManager : MonoBehaviour //GameManager
     {
         titlePanel.SetActive(nowScene == Scene.title);
         lobbyPanel.SetActive(nowScene == Scene.lobby);
-
-    }
-
-
-    // If select entity, on UI
-    void SetUI()
-    {
-
-    }
-
-    // Event notice method. use Fade in/out
-    void Notice()
-    {
 
     }
 }

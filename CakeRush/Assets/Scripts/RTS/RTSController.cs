@@ -49,14 +49,13 @@ public class RTSController : MonoBehaviour
 		clickParticle = clickEffectObject.GetComponent<ParticleSystem>();
 		//Find Team Camera
 		teamCamera = Camera.main;
-		cost[0] += 100;
-		cost[1] += 100;
-		cost[2] += 100;
+
+		ChangeCost(100, 100, 100);
 
 		UIMng = GameManager.instance.UIManager;
 	}
 
-    void Update() 
+    private void Update() 
 	{
         Click();
 	}
@@ -66,7 +65,16 @@ public class RTSController : MonoBehaviour
 		ChangeCursor();
 	}
 
-	void Click()
+	public void ChangeCost(int cho, int sug, int dou)
+	{
+		cost[0] += cho;
+		cost[1] += sug;
+		cost[2] += dou;
+
+		UIMng.ChangeCost(cost[0], cost[1], cost[2]);
+    }
+
+	private void Click()
 	{
 		// When there is an object hitting the ray (= clicking on the unit)
 		if (!IsPointerOverUIObject() && Input.GetMouseButtonDown(0))
@@ -93,7 +101,7 @@ public class RTSController : MonoBehaviour
 			{
 				if(selectedEntity != null)
 				{
-					UIMng.ShowInGamePanel(UiManager.inGameUIs.main);
+					UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.main);
 					selectedEntity.Deselect();	
 					selectedEntity = null;
 				}
@@ -127,7 +135,7 @@ public class RTSController : MonoBehaviour
 		return results.Count > 0;
 	}
 
-	void ChangeCursor()
+	private void ChangeCursor()
 	{
 		Ray ray = teamCamera.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
@@ -184,17 +192,17 @@ public class RTSController : MonoBehaviour
 	{
 		if (selectedEntity is PlayerController)
 		{
-			UIMng.ShowInGamePanel(UiManager.inGameUIs.player);
+			UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.player);
 			return;
 		}
 		if (selectedEntity is PlayerController)
 		{
-			UIMng.ShowInGamePanel(UiManager.inGameUIs.player);
+			UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.player);
 			return;
 		}
 		if (selectedEntity is PlayerController)
 		{
-			UIMng.ShowInGamePanel(UiManager.inGameUIs.player);
+			UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.player);
 			return;
 		}
 
