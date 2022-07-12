@@ -65,7 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6492325657054865932, guid: 248992cd927eb0d408ceab36c84930ce, type: 3}
       propertyPath: m_Name
-      value: ScrewTree_Gold_Big
+      value: ScrewTree_Gold_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 6556167075989583274, guid: 248992cd927eb0d408ceab36c84930ce, type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 248992cd927eb0d408ceab36c84930ce, type: 3}
