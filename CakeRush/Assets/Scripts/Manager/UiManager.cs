@@ -4,10 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-//using Photon.Pun;
-//using Photon.Realtime;
-//using PN = Photon.Pun.PhotonNetwork;
-
 public class UiManager : MonoBehaviour //GameManager
 {
 
@@ -29,7 +25,7 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject lobbyPanel;
     private GameObject lobbyOptionPanel;
     private GameObject matchingPanel;
-    private GameObject loaddingPanel;
+    private GameObject loadingPanel;
     private GameObject noticePanel;
 
     //inGame
@@ -40,6 +36,9 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject downUnitSlot;
     private Button statButton;
     private Button buildButton;
+
+    private Slider loadingBar;
+    private bool isExitLoading;
 
     private Button startInTitle;
     private Button optionInTitle;
@@ -87,7 +86,10 @@ public class UiManager : MonoBehaviour //GameManager
         sceneUICanvas  = GetComponentInChildren<Canvas>();
         canvasOBJ      = sceneUICanvas.gameObject;
 
-        loaddingPanel  = FindElement("LoadingPanel");
+        loadingPanel  = FindElement("LoadingPanel");
+        loadingBar    = SetAny<Slider>(loadingPanel, "LoadingSlider");
+        StartCoroutine(Loading());
+        Loading();
 
         titlePanel       = FindElement("TitlePanel");
         lobbyPanel       = FindElement("LobbyPanel");
@@ -120,10 +122,7 @@ public class UiManager : MonoBehaviour //GameManager
         //skillShotingStar = SetAny<Button>(playerPanel, "ShotingStar");
         //skillLightning   = SetAny<Button>(playerPanel, "Lightning");
 
-
-
-        loaddingPanel.transform.SetAsLastSibling();
-
+        loadingPanel.transform.SetAsLastSibling();
 
         startInTitle.onClick.AddListener(OnClickStartInTitle);
         exitInTitle.onClick.AddListener(OnClickExit);
@@ -141,6 +140,51 @@ public class UiManager : MonoBehaviour //GameManager
         //skillShotingStar.onClick.AddListener(OnClickShotingStar);
         //skillCokeShot.onClick.AddListener(OnClickCokeShot);
         //skillLightning.onClick.AddListener(OnClickLightning);
+    }
+
+    public void ShowLoading()
+    {
+        loadingBar.value = 0;
+        isExitLoading = false;
+    }
+
+    private IEnumerator Loading()
+    {
+        while(true)
+        {
+            if(loadingBar.value == 0)
+            {
+                loadingPanel.SetActive(true);
+
+                while (loadingBar.value < 80)
+                {
+                    loadingBar.value += 35 * Time.deltaTime;
+                    yield return null;
+                }
+
+                loadingBar.value = 80;
+            }
+            else if(isExitLoading && loadingBar.value >= 80)
+            {
+                isExitLoading = false;
+                while (loadingBar.value < 100)
+                {
+                    loadingBar.value += 40 * Time.deltaTime;
+                    yield return null;
+                }
+
+                loadingBar.value = 100;
+                loadingPanel.SetActive(false);
+            }
+
+            yield return null;
+        }
+    }
+
+    public void ExitLoading()
+    {
+        isExitLoading = true;
+        //loadingBar.value = 70;
     }
 
     #region skill
@@ -169,7 +213,7 @@ public class UiManager : MonoBehaviour //GameManager
     #region server
     public void OnConnectedToMaster()
     {
-        loaddingPanel.SetActive(false);
+        ExitLoading();
     }
 
     #endregion

@@ -49,7 +49,7 @@ public class EntityBase : MonoBehaviourPunCallbacks
 
         source = GetComponent<AudioSource>();
         if (source == null)
-            source = GetComponent<AudioSource>();
+            source = gameObject.AddComponent<AudioSource>();
 
         tag = GameManager.instance.tag;
 
