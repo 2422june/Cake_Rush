@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        SetScene("loby");
+        SetScene("lobby");
     }
 
     public override void OnJoinedRoom()
@@ -149,17 +149,18 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (DevelopMode)
         {
-            UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            UIManager.SetStartTextInLobby("매칭 시작");
+            UIManager.NoticeInLobby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
+            return;
         }
 
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             instance.tag = "Team_2";
-            UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            UIManager.SetStartTextInLobby("매칭 시작");
+            UIManager.NoticeInLobby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
         }
@@ -167,7 +168,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void JoinedRoom()
     {
-        UIManager.NoticeInLoby("방에 입장했습니다.", 1);
+        UIManager.NoticeInLobby("방에 입장했습니다.", 1);
         nowInRoom = true;
     }
 
@@ -175,16 +176,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if(DevelopMode)
         {
-            UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            UIManager.SetStartTextInLobby("매칭 시작");
+            UIManager.NoticeInLobby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
+            return;
         }
 
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
-            UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            UIManager.SetStartTextInLobby("매칭 시작");
+            UIManager.NoticeInLobby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
         }
@@ -221,7 +223,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         nowInRoom = false;
-        UIManager.NoticeInLoby("방에서 나갔습니다.", 1);
+        UIManager.NoticeInLobby("방에서 나갔습니다.", 1);
         PN.LeaveRoom();
     }
     public override void OnLeftRoom()
@@ -232,8 +234,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void EndExitingMatching()
     {
-        UIManager.NoticeInLoby("매칭을 취소했습니다.", 1);
-        UIManager.SetStartTextInLoby("매칭 시작");
+        UIManager.NoticeInLobby("매칭을 취소했습니다.", 1);
+        UIManager.SetStartTextInLobby("매칭 시작");
         nowCloseMatching = false;
         nowMatching = false;
     }
@@ -263,7 +265,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             nowScene = Scene.title;
         }
-        if (targetScene.Equals("loby"))
+        if (targetScene.Equals("lobby"))
         {
             nowScene = Scene.lobby;
         }

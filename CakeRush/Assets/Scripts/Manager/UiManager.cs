@@ -31,6 +31,8 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject noticePanel;
     private GameObject timePanel;
     private GameObject resourcePanel;
+    private GameObject victoryPanel;
+    private GameObject defeatPanel;
 
     //inGame
     private GameObject playerPanel;
@@ -52,7 +54,7 @@ public class UiManager : MonoBehaviour //GameManager
     private Button startInLobby;
     private TMP_Text startTextInLobby;
     private Button optionInLobby;
-    private TMP_InputField nameInputInLoby;
+    private TMP_InputField nameInputInLobby;
     private Button exitInLobby;
     private TMP_Text noticeText;
     private Button infoInLobby;
@@ -71,6 +73,9 @@ public class UiManager : MonoBehaviour //GameManager
     private TMP_Text chocolateTxt;
     private TMP_Text sugarTxt;
     private TMP_Text doughTxt;
+
+    private Button nextInVictory;
+    private Button nextInDefeat;
 
     #endregion
 
@@ -118,6 +123,9 @@ public class UiManager : MonoBehaviour //GameManager
         playerUnitSlot   = FindElement("UnitListPanel");
         downUnitSlot     = FindElement("UnitListPanelDown");
 
+        victoryPanel     = FindElement("VictoryPanel");
+        defeatPanel      = FindElement("DefeatPanel");
+
         startInTitle     = SetAny<Button>(titlePanel, "StartButton");
         exitInTitle      = SetAny<Button>(titlePanel, "ExitButton");
 
@@ -125,7 +133,7 @@ public class UiManager : MonoBehaviour //GameManager
         startTextInLobby = SetText(startInLobby.gameObject, "Text");
         optionInLobby    = SetAny<Button>(lobbyPanel, "OptionButton");
         matchingPanel    = SetGameObj(lobbyPanel, "MatchingPanel");
-        nameInputInLoby  = SetAny<TMP_InputField>(matchingPanel, "NameInput");
+        nameInputInLobby  = SetAny<TMP_InputField>(matchingPanel, "NameInput");
         exitInLobby      = SetAny<Button>(lobbyOptionPanel, "ExitButton");
         infoInLobby      = SetAny<Button>(lobbyOptionPanel, "InfoButton");
 
@@ -140,6 +148,9 @@ public class UiManager : MonoBehaviour //GameManager
         chocolateTxt     = SetText(resourcePanel, "Chocolate");
         sugarTxt         = SetText(resourcePanel, "Sugar");
         doughTxt         = SetText(resourcePanel, "Dough");
+
+        nextInDefeat     = SetAny<Button>(defeatPanel, "Next");
+        nextInVictory    = SetAny<Button>(victoryPanel, "Next");
         //skillCokeShot    = SetAny<Button>(playerPanel, "CokeShot");
         //skillCakeRush    = SetAny<Button>(playerPanel, "CakeRush");
         //skillShotingStar = SetAny<Button>(playerPanel, "ShotingStar");
@@ -154,10 +165,13 @@ public class UiManager : MonoBehaviour //GameManager
         exitInLobby.onClick.AddListener(OnClickExit);
         optionInLobby.onClick.AddListener(OnClickOption);
         infoInLobby.onClick.AddListener(OnClickInfo);
-        nameInputInLoby.onEndEdit.AddListener(OnClickNameSubmit);
+        nameInputInLobby.onEndEdit.AddListener(OnClickNameSubmit);
 
         statButton.onClick.AddListener(OnClickStat);
         buildButton.onClick.AddListener(OnClickBuild);
+
+        nextInDefeat.onClick.AddListener(EndGame);
+        nextInVictory.onClick.AddListener(EndGame);
 
         //skillCakeRush.onClick.AddListener(OnClickCakeRush);
         //skillShotingStar.onClick.AddListener(OnClickShotingStar);
@@ -204,6 +218,7 @@ public class UiManager : MonoBehaviour //GameManager
     //    }
     //}
 
+    #region Loading && Notice
     private IEnumerator LoadingAndNotice()
     {
         while (true)
@@ -256,6 +271,7 @@ public class UiManager : MonoBehaviour //GameManager
         isExitLoading = true;
         //loadingBar.value = 70;
     }
+    #endregion
 
     #region skill
     private void OnClickShotingStar()
@@ -279,7 +295,6 @@ public class UiManager : MonoBehaviour //GameManager
     }
     #endregion
 
-
     #region server
     public void OnConnectedToMaster()
     {
@@ -297,7 +312,7 @@ public class UiManager : MonoBehaviour //GameManager
     {
         if(GameManager.instance.nowCloseMatching)
         {
-            NoticeInLoby("매칭을 취소하는 중 입니다.", 1);
+            NoticeInLobby("매칭을 취소하는 중 입니다.", 1);
         }
         else
         {
@@ -306,42 +321,42 @@ public class UiManager : MonoBehaviour //GameManager
                 if(GameManager.instance.nowInRoom)
                 {
                     GameManager.instance.nowCloseMatching = true;
-                    NoticeInLoby("매칭을 취소합니다.", 1);
-                    SetStartTextInLoby("매칭 취소중");
+                    NoticeInLobby("매칭을 취소합니다.", 1);
+                    SetStartTextInLobby("매칭 취소중");
                     GameManager.instance.LeaveRoom();
                 }
                 else
                 {
-                    NoticeInLoby("방에 입장하는 중 입니다.", 1);
+                    NoticeInLobby("방에 입장하는 중 입니다.", 1);
                 }
             }
             else
             {
                 if (GameManager.instance.isNullableNickName())
                 {
-                    NoticeInLoby("닉네임을 입력해 주세요.", 1);
+                    NoticeInLobby("닉네임을 입력해 주세요.", 1);
                 }
                 else if(!GameManager.instance.nowInRoom)
                 {
                     GameManager.instance.OnClickStartInLobby();
                     GameManager.instance.nowMatching = true;
-                    NoticeInLoby("매칭을 시작했습니다.", 1);
-                    SetStartTextInLoby("매칭 취소");
+                    NoticeInLobby("매칭을 시작했습니다.", 1);
+                    SetStartTextInLobby("매칭 취소");
                 }
                 else
                 {
-                    NoticeInLoby("방에서 나가는 중 입니다.", 1);
+                    NoticeInLobby("방에서 나가는 중 입니다.", 1);
                 }
             }
         }
     }
 
-    public void SetStartTextInLoby(string text)
+    public void SetStartTextInLobby(string text)
     {
         startTextInLobby.text = text;
     }
 
-    public void NoticeInLoby(string text, float time)
+    public void NoticeInLobby(string text, float time)
     {
         noticePanel.transform.localPosition = Vector3.zero;
         noticeText.text = text;
@@ -371,7 +386,7 @@ public class UiManager : MonoBehaviour //GameManager
     public void OnClickNameSubmit(string text)
     {
         GameManager.instance.SetNickName(text);
-        NoticeInLoby($"닉네임을 '{text}'로 지정했습니다.", 1);
+        NoticeInLobby($"닉네임을 '{text}'로 지정했습니다.", 1);
     }
     #endregion
 
@@ -444,11 +459,17 @@ public class UiManager : MonoBehaviour //GameManager
         }
     }
 
+    private void EndGame()
+    {
+        GameManager.instance.SetScene("lobby");
+    }
+
     #endregion
     public void ShowUI(Scene nowScene)
     {
         titlePanel.SetActive(nowScene == Scene.title);
         lobbyPanel.SetActive(nowScene == Scene.lobby);
-
+        victoryPanel.SetActive(nowScene == Scene.victory);
+        defeatPanel.SetActive(nowScene == Scene.defeat);
     }
 }

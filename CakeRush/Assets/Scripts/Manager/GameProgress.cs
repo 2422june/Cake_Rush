@@ -87,19 +87,19 @@ public class GameProgress : MonoBehaviourPunCallbacks
             yield return null;
             if (team1Ready && team2Ready)
             {
-                UIManager.NoticeInLoby("5", 0.8f);
+                UIManager.NoticeInLobby("5", 0.8f);
                 yield return one;
-                UIManager.NoticeInLoby("4", 0.8f);
+                UIManager.NoticeInLobby("4", 0.8f);
                 yield return one;
-                UIManager.NoticeInLoby("3", 0.8f);
+                UIManager.NoticeInLobby("3", 0.8f);
                 yield return one;
-                UIManager.NoticeInLoby("2", 0.8f);
+                UIManager.NoticeInLobby("2", 0.8f);
                 yield return one;
-                UIManager.NoticeInLoby("1", 0.8f);
+                UIManager.NoticeInLobby("1", 0.8f);
                 yield return one;
-                UIManager.NoticeInLoby("0", 0.8f);
+                UIManager.NoticeInLobby("0", 0.8f);
                 yield return one;
-                UIManager.NoticeInLoby("GameStart!!", 1f);
+                UIManager.NoticeInLobby("GameStart!!", 1f);
                 inGameStart = true;
                 break;
             }

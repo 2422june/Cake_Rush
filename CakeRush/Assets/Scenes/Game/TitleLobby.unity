@@ -2542,7 +2542,7 @@ MonoBehaviour:
   inGameStart: 0
   UIManagerOBJ: {fileID: 0}
   rtsController: {fileID: 0}
-  DevelopMode: 1
+  DevelopMode: 0
 --- !u!4 &1759907595
 Transform:
   m_ObjectHideFlags: 0

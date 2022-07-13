@@ -137,6 +137,9 @@ public class PlayerController : UnitBase
 
     protected override void Attack(Transform target)
     {
+        if (!target.gameObject.active)
+            return;
+
         Debug.Log("Attack Triger");
         state = CharacterState.Attack;
 
@@ -371,7 +374,24 @@ public class PlayerController : UnitBase
     }
     protected override void Die()
     {
-        PV.RPC("PlayDie", RpcTarget.All);
+        rtsController.selectedEntity.Deselect();
+        rtsController.selectedEntity = null;
+        GameManager.instance.inGameStart = false;
+        PlayDie();
+
+        Invoke("Respawn", 5);
+    }
+
+    protected override void Respawn()
+    {
+        if (GameManager.instance.tag == "Team_1")
+            transform.position = Vector3.zero;
+        else
+            transform.position = ((Vector3.right + Vector3.forward) * 300);
+
+        animator.SetBool("Idle", true);
+        curHp = maxHp;
+        GameManager.instance.inGameStart = true;
     }
 
     [PunRPC]
@@ -379,7 +399,6 @@ public class PlayerController : UnitBase
     {
         animator.SetTrigger("Die");
         UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.main);
-        GameManager.instance.inGameStart = false;
         base.Die();
     }
 }

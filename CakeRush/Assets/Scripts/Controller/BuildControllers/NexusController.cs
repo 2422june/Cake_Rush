@@ -12,4 +12,13 @@ public class NexusController : BuildBase
         base.Awake();
     }
 
+    protected override void Die()
+    {
+        base.Die();
+        if(PV.IsMine)
+            GameManager.instance.SetScene("defeat");
+        else
+            GameManager.instance.SetScene("victory");
+    }
+
 }
