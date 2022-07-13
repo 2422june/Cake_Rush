@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int[] cost;
     public bool isSpawnable;
     private bool nowInGame;
-    public bool nowMatching, nowCloseMatching;
+    public bool nowMatching, nowCloseMatching, nowInRoom;
     public UiManager UIManager;
     public bool inGameStart;
 
@@ -141,6 +141,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        Invoke("JoinedRoom", 1f);
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             instance.tag = "Team_2";
@@ -149,6 +150,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             nowMatching = false;
             SetScene("inGame");
         }
+    }
+
+    private void JoinedRoom()
+    {
+        UIManager.NoticeInLoby("방에 입장했습니다.", 1);
+        nowInRoom = true;
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -187,15 +194,24 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     public void LeaveRoom()
     {
+        nowInRoom = false;
+        UIManager.NoticeInLoby("방에서 나갔습니다.", 1);
         PN.LeaveRoom();
     }
     public override void OnLeftRoom()
     {
-        nowCloseMatching = false;
-        nowMatching = false;
+        Invoke("EndExitingMatching", 2f);
+        return;
+    }
+
+    private void EndExitingMatching()
+    {
         UIManager.NoticeInLoby("매칭을 취소했습니다.", 1);
         UIManager.SetStartTextInLoby("매칭 시작");
+        nowCloseMatching = false;
+        nowMatching = false;
     }
+
     public void OnClickExit()
     {
         if (PN.IsConnected)
@@ -230,6 +246,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             nowScene = Scene.inGame;
             SceneManager.LoadScene("InGame");
             nowInGame = true;
+            nowInRoom = false;
             StartCoroutine(InGameSeting());
         }
         if (targetScene.Equals("victory"))
