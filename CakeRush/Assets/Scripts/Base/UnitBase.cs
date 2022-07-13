@@ -23,6 +23,13 @@ public class UnitBase : CharacterBase
     protected override void Awake()
     {
         base.Awake();
+
+
+        if (PV.IsMine)
+            tag = $"Me_Unit";
+        else
+            tag = $"Other_Unit";
+
         teamCamera = Camera.main;
         state = CharacterState.Idle;
         navMashAgent.speed = moveSpeed;
@@ -49,10 +56,10 @@ public class UnitBase : CharacterBase
     protected virtual void Attack(Transform target)
     {        
         navMashAgent.isStopped = true;
-        
+
         animator.SetBool("Move", false);
         animator.SetBool("Attack", true);
-        
+
         if(target.CompareTag("Monster"))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), 90);
