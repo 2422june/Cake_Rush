@@ -50,9 +50,9 @@ public class RTSController : MonoBehaviour
 		//Find Team Camera
 		teamCamera = Camera.main;
 
-		ChangeCost(100, 100, 100);
-
 		UIMng = GameManager.instance.UIManager;
+
+		ChangeCost(100, 100, 100);
 	}
 
     private void Update() 
