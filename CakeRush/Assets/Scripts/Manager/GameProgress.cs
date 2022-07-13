@@ -40,6 +40,9 @@ public class GameProgress : MonoBehaviourPunCallbacks
         inGameStart = false;
         team1Ready = false;
         team2Ready = false;
+        if (GameManager.instance.DevelopMode)
+            team2Ready = true;
+
         startProcess = false;
 
         tag = GameManager.instance.tag;
@@ -140,16 +143,28 @@ public class GameProgress : MonoBehaviourPunCallbacks
     private void Team1Ready()
     {
         team1Ready = true;
+        if (GameManager.instance.DevelopMode)
+            team2Ready = true;
     }
 
     [PunRPC]
     private void Team2Ready()
     {
         team2Ready = true;
+        if (GameManager.instance.DevelopMode)
+            team1Ready = true;
     }
 
     private void SetingMap()
     {
+        if (GameManager.instance.DevelopMode)
+        {
+            PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+            PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
+            PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
+            return;
+        }
+        
         if (tag == "Team_1")
         {
             PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);

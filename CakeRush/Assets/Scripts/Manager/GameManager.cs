@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     private GameObject UIManagerOBJ;
     public RTSController rtsController;
 
+    [Space(10)]
+    [Header("ONLY DEVELOPER")]
+    public bool DevelopMode;
+
     #endregion
 
     #region find Function
@@ -142,6 +146,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Invoke("JoinedRoom", 1f);
+
+        if (DevelopMode)
+        {
+            UIManager.SetStartTextInLoby("매칭 시작");
+            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            nowMatching = false;
+            SetScene("inGame");
+        }
+
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             instance.tag = "Team_2";
@@ -160,6 +173,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        if(DevelopMode)
+        {
+            UIManager.SetStartTextInLoby("매칭 시작");
+            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            nowMatching = false;
+            SetScene("inGame");
+        }
+
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             UIManager.SetStartTextInLoby("매칭 시작");
@@ -189,8 +210,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 },
-            null, null);
+        if(DevelopMode)
+            PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 1 },
+                null, null);
+
+        else
+            PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 },
+                null, null);
     }
     public void LeaveRoom()
     {
