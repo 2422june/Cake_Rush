@@ -12,10 +12,4 @@ public class NexusController : BuildBase
         base.Awake();
     }
 
-
-    protected override void Update()
-    {
-        
-    }
-
 }

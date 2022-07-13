@@ -154,22 +154,12 @@ public class PlayerController : UnitBase
     private void SearchTarget <T> (T target) where T : EntityBase
     {
         if(target is MobBase)
-        {
-            target.GetComponent<MobBase>().Hit(damage, transform);
-        }
-        else if(target is UnitBase)
-        {
-            target.GetComponent<UnitBase>().Hit(damage);
-        }
-        else if (target is BuildBase)
-        {
-            target.GetComponent<BuildBase>().Hit(damage);
-        }
+            (target as MobBase).Hit(damage, transform);
+        else
+            target.Hit(damage);
 
         if (target.curHp <= 0)
-        {
             levelSystem.GetExp(target.returnExp);
-        }
     }
 
     #region //Skill method
