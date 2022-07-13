@@ -204,9 +204,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void OnClickInfo()
     {
     }
-    public void OnClickMaker()
-    {
-    }
     public void SetNickName(string name)
     {
         PN.NickName = name;

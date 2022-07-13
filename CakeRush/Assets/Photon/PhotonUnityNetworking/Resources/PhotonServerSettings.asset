@@ -49,6 +49,11 @@ MonoBehaviour:
   - InGameCountDown
   - Team1Ready
   - Team2Ready
+  - InGameProcessByTime
+  - InGameProcessRealTime
+  - ByTimeProcess
+  - RealTimeProcess
+  - ProcessStarter
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
