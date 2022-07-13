@@ -257,7 +257,7 @@ public class PlayerController : UnitBase
         {
             Ray ray = teamCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
+        
             StopCoroutine("Move");
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))

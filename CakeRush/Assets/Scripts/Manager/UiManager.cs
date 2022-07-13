@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : MonoBehaviour //GameManager
+public class UiManager : MonoSingleton<UiManager> //GameManager
 {
 
     #region elements
@@ -43,7 +43,7 @@ public class UiManager : MonoBehaviour //GameManager
     private Button buildButton;
 
     private Slider loadingBar;
-    private bool isExitLoading;
+    public bool isExitLoading;
 
     private Button startInTitle;
     private Button optionInTitle;
@@ -445,10 +445,10 @@ public class UiManager : MonoBehaviour //GameManager
     }
 
     #endregion
-    public void ShowUI(Scene nowScene)
+    public void ShowUI(Define.Scene nowScene)
     {
-        titlePanel.SetActive(nowScene == Scene.title);
-        lobbyPanel.SetActive(nowScene == Scene.lobby);
+        titlePanel.SetActive(nowScene == Define.Scene.title);
+        lobbyPanel.SetActive(nowScene == Define.Scene.lobby);
 
     }
 }

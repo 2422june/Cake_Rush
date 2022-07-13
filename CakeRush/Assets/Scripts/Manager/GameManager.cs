@@ -8,15 +8,11 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
 using PN = Photon.Pun.PhotonNetwork;
-public enum Scene
-{
-    noting, title, lobby, inGame, victory, defeat
-};
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
     #region Singleton
-
+    
     public static GameManager instance;
 
     #endregion
@@ -24,9 +20,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     #region element
 
     public PhotonView PV;
-
-    public Scene nowScene;
-
+    
+    public Define.Scene nowScene;
+    
 
     public float playerLevel;
     public int[] cost;
@@ -67,7 +63,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             GameProgress.instance = GetComponent<GameProgress>();
             DontDestroyOnLoad(instance);
         }
-
 
         if (SceneManager.GetActiveScene().name.Contains("Title"))
         {
@@ -235,24 +230,24 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 PN.ConnectUsingSettings();
             }
-            nowScene = Scene.title;
+            nowScene = Define.Scene.title;
         }
         if (targetScene.Equals("loby"))
         {
-            nowScene = Scene.lobby;
+            nowScene = Define.Scene.lobby;
         }
         if (targetScene.Equals("inGame"))
         {
-            nowScene = Scene.inGame;
+            nowScene = Define.Scene.inGame;
             Invoke("EnterInGame", 2f);
         }
         if (targetScene.Equals("victory"))
         {
-            nowScene = Scene.victory;
+            nowScene = Define.Scene.victory;
         }
         if (targetScene.Equals("defeat"))
         {
-            nowScene = Scene.defeat;
+            nowScene = Define.Scene.defeat;
         }
 
         UIManager.ShowUI(nowScene);
