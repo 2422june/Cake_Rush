@@ -34,6 +34,7 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject playerPanel;
     private GameObject statPanel;
     private GameObject buildPanel;
+    private GameObject defaultPanel;
     private GameObject playerUnitSlot;
     private GameObject downUnitSlot;
     private Button statButton;
@@ -104,6 +105,7 @@ public class UiManager : MonoBehaviour //GameManager
         lobbyOptionPanel = SetGameObj(lobbyPanel, "OptionMenus");
         noticeText       = SetText(noticePanel, "Text");
         timePanel        = FindElement("TimePanel");
+        defaultPanel     = FindElement("DefaultPanel");
 
         playerPanel      = FindElement("PlayerPanel");
         playerUnitSlot   = FindElement("UnitListPanel");
@@ -308,7 +310,7 @@ public class UiManager : MonoBehaviour //GameManager
     #region inGame
     public enum inGameUIs
     {
-        main, player
+        main, player, other
     }
 
     public void ChangeCost(int cho, int sug, int dou)
@@ -354,8 +356,9 @@ public class UiManager : MonoBehaviour //GameManager
         playerPanel.SetActive(false);
         playerUnitSlot.SetActive(false);
         downUnitSlot.SetActive(false);
+        defaultPanel.SetActive(false);
 
-        switch(target)
+        switch (target)
         {
             case inGameUIs.main:
                 downUnitSlot.SetActive(true);
@@ -364,6 +367,10 @@ public class UiManager : MonoBehaviour //GameManager
             case inGameUIs.player:
                 playerPanel.SetActive(true);
                 playerUnitSlot.SetActive(true);
+                break;
+
+            case inGameUIs.other:
+                defaultPanel.SetActive(true);
                 break;
         }
     }
