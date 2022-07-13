@@ -9,6 +9,8 @@ public class UiManager : MonoBehaviour //GameManager
 
     #region elements
 
+    private WaitForSeconds one = new WaitForSeconds(1);
+
     private Image infoImage;
     private Image mapImage;
 
@@ -34,6 +36,7 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject playerPanel;
     private GameObject statPanel;
     private GameObject buildPanel;
+    private GameObject defaultPanel;
     private GameObject playerUnitSlot;
     private GameObject downUnitSlot;
     private Button statButton;
@@ -53,6 +56,10 @@ public class UiManager : MonoBehaviour //GameManager
     private Button exitInLobby;
     private TMP_Text noticeText;
     private Button infoInLobby;
+
+    private bool callNotice;
+    private float noticeTime;
+    private float noticeTimer;
 
     private Button skillCokeShot;
     private Button skillCakeRush;
@@ -96,7 +103,8 @@ public class UiManager : MonoBehaviour //GameManager
 
         loadingPanel  = FindElement("LoadingPanel");
         loadingBar    = SetAny<Slider>(loadingPanel, "LoadingSlider");
-        StartCoroutine(Loading());
+        //StartCoroutine(Loading());
+        StartCoroutine(LoadingAndNotice());
 
         titlePanel       = FindElement("TitlePanel");
         lobbyPanel       = FindElement("LobbyPanel");
@@ -104,6 +112,7 @@ public class UiManager : MonoBehaviour //GameManager
         lobbyOptionPanel = SetGameObj(lobbyPanel, "OptionMenus");
         noticeText       = SetText(noticePanel, "Text");
         timePanel        = FindElement("TimePanel");
+        defaultPanel     = FindElement("DefaultPanel");
 
         playerPanel      = FindElement("PlayerPanel");
         playerUnitSlot   = FindElement("UnitListPanel");
@@ -162,11 +171,58 @@ public class UiManager : MonoBehaviour //GameManager
         isExitLoading = false;
     }
 
-    private IEnumerator Loading()
+    //private IEnumerator Loading()
+    //{
+    //    while(true)
+    //    {
+    //        if(loadingBar.value == 0)
+    //        {
+    //            loadingPanel.SetActive(true);
+
+    //            while (loadingBar.value < 80)
+    //            {
+    //                loadingBar.value += 35 * Time.deltaTime;
+    //                yield return null;
+    //            }
+
+    //            loadingBar.value = 80;
+    //        }
+    //        else if(isExitLoading && loadingBar.value >= 80)
+    //        {
+    //            isExitLoading = false;
+    //            while (loadingBar.value < 100)
+    //            {
+    //                loadingBar.value += 40 * Time.deltaTime;
+    //                yield return null;
+    //            }
+
+    //            loadingBar.value = 100;
+    //            loadingPanel.SetActive(false);
+    //        }
+
+    //        yield return null;
+    //    }
+    //}
+
+    private IEnumerator LoadingAndNotice()
     {
-        while(true)
+        while (true)
         {
-            if(loadingBar.value == 0)
+            if(callNotice)
+            {
+                callNotice = false;
+                noticePanel.SetActive(true);
+                while(noticeTime >= noticeTimer)
+                {
+                    if (callNotice)
+                        break;
+                    noticeTimer += Time.deltaTime;
+                    yield return null;
+                }
+                noticePanel.SetActive(false);
+            }
+
+            if (loadingBar.value == 0)
             {
                 loadingPanel.SetActive(true);
 
@@ -178,7 +234,7 @@ public class UiManager : MonoBehaviour //GameManager
 
                 loadingBar.value = 80;
             }
-            else if(isExitLoading && loadingBar.value >= 80)
+            else if (isExitLoading && loadingBar.value >= 80)
             {
                 isExitLoading = false;
                 while (loadingBar.value < 100)
@@ -242,28 +298,40 @@ public class UiManager : MonoBehaviour //GameManager
         if(GameManager.instance.nowCloseMatching)
         {
             NoticeInLoby("매칭을 취소하는 중 입니다.", 1);
-            return;
-        }
-
-        if(GameManager.instance.nowMatching)
-        {
-            GameManager.instance.nowCloseMatching = true;
-            NoticeInLoby("매칭을 취소합니다.", 1);
-            SetStartTextInLoby("매칭 취소중");
-            GameManager.instance.LeaveRoom();
         }
         else
         {
-            if (GameManager.instance.isNullableNickName())
+            if (GameManager.instance.nowMatching)
             {
-                NoticeInLoby("닉네임을 입력해 주세요.", 1);
+                if(GameManager.instance.nowInRoom)
+                {
+                    GameManager.instance.nowCloseMatching = true;
+                    NoticeInLoby("매칭을 취소합니다.", 1);
+                    SetStartTextInLoby("매칭 취소중");
+                    GameManager.instance.LeaveRoom();
+                }
+                else
+                {
+                    NoticeInLoby("방에 입장하는 중 입니다.", 1);
+                }
             }
             else
             {
-                GameManager.instance.OnClickStartInLobby();
-                GameManager.instance.nowMatching = true;
-                NoticeInLoby("매칭을 시작했습니다.", 1);
-                SetStartTextInLoby("매칭 취소");
+                if (GameManager.instance.isNullableNickName())
+                {
+                    NoticeInLoby("닉네임을 입력해 주세요.", 1);
+                }
+                else if(!GameManager.instance.nowInRoom)
+                {
+                    GameManager.instance.OnClickStartInLobby();
+                    GameManager.instance.nowMatching = true;
+                    NoticeInLoby("매칭을 시작했습니다.", 1);
+                    SetStartTextInLoby("매칭 취소");
+                }
+                else
+                {
+                    NoticeInLoby("방에서 나가는 중 입니다.", 1);
+                }
             }
         }
     }
@@ -277,14 +345,16 @@ public class UiManager : MonoBehaviour //GameManager
     {
         noticePanel.transform.localPosition = Vector3.zero;
         noticeText.text = text;
-        noticePanel.SetActive(true);
-        Invoke("UnNoticeInLoby", time);
+        noticeTime = time;
+        noticeTimer = 0;
+        callNotice = true;
     }
-    private void UnNoticeInLoby()
-    {
-        noticePanel.SetActive(false);
-        noticeText.text = "";
-    }
+
+    //private void UnNoticeInLoby()
+    //{
+    //    noticePanel.SetActive(false);
+    //    noticeText.text = "";
+    //}
 
     public void OnClickExit()
     {
@@ -308,7 +378,7 @@ public class UiManager : MonoBehaviour //GameManager
     #region inGame
     public enum inGameUIs
     {
-        main, player
+        main, player, other
     }
 
     public void ChangeCost(int cho, int sug, int dou)
@@ -354,8 +424,9 @@ public class UiManager : MonoBehaviour //GameManager
         playerPanel.SetActive(false);
         playerUnitSlot.SetActive(false);
         downUnitSlot.SetActive(false);
+        defaultPanel.SetActive(false);
 
-        switch(target)
+        switch (target)
         {
             case inGameUIs.main:
                 downUnitSlot.SetActive(true);
@@ -364,6 +435,10 @@ public class UiManager : MonoBehaviour //GameManager
             case inGameUIs.player:
                 playerPanel.SetActive(true);
                 playerUnitSlot.SetActive(true);
+                break;
+
+            case inGameUIs.other:
+                defaultPanel.SetActive(true);
                 break;
         }
     }
