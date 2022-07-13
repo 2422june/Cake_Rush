@@ -244,10 +244,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (targetScene.Equals("inGame"))
         {
             nowScene = Scene.inGame;
-            SceneManager.LoadScene("InGame");
-            nowInGame = true;
-            nowInRoom = false;
-            StartCoroutine(InGameSeting());
+            Invoke("EnterInGame", 2f);
         }
         if (targetScene.Equals("victory"))
         {
@@ -259,6 +256,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
         UIManager.ShowUI(nowScene);
+    }
+
+    private void EnterInGame()
+    {
+        SceneManager.LoadScene("InGame");
+        nowInGame = true;
+        nowInRoom = false;
+        StartCoroutine(InGameSeting());
     }
 
     private IEnumerator InGameSeting()

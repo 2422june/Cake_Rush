@@ -402,6 +402,7 @@ public class UiManager : MonoBehaviour //GameManager
     {
         timePanel.SetActive(true);
         timeTxt.text = "00:00";
+        resourcePanel.SetActive(true);
     }
 
     public int FlowTime(int time)

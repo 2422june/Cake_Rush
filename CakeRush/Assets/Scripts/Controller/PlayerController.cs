@@ -26,6 +26,12 @@ public class PlayerController : UnitBase
         UIMng        = GameManager.instance.UIManager;
 
         base.Awake();
+
+
+        if (PV.IsMine)
+            tag = $"Me_Player";
+        else
+            tag = $"Other_Player";
         SkillInit();
     }
 
@@ -99,77 +105,74 @@ public class PlayerController : UnitBase
             StartCoroutine(BuildMode());
         }
 
-        //if (PV.IsMine)
-        //{
-        //    base.Update();
-
-        //    if (isSelected == false) return;
-        //    if (Input.GetKey(KeyCode.Q))             //Lightning
-        //    {
-        //        StartCoroutine(Lightning());
-        //    }
-        //    else if (Input.GetKey(KeyCode.W))        //Coke shot
-        //    {
-        //        StartCoroutine(CokeShot());
-        //    }
-        //    else if (Input.GetKey(KeyCode.E))        //Shooting star
-        //    {
-        //        ShootingStar();
-        //    }
-        //    else if (Input.GetKeyDown(KeyCode.R))        //Cake rush
-        //    {
-        //        CakeRush();
-        //    }
-        //    else if (Input.GetKeyDown(KeyCode.B) && build.isBuildMode == false)
-        //    {
-        //        StartCoroutine(BuildMode());
-        //    }
-        //}
+        #region garbage
+        /*if (PV.IsMine)
+        {
+            base.Update();
+        
+            if (isSelected == false) return;
+            if (Input.GetKey(KeyCode.Q))             //Lightning
+            {
+                StartCoroutine(Lightning());
+            }
+            else if (Input.GetKey(KeyCode.W))        //Coke shot
+            {
+                StartCoroutine(CokeShot());
+            }
+            else if (Input.GetKey(KeyCode.E))        //Shooting star
+            {
+                ShootingStar();
+            }
+            else if (Input.GetKeyDown(KeyCode.R))        //Cake rush
+            {
+                CakeRush();
+            }
+            else if (Input.GetKeyDown(KeyCode.B) && build.isBuildMode == false)
+            {
+                StartCoroutine(BuildMode());
+            }
+        }*/
+        #endregion
     }
 
-    protected override void Attack (Transform target)
+    protected override void Attack(Transform target)
     {
+        Debug.Log("Attack Triger");
         state = CharacterState.Attack;
 
         navMashAgent.isStopped = true;
 
         animator.SetBool("Move", false);
         animator.SetBool("Attack", true);
+        Debug.Log("Animation");
 
         if (target.CompareTag("Monster"))
-        {
             SearchTarget(target.GetComponent<MobBase>());
-        }
-        else if (target.CompareTag("Build"))
-        {
+        else if (target.tag.Contains("Build"))
             SearchTarget(target.GetComponent<BuildBase>());
-        }
-        else if (target.CompareTag("Unit"))
-        {
+        else
             SearchTarget(target.GetComponent<UnitBase>());
-        }
+
+        Debug.Log($"name is \"{target.gameObject.name}\", tag is \"{target.tag}\"");
+        Debug.Log("FSX");
         SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_Attack);
     }
 
     private void SearchTarget <T> (T target) where T : EntityBase
     {
-        if(target is MobBase)
-        {
-            target.GetComponent<MobBase>().Hit(damage, transform);
-        }
-        else if(target is UnitBase)
-        {
-            target.GetComponent<UnitBase>().Hit(damage);
-        }
-        else if (target is BuildBase)
-        {
-            target.GetComponent<BuildBase>().Hit(damage);
-        }
+        Debug.Log("Hit");
+
+        if (target is MobBase)
+            (target as MobBase).Hit(damage, transform);
+
+        else if (target is UnitBase)
+            (target as UnitBase).Hit(damage);
+        else
+            (target as BuildBase).Hit(damage);
+
 
         if (target.curHp <= 0)
-        {
             levelSystem.GetExp(target.returnExp);
-        }
     }
 
     #region //Skill method

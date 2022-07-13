@@ -190,14 +190,14 @@ public class RTSController : MonoBehaviour
 
 	private void ShowUI()
 	{
+		if(selectedEntity.gameObject.tag.Contains("Other") || selectedEntity is UnitBase || selectedEntity is MobBase || selectedEntity is BuildBase)
+		{
+			UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.other);
+			return;
+		}
 		if (selectedEntity is PlayerController)
 		{
 			UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.player);
-			return;
-		}
-		if (selectedEntity is UnitBase || selectedEntity is MobBase || selectedEntity is BuildBase)
-		{
-			UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.other);
 			return;
 		}
 

@@ -51,8 +51,6 @@ public class EntityBase : MonoBehaviourPunCallbacks
         if (source == null)
             source = gameObject.AddComponent<AudioSource>();
 
-        tag = GameManager.instance.tag;
-
         cost = new int[3];
 
         Init();

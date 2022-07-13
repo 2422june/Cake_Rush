@@ -9,6 +9,14 @@ TagManager:
   - Monster
   - Bullet
   - Build
+  - Me
+  - Other
+  - Me_Player
+  - Other_Player
+  - Me_Unit
+  - Other_Unit
+  - Me_Build
+  - Other_Build
   - Team_1
   - Team_2
   layers:

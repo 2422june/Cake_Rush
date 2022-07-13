@@ -22,6 +22,7 @@ public class GameProgress : MonoBehaviourPunCallbacks
 
     public bool team1Ready;
     public bool team2Ready;
+    private bool startProcess;
 
     private UiManager UIManager;
     private int timeI;
@@ -39,6 +40,7 @@ public class GameProgress : MonoBehaviourPunCallbacks
         inGameStart = false;
         team1Ready = false;
         team2Ready = false;
+        startProcess = false;
 
         tag = GameManager.instance.tag;
 
@@ -62,7 +64,7 @@ public class GameProgress : MonoBehaviourPunCallbacks
             camera.GetComponent<CameraController>().SetUpsideDown(true);
         }
 
-        StartCoroutine(InGameCountDown());
+        PV.RPC("CountDownStarter", RpcTarget.All);
 
         return;
     }
@@ -70,6 +72,11 @@ public class GameProgress : MonoBehaviourPunCallbacks
     WaitForSeconds one = new WaitForSeconds(1);
 
     [PunRPC]
+    private void CountDownStarter()
+    {
+        StartCoroutine(InGameCountDown());
+    }
+
     private IEnumerator InGameCountDown()
     {
         while (true)
@@ -91,8 +98,6 @@ public class GameProgress : MonoBehaviourPunCallbacks
                 yield return one;
                 UIManager.NoticeInLoby("GameStart!!", 1f);
                 inGameStart = true;
-                timeI = 0;
-                timeF = 0;
                 break;
             }
         }
@@ -105,12 +110,15 @@ public class GameProgress : MonoBehaviourPunCallbacks
     private void ProcessStarter()
     {
         rtsController.ChangeCost(0, 0, 0);
-        StartCoroutine(InGameProcess());
+        timeI = 0;
+        timeF = 0;
+        startProcess = true;
     }
 
-    private IEnumerator InGameProcess()
+
+    private void Update()
     {
-        while (true)
+        if (startProcess)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -123,9 +131,10 @@ public class GameProgress : MonoBehaviourPunCallbacks
             }
 
             timeF += Time.deltaTime;
-            yield return null;
+
         }
     }
+
 
     [PunRPC]
     private void Team1Ready()

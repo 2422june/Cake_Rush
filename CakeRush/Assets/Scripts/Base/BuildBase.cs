@@ -18,7 +18,13 @@ public class BuildBase : EntityBase
     protected override void Awake()
     {
         base.Awake();
-        if(isSpawnable)
+
+        if(PV.IsMine)
+            tag = $"Me_Build";
+        else
+            tag = $"Other_Build";
+
+        if (isSpawnable)
         {
             obstacle = gameObject.GetComponent<NavMeshObstacle>();
             obstacle.carving = true;
