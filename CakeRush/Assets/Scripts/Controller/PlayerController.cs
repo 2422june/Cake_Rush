@@ -5,11 +5,11 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public class PlayerController : UnitBase
-{ 
+{
     public LevelSystem levelSystem;
-    private CokeShot cokeShot;
-    private Lightning lightning;
-    private ShootingStar shootingStar;
+    public CokeShot cokeShot { get; private set; }
+    public Lightning lightning { get; private set; }
+    public ShootingStar shootingStar { get; private set; }
     private Build build;
     private UiManager UIMng;
 
@@ -106,7 +106,7 @@ public class PlayerController : UnitBase
                 levelSystem.SkillLevelUp(shootingStar);
                 UiManager.instance.shootingStarActive.SetActive(false);
             }
-            else if (Input.GetKeyDown(KeyCode.R) && levelSystem.curLevel > 6)
+            else if (Input.GetKeyDown(KeyCode.R) && levelSystem.curLevel > 5)
             {
                 levelSystem.SkillLevelUp(cakeRush);
                 UiManager.instance.cakeRushActive.SetActive(false);
@@ -120,7 +120,7 @@ public class PlayerController : UnitBase
         }
         if(Input.GetKeyDown(KeyCode.F1))
         {
-            levelSystem.GetExp(20);
+            levelSystem.GetExp(100);
         }
     }
 
