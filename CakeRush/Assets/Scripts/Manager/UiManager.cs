@@ -69,6 +69,11 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     private GameObject skillShotingStar;
     private GameObject skillLightning;
 
+    public GameObject lightningLevelUp;
+    public GameObject cokeShotLevelUp;
+    public GameObject shootingStarLevelUp;
+    public GameObject cakeRushLevelUp;
+
     public TMP_Text lightningCooltime;
     public TMP_Text shotingStarCooltime;
     public TMP_Text cakeRushCooltime;
@@ -91,7 +96,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     private TMP_Text playerDefense;
     private TMP_Text playerAttacSpeed;
     private TMP_Text playerAttackrange;
-
+    private TMP_Text playerLevel;
     private Button nextInVictory;
 
     private Button nextInDefeat;
@@ -202,6 +207,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         playerAttacSpeed = SetText(statPanel, "AttackSpeed");
         playerDefense = SetText(statPanel, "Defense");
         playerSpeed = SetText(statPanel, "MoveSpeed");
+        playerLevel = SetText(statPanel, "Level");
         loadingPanel.transform.SetAsLastSibling();
 
         startInTitle.onClick.AddListener(OnClickStartInTitle);
@@ -219,7 +225,16 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         nextInDefeat.onClick.AddListener(EndGame);
         nextInVictory.onClick.AddListener(EndGame);
 
+        lightningLevelUp = SetGameObj(skillLightning, "LevelUp");
+        cokeShotLevelUp = SetGameObj(skillCokeShot, "LevelUp");
+        shootingStarLevelUp = SetGameObj(skillShotingStar, "LevelUp");
+        cakeRushLevelUp = SetGameObj(skillCakeRush, "LevelUp");
         
+        lightningLevelUp.SetActive(true);
+        cokeShotLevelUp.SetActive(true);
+        shootingStarLevelUp.SetActive(true);
+        cakeRushLevelUp.SetActive(false);
+
         //skillCakeRush.onClick.AddListener(OnClickCakeRush);
         //skillShotingStar.onClick.AddListener(OnClickShotingStar);
         //skillCokeShot.onClick.AddListener(OnClickCokeShot);
@@ -239,7 +254,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         playerAttacSpeed.text = $"{player.attackSpeed}";
         playerSpeed.text = $"{player.moveSpeed}";
         playerDefense.text = $"{player.defensive}";
-
+        playerLevel.text = $"{player.levelSystem.curLevel + 1}";
         SetPlayerHp();
     }
 
@@ -250,9 +265,18 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     }
     public void SetPlayerExp()
     {
-        expBar.value = player.levelSystem.curExp / player.levelSystem.maxExp[player.levelSystem.curLevel];
-        exp.text = $"{player.levelSystem.curExp} / {player.levelSystem.maxExp[player.levelSystem.curLevel]}";
-        
+        if(player.levelSystem.curLevel < 10)
+        {
+            expBar.value = player.levelSystem.curExp / player.levelSystem.maxExp[player.levelSystem.curLevel];
+            exp.text = $"{player.levelSystem.curExp} / {player.levelSystem.maxExp[player.levelSystem.curLevel]}";
+        }
+        else
+        {
+            expBar.value = 1;
+            exp.text = "1000 / 1000";
+            Debug.Log("Check");
+        }
+
     }
     //private IEnumerator Loading()
     //{
