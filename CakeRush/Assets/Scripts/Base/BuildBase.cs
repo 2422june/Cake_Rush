@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.AI;
 // this is a Build Component class that is spwanable.
@@ -26,6 +28,7 @@ public class BuildBase : EntityBase
 
         if (isSpawnable)
         {
+            Destroy(gameObject.GetComponent<PhotonView>());
             obstacle = gameObject.GetComponent<NavMeshObstacle>();
             obstacle.carving = true;
             obstacle.enabled = false;
@@ -55,9 +58,10 @@ public class BuildBase : EntityBase
         buildEffect.SetActive(true);
         obstacle.enabled = true;
         gameObject.layer = LayerMask.NameToLayer("Selectable");
-        gameObject.tag = "Build";
+        //gameObject.tag = "Build";
         render.material = originMat;
-        gameObject.isStatic = true;
+        gameObject.AddComponent<PhotonView>();
+        //gameObject.isStatic = true;
         Debug.Log("Start Coroutine Build()");
         while (curHp < maxHp )
         {

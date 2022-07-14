@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &970419809310662852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6385657237146109876}
+  m_Layer: 0
+  m_Name: UnitSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6385657237146109876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970419809310662852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.21, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7466575093064035832}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1321768382332557657
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +68,7 @@ Transform:
   m_Children:
   - {fileID: 1815637282011634654}
   - {fileID: 8195760850775116602}
+  - {fileID: 6385657237146109876}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -127,12 +159,8 @@ MonoBehaviour:
   isSpawnable: 0
   isOnSelectable: 0
   originMat: {fileID: 0}
-  units:
-  - {fileID: 68751289501283800, guid: d7d03bc6c503745129fc8dc6f3f6eb28, type: 3}
-  - {fileID: 6491628616671243276, guid: 637dd8bab9fab4856aeb3768bd32c20f, type: 3}
-  - {fileID: 2554932333613993885, guid: 31f4d4a490fa14042b815af1308a3680, type: 3}
-  - {fileID: 0}
   isWorking: 0
+  unitSpawnPos: {fileID: 0}
 --- !u!54 &3807890332125272633
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -183,10 +211,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 3321248767054817797, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
-  - {fileID: 8931262190440449700, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
-  - {fileID: 7207796372604515227, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

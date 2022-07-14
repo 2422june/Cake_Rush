@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.AI;
 
 //Character and Building GameObject's Base Class
 public class EntityBase : MonoBehaviourPunCallbacks

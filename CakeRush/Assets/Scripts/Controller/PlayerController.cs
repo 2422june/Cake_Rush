@@ -302,6 +302,8 @@ public class PlayerController : UnitBase
         RaycastHit hit;
         BuildBase buildBase = null;
         string curBuildName = null;
+
+        int curNum = -1;
         
         yield return null;
         while (true)
@@ -338,7 +340,7 @@ public class PlayerController : UnitBase
             if (Input.GetKeyDown(KeyCode.A) && curBuildName != build.cookieHouseName)
             {
                 if (go != null) Destroy(go);
-
+                curNum = 0;
                 Debug.Log("A");
                 go = Instantiate(build.cookieHouseObj);
                 curBuildName = build.cookieHouseName;
@@ -347,6 +349,7 @@ public class PlayerController : UnitBase
             if (Input.GetKeyDown(KeyCode.S) && curBuildName != build.sugerMinerName)
             {
                 if (go != null) Destroy(go);
+                curNum = 1;
                 Debug.Log("S");
                 go = Instantiate(build.sugarMinerObj);
                 curBuildName = build.sugerMinerName;
