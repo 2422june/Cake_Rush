@@ -57,7 +57,7 @@ public class LevelSystem : MonoBehaviour
 
         skillPoint--;
         skill.skillStat[skill.level].currentCoolTime = skill.skillStat[skill.level - 1].currentCoolTime;
-        StartCoroutine(skill.skillStat[curLevel].CurrentCoolTime());
+        
         Debug.Log($"{skill.GetType()} skill level up {skill.level} / current skill point : {skillPoint}");
     }
 }

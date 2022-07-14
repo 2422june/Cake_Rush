@@ -80,7 +80,8 @@ public class PlayerController : UnitBase
         }
         #endregion
 
-        if(Input.GetKey(KeyCode.LeftControl) && levelSystem.skillPoint > 0)
+        #region skill level up
+        if (Input.GetKey(KeyCode.LeftControl) && levelSystem.skillPoint > 0)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -99,40 +100,12 @@ public class PlayerController : UnitBase
                 levelSystem.SkillLevelUp(cakeRush);
             }
         }
+        #endregion
 
         if (Input.GetKeyDown(KeyCode.B) && build.isBuildMode == false)      //Build
         {
             StartCoroutine(BuildMode());
         }
-
-        #region garbage
-        /*if (PV.IsMine)
-        {
-            base.Update();
-        
-            if (isSelected == false) return;
-            if (Input.GetKey(KeyCode.Q))             //Lightning
-            {
-                StartCoroutine(Lightning());
-            }
-            else if (Input.GetKey(KeyCode.W))        //Coke shot
-            {
-                StartCoroutine(CokeShot());
-            }
-            else if (Input.GetKey(KeyCode.E))        //Shooting star
-            {
-                ShootingStar();
-            }
-            else if (Input.GetKeyDown(KeyCode.R))        //Cake rush
-            {
-                CakeRush();
-            }
-            else if (Input.GetKeyDown(KeyCode.B) && build.isBuildMode == false)
-            {
-                StartCoroutine(BuildMode());
-            }
-        }*/
-        #endregion
     }
 
     protected override void Attack(Transform target)
@@ -181,10 +154,15 @@ public class PlayerController : UnitBase
     #region //Skill method
     private void SkillInit()
     {
-        cakeRush.isSkillable = true;
         cokeShot.isSkillable = true;
         lightning.isSkillable = true;
         shootingStar.isSkillable = true;
+        cakeRush.isSkillable = true;
+
+        UIMng.lightningActive.SetActive(true);
+        UIMng.cokeShotActive.SetActive(true);
+        UIMng.shootingStarActive.SetActive(true);
+        UIMng.cakeRushActive.SetActive(true);
 
         shootingStar.range = 10f;
         lightning.range = 30f;

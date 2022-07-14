@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : MonoBehaviour //GameManager
+public class UiManager : MonoSingleton<UiManager> //GameManager
 {
 
     #region elements
@@ -33,6 +33,7 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject resourcePanel;
     private GameObject victoryPanel;
     private GameObject defeatPanel;
+    private GameObject characterInfoPanel;
 
     //inGame
     private GameObject playerPanel;
@@ -63,10 +64,20 @@ public class UiManager : MonoBehaviour //GameManager
     private float noticeTime;
     private float noticeTimer;
 
-    private Button skillCokeShot;
-    private Button skillCakeRush;
-    private Button skillShotingStar;
-    private Button skillLightning;
+    private GameObject skillCokeShot;
+    private GameObject skillCakeRush;
+    private GameObject skillShotingStar;
+    private GameObject skillLightning;
+
+    public TMP_Text lightningCooltime;
+    public TMP_Text shotingStarCooltime;
+    public TMP_Text cakeRushCooltime;
+    public TMP_Text cokeShotCooltime;
+
+    public GameObject lightningActive;
+    public GameObject cokeShotActive;
+    public GameObject shootingStarActive;
+    public GameObject cakeRushActive;
 
     private TMP_Text timeTxt;
 
@@ -123,6 +134,8 @@ public class UiManager : MonoBehaviour //GameManager
         playerUnitSlot   = FindElement("UnitListPanel");
         downUnitSlot     = FindElement("UnitListPanelDown");
 
+        characterInfoPanel = SetGameObj(playerPanel, "CharacterInfoPanel");
+
         victoryPanel     = FindElement("VictoryPanel");
         defeatPanel      = FindElement("DefeatPanel");
 
@@ -151,10 +164,21 @@ public class UiManager : MonoBehaviour //GameManager
 
         nextInDefeat     = SetAny<Button>(defeatPanel, "Next");
         nextInVictory    = SetAny<Button>(victoryPanel, "Next");
-        //skillCokeShot    = SetAny<Button>(playerPanel, "CokeShot");
-        //skillCakeRush    = SetAny<Button>(playerPanel, "CakeRush");
-        //skillShotingStar = SetAny<Button>(playerPanel, "ShotingStar");
-        //skillLightning   = SetAny<Button>(playerPanel, "Lightning");
+
+        skillCokeShot    = SetGameObj(characterInfoPanel, "CokeShot");
+        skillCakeRush    = SetGameObj(characterInfoPanel, "CakeRush");
+        skillShotingStar = SetGameObj(characterInfoPanel, "ShotingStar");
+        skillLightning   = SetGameObj(characterInfoPanel, "Lightning");
+
+        cakeRushActive   = SetGameObj(skillCokeShot, "SkillActive");
+        cakeRushActive   = SetGameObj(skillCakeRush, "SkillActive");
+        shootingStarActive = SetGameObj(skillShotingStar, "SkillActive");
+        lightningActive  = SetGameObj(skillLightning, "SkillActive");
+
+        lightningCooltime = SetText(skillLightning, "Cooltime");
+        cakeRushCooltime = SetText(skillCakeRush, "Cooltime");
+        cokeShotCooltime = SetText(skillCokeShot, "Cooltime");
+        shotingStarCooltime = SetText(skillShotingStar, "Cooltime");
 
         loadingPanel.transform.SetAsLastSibling();
 

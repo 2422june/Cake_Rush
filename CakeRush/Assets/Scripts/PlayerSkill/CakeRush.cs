@@ -45,7 +45,7 @@ public class CakeRush : SkillBase
                 GameManager.instance.rtsController.unitList[i].cakeRush.StartCoroutine(UnitCakeRush(GameManager.instance.rtsController.unitList[i].transform));
             }
 
-            StartCoroutine(skillStat[skillLevel].CurrentCoolTime());
+            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UiManager.instance.cakeRushCooltime, UiManager.instance.cokeShotActive));
         }
         else
         {
