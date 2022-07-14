@@ -161,29 +161,59 @@ public class GameProgress : MonoBehaviourPunCallbacks
         GameObject go;
         if (GameManager.instance.DevelopMode)
         {
-            go = PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+            go = PN.Instantiate("Prefabs/Units/Player", (Vector3.right + Vector3.forward) * 9, Quaternion.identity);
             rtsController.unitList.Add(go.GetComponent<PlayerController>());
             go = PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
             rtsController.buildList.Add(go.GetComponent<NexusController>());
             go = PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
             rtsController.buildList.Add(go.GetComponent<NexusController>());
+
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 60) + (Vector3.forward * 281.8f), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 165) + (Vector3.forward * 185), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 282) + (Vector3.forward * 59.5f), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 19) + (Vector3.forward * 238), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 135) + (Vector3.forward * 115), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 240) + (Vector3.forward * 18), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
             return;
         }
         
         if (tag == "Team_1")
         {
-            go = PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+            go = PN.Instantiate("Prefabs/Units/Player", (Vector3.right + Vector3.forward) * 9, Quaternion.identity);
             rtsController.unitList.Add(go.GetComponent<PlayerController>());
             go = PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
             rtsController.buildList.Add(go.GetComponent<NexusController>());
+
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 19) + (Vector3.forward * 238), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 135) + (Vector3.forward * 115), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 240) + (Vector3.forward * 18), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+
             camera.transform.localPosition = ((Vector3.right * 4) + (Vector3.up * 5) + (Vector3.forward)) * 10;
         }
         else
         {
-            go = PN.Instantiate("Prefabs/Units/Player", ((Vector3.right + Vector3.forward) * 300), Quaternion.identity);
+            go = PN.Instantiate("Prefabs/Units/Player", (((Vector3.right + Vector3.forward) * 300) - (Vector3.right + Vector3.forward) * 9), Quaternion.identity);
             rtsController.unitList.Add(go.GetComponent<PlayerController>());
             go = PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
             rtsController.buildList.Add(go.GetComponent<NexusController>());
+
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 60) + (Vector3.forward * 281.8f), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 165) + (Vector3.forward * 185), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 282) + (Vector3.forward * 59.5f), Quaternion.Euler(Vector3.right * -90));
+            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+
             camera.transform.localPosition = ((Vector3.right * 26) + (Vector3.up * 5) + (Vector3.forward * 30)) * 10;
             camera.transform.rotation = Quaternion.Euler(((Vector3.right * 7) + (Vector3.up * 18)) * 10);
         }
