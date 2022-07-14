@@ -27,9 +27,9 @@ public class PlayerController : UnitBase
         base.Awake();
         
         if (PV.IsMine)
-            tag = $"Me_Player";
+            tag = "Me_Player";
         else
-            tag = $"Other_Player";
+            tag = "Other_Player";
         SkillInit();
         UiManager.instance.buildPanel.SetActive(false);
     }
@@ -120,8 +120,7 @@ public class PlayerController : UnitBase
 
     protected override void Attack(Transform target)
     {
-        if (!target.gameObject.active)
-            return;
+        if (!target.gameObject.active) return;
 
         Debug.Log("Attack Triger");
         state = CharacterState.Attack;
@@ -289,6 +288,7 @@ public class PlayerController : UnitBase
             UiManager.instance.buildPanel.SetActive(build.isBuildMode);
             yield break;
         }
+
         Debug.Log("BuildMode");
         build.isBuildMode = true;
         UiManager.instance.buildPanel.SetActive(build.isBuildMode);
@@ -298,6 +298,7 @@ public class PlayerController : UnitBase
         string curBuildName = null;
         
         yield return null;
+        
         while (true)
         {
             if (go != null)
@@ -390,6 +391,13 @@ public class PlayerController : UnitBase
         animator.SetBool("Idle", true);
         curHp = maxHp;
         GameManager.instance.inGameStart = true;
+    }
+
+    public override void Hit(float hitDamage)
+    {
+        base.Hit(hitDamage);
+        UiManager.instance.hpBar.value = curHp / maxHp;
+        UiManager.instance.SetPlayerHp();
     }
 
     [PunRPC]

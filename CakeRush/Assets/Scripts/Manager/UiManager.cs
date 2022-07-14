@@ -78,7 +78,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     public GameObject cokeShotActive;
     public GameObject shootingStarActive;
     public GameObject cakeRushActive;
-
+    
     private TMP_Text timeTxt;
 
     private TMP_Text chocolateTxt;
@@ -93,8 +93,9 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     private TMP_Text playerAttackrange;
 
     private Button nextInVictory;
-
     private Button nextInDefeat;
+
+    public Slider hpBar;
 
     #endregion
 
@@ -118,7 +119,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         return parent.transform.Find(name).GetComponent<T>();
     }
     public void FindPlayer() => player = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
-
+    //public void UpdatePlayerHp() => 
     public void Init()
     {
         DontDestroyOnLoad(this);
@@ -188,7 +189,9 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         cokeShotCooltime = SetText(skillCokeShot, "Cooltime");
         shotingStarCooltime = SetText(skillShotingStar, "Cooltime");
 
-        playerHealth = SetText(statPanel, "HP");
+        hpBar = SetAny<Slider>(characterInfoPanel, "HPBar");
+
+        playerHealth = SetText(hpBar.gameObject, "HP");
         playerDamage = SetText(statPanel, "Damage");
         playerAttackrange = SetText(statPanel, "AttackRange");
         playerAttacSpeed = SetText(statPanel, "AttackSpeed");
@@ -210,7 +213,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
 
         nextInDefeat.onClick.AddListener(EndGame);
         nextInVictory.onClick.AddListener(EndGame);
-
+        
         //skillCakeRush.onClick.AddListener(OnClickCakeRush);
         //skillShotingStar.onClick.AddListener(OnClickShotingStar);
         //skillCokeShot.onClick.AddListener(OnClickCokeShot);
@@ -225,14 +228,15 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
 
     public void SetPlayerStat()
     {
+        SetPlayerHp();
         playerDamage.text = $"{player.damage}";
         playerAttackrange.text = $"{player.attackRange}";
         playerAttacSpeed.text = $"{player.attackSpeed}";
-        playerHealth.text = $"{player.curHp} / {player.maxHp}";
         playerSpeed.text = $"{player.moveSpeed}";
         playerDefense.text = $"{player.defensive}";
     }
 
+    public void SetPlayerHp() => playerHealth.text = $"{player.curHp} / {player.maxHp}";
     //private IEnumerator Loading()
     //{
     //    while(true)
