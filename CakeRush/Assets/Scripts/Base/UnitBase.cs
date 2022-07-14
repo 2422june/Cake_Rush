@@ -62,12 +62,6 @@ public class UnitBase : CharacterBase
 
         animator.SetBool("Move", false);
         animator.SetBool("Attack", true);
-
-        if(target.CompareTag("Monster"))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), 90);
-            target.GetComponent<MobBase>().Hit(damage, transform);
-        }
     }
 
     void Idle()

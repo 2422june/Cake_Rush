@@ -37,4 +37,9 @@ public class Define
     {
         noting, title, lobby, inGame, victory, defeat
     };
+    
+    public enum MobState
+    {
+        idle, attack, move, reset, retargeting, die
+    }
 }
