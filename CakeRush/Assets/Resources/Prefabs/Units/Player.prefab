@@ -5800,6 +5800,10 @@ MonoBehaviour:
   cookieHouseName: 
   sugerMinerName: 
   chocolateMinerName: 
+  BuildPrefabs:
+  - 
+  - 
+  - 
   isBuildMode: 0
 --- !u!136 &2102197662
 CapsuleCollider:
