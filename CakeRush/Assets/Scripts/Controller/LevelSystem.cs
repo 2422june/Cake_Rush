@@ -10,12 +10,19 @@ public class LevelSystem : MonoBehaviour
     public int curLevel { get; private set; }
     public int skillPoint { get; private set; } = 1;
 
-    private const int maxLevel = 9;     //max index number
-    [SerializeField] private float []maxExp;
+    private const int maxLevel = 10;     //max index number
+    [SerializeField] public float[] maxExp;
 
     private void Awake()
     {
+        int needMaxExp = 100;
         playerController = GetComponent<PlayerController>();
+
+        for(int i = 0; i < maxLevel; i++)
+        {
+            maxExp[i] = needMaxExp;
+            needMaxExp += 100;
+        }
     }
 
     public int SetLevel()
@@ -39,6 +46,8 @@ public class LevelSystem : MonoBehaviour
     {
         curExp += returnExp;
         LevelUp();
+
+        UiManager.instance.SetPlayerExp();
     }
 
     public void SkillLevelUp <T> (T skill) where T : SkillBase

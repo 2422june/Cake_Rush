@@ -24,9 +24,10 @@ public class Data
     [System.Serializable]
     public struct StatureAbillty
     {
-        public float s_hp;
-        public float s_damage;
-        public float s_defensive;
+        public float hp;
+        public float damage;
+        public float defensive;
+        public float spawnTime;
     }
 }
 

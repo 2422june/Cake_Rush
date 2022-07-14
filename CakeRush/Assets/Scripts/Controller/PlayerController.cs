@@ -16,6 +16,7 @@ public class PlayerController : UnitBase
     protected override void Awake()
     {
         DataLoad("Player");
+        AbilltyLoad("Player_Statup");
         UiManager.instance.FindPlayer();
         levelSystem  = GetComponent<LevelSystem>();
         cakeRush     = GetComponent<CakeRush>();
@@ -39,6 +40,7 @@ public class PlayerController : UnitBase
         base.Start();
         rtsController.unitList.Add(this);
         UiManager.instance.SetPlayerStat();
+        UiManager.instance.SetPlayerExp();
     }
 
     protected override void Update()
@@ -115,6 +117,10 @@ public class PlayerController : UnitBase
         if (Input.GetKeyDown(KeyCode.B) && build.isBuildMode == false)      //Build
         {
             StartCoroutine(BuildMode());
+        }
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            levelSystem.GetExp(20);
         }
     }
 
@@ -398,6 +404,12 @@ public class PlayerController : UnitBase
         base.Hit(hitDamage);
         UiManager.instance.hpBar.value = curHp / maxHp;
         UiManager.instance.SetPlayerHp();
+    }
+
+    public override void AbilltyUp()
+    {
+        base.AbilltyUp();
+        spawnTime += statureAbillty.spawnTime;
     }
 
     [PunRPC]

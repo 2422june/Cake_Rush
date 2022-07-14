@@ -5825,6 +5825,14 @@ MonoBehaviour:
   maxExp:
   - 2
   - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
 --- !u!82 &8945355237477952978
 AudioSource:
   m_ObjectHideFlags: 0
