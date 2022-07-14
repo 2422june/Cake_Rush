@@ -48,11 +48,7 @@ public class CharacterBase : EntityBase
         isStun = false;
     }
 
-<<<<<<< HEAD
-    public void AbilltyUp()
-=======
     public virtual void AbilltyUp()
->>>>>>> BiN_
     {
         maxHp += statureAbillty.hp;
         damage += statureAbillty.damage;

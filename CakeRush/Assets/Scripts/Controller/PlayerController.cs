@@ -16,10 +16,7 @@ public class PlayerController : UnitBase
     protected override void Awake()
     {
         DataLoad("Player");
-<<<<<<< HEAD
-=======
         AbilltyLoad("Player_Statup");
->>>>>>> BiN_
         UiManager.instance.FindPlayer();
         levelSystem  = GetComponent<LevelSystem>();
         cakeRush     = GetComponent<CakeRush>();
@@ -43,10 +40,7 @@ public class PlayerController : UnitBase
         base.Start();
         rtsController.unitList.Add(this);
         UiManager.instance.SetPlayerStat();
-<<<<<<< HEAD
-=======
         UiManager.instance.SetPlayerExp();
->>>>>>> BiN_
     }
 
     protected override void Update()
@@ -124,13 +118,10 @@ public class PlayerController : UnitBase
         {
             StartCoroutine(BuildMode());
         }
-<<<<<<< HEAD
-=======
         if(Input.GetKeyDown(KeyCode.F1))
         {
             levelSystem.GetExp(20);
         }
->>>>>>> BiN_
     }
 
     protected override void Attack(Transform target)
@@ -309,10 +300,6 @@ public class PlayerController : UnitBase
             UiManager.instance.buildPanel.SetActive(build.isBuildMode);
             yield break;
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> BiN_
         Debug.Log("BuildMode");
         build.isBuildMode = true;
         UiManager.instance.buildPanel.SetActive(build.isBuildMode);
@@ -320,12 +307,7 @@ public class PlayerController : UnitBase
         RaycastHit hit;
         BuildBase buildBase = null;
         string curBuildName = null;
-<<<<<<< HEAD
-
         int curNum = -1;
-=======
->>>>>>> BiN_
-        
         yield return null;
         
         while (true)

@@ -31,7 +31,6 @@ public class Define
         FX_Game_Win,
         FX_Game_Loss,
         BGM_Title_Main,
-<<<<<<< HEAD
     }
 
     public enum Scene
@@ -42,12 +41,5 @@ public class Define
     public enum MobState
     {
         idle, attack, move, reset, retargeting, die
-=======
->>>>>>> BiN_
     }
-
-    public enum Scene
-    {
-        noting, title, lobby, inGame, victory, defeat
-    };
 }
