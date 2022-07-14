@@ -31,7 +31,7 @@ public class ChocolateMinerController : BuildBase
         yield return new WaitUntil(()=> isActive == true);
         while(true)
         {
-            rtsController.cost[1] += ChocolatePerSec;   
+            rtsController.ChangeCost(0, ChocolatePerSec, 0);   
             yield return new WaitForSeconds(1f);    
             Debug.Log(rtsController.cost[2]);
             yield return null;

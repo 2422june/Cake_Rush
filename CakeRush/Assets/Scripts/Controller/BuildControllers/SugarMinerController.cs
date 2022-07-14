@@ -31,7 +31,8 @@ public class SugarMinerController : BuildBase
         yield return new WaitForSeconds(1f);
         while(true)
         {
-            rtsController.cost[0] += sugarPerSec;   
+            rtsController.ChangeCost(sugarPerSec, 0, 0);
+            //rtsController.cost[0] += sugarPerSec;   
             yield return new WaitForSeconds(1f);
             Debug.Log(rtsController.cost[0]);
             yield return null;

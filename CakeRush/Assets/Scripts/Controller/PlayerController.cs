@@ -158,7 +158,13 @@ public class PlayerController : UnitBase
 
 
         if (target.curHp <= 0)
+        {
             levelSystem.GetExp(target.returnExp);
+            animator.SetBool("Attack", false);
+            animator.SetBool("Idle", true);
+            state = CharacterState.Idle;
+            StopAllCoroutines();
+        }
     }
 
     #region //Skill method
@@ -372,29 +378,29 @@ public class PlayerController : UnitBase
     }
     protected override void Die()
     {
-        rtsController.selectedEntity.Deselect();
-        rtsController.selectedEntity = null;
-        GameManager.instance.inGameStart = false;
-        PlayDie();
+        if(rtsController.selectedEntity != null)
+        {
+            rtsController.selectedEntity.Deselect();
+            rtsController.selectedEntity = null;
+        }
+        GameProgress.instance.inGameStart = false;
 
-        Respawn();
+        PV.RPC("PlayDie", RpcTarget.All);
+
+        Invoke("Respawn", 5);
     }
 
     protected override void Respawn()
-    {
-        Invoke("DoRespawn", 5);
-    }
-
-    protected void DoRespawn()
     {
         if (GameManager.instance.tag == "Team_1")
             transform.position = Vector3.zero;
         else
             transform.position = ((Vector3.right + Vector3.forward) * 300);
 
+        navMashAgent.isStopped = true;
         animator.SetBool("Idle", true);
         curHp = maxHp;
-        GameManager.instance.inGameStart = true;
+        GameProgress.instance.inGameStart = true;
     }
 
     [PunRPC]

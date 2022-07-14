@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     private bool nowInGame;
     public bool nowMatching, nowCloseMatching, nowInRoom;
     public UiManager UIManager;
-    public bool inGameStart;
 
     [SerializeField]
     private GameObject UIManagerOBJ;
@@ -58,6 +57,53 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
+    //private void Awake()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = this;
+    //        PV = GetComponent<PhotonView>();
+    //        GameProgress.instance = GetComponent<GameProgress>();
+    //        DontDestroyOnLoad(instance);
+    //    }
+    //    else if (instance != this)
+    //    {
+    //        Destroy(this.gameObject);
+    //    }
+    //    /*if (instance == null)
+    //    {
+    //        GameObject GM = Resources.Load<GameObject>("Prefabs/Systems/GameManager");
+    //        instance = GM.GetComponent<GameManager>();
+    //        Destroy(this.gameObject);
+    //    }
+    //    else if (instance != this)
+    //    {
+    //        Destroy(this.gameObject);
+    //    }
+    //    else
+    //    {
+    //        PV = GetComponent<PhotonView>();
+    //        GameProgress.instance = GetComponent<GameProgress>();
+    //        DontDestroyOnLoad(instance);
+    //    }*/
+
+
+    //    if (SceneManager.GetActiveScene().name.Contains("Title"))
+    //    {
+    //        nowInGame = false;
+
+    //        UIManagerOBJ = Instantiate(Resources.Load<GameObject>("Prefabs/UI/UIManager"), transform);
+    //        UIManager = UIManagerOBJ.GetComponent<UiManager>();
+
+    //        UIManager.Init();
+
+    //        SetScene("title");
+    //    }
+    //    else if (SceneManager.GetActiveScene().name.Contains("InGame"))
+    //    {
+    //        rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
+    //    }
+    //}
     private void Awake()
     {
         if (instance == null)
@@ -67,7 +113,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             GameProgress.instance = GetComponent<GameProgress>();
             DontDestroyOnLoad(instance);
         }
-
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
 
         if (SceneManager.GetActiveScene().name.Contains("Title"))
         {
@@ -263,6 +312,23 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         if (targetScene.Equals("lobby"))
         {
+            if(SceneManager.GetActiveScene().name == "InGame")
+            {
+                for (int i = 0; i < rtsController.unitList.Count; i++)
+                {
+                    Destroy(rtsController.unitList[i].gameObject);
+                }
+                rtsController.unitList.Clear();
+                for (int i = 0; i < rtsController.buildList.Count; i++)
+                {
+                    Destroy(rtsController.buildList[i].gameObject);
+                }
+                rtsController.buildList.Clear();
+                nowInGame = false;
+                PN.LeaveRoom();
+                Destroy(this.gameObject);
+                SceneManager.LoadScene("TitleLobby");
+            }
             nowScene = Define.Scene.lobby;
         }
         if (targetScene.Equals("inGame"))
