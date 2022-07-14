@@ -4,166 +4,139 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public enum State
-{
-    idle, attack, move, reset, retargeting, die
-}
-
 //중립 몬스터의 부모 클래스
 public class MobBase : CharacterBase
 {
-    //variable for serching tag of target
     [SerializeField] protected Transform target;
-    [SerializeField] protected State state;
-    
+    [SerializeField] protected Define.MobState state;
     protected Vector3 originPos;
-    //임시
-    protected float outToBase;
-    protected WaitForSeconds second;
-    
+
+    [SerializeField] bool isResetting = false;
+    [SerializeField] bool isFighting = false;
+    [SerializeField] bool isAttackable = true;
     protected override void Awake()
     {
         base.Awake();
         originPos = transform.position;
-        state = State.idle;
-        outToBase = eyeSight;
-        second = new WaitForSeconds(1);
+        state = Define.MobState.idle;
         navMashAgent.speed = moveSpeed;
-        //target = null;
     }
+
     protected override void Start()
     {
         base.Start();
     }
+
     protected override void Update()
     {
+        base.Update();
+
         switch(state)
         {
-            case State.attack:
+            case Define.MobState.idle:
+                Idle();
+                break;
+            case Define.MobState.attack:
+                Attack();
                 break;
 
-            case State.move:
+            case Define.MobState.move:
                 Move();
                 break;
 
-            case State.retargeting:
-                Retargeting();
+            case Define.MobState.retargeting:
+                Retarget();
                 break;
 
-            case State.reset:
+            case Define.MobState.reset:
                 Reset();
                 break;
             
             default:
                 break;
         }
-
-        animator.SetBool("Attack", state == State.attack);
-        animator.SetBool("Move", state == State.move || state == State.reset);
     }
 
-    protected override void Die()
+    void Idle()
     {
-        PV.RPC("OnDie", RpcTarget.All);
+        curHp = maxHp;
     }
 
-    [PunRPC]
-    private void OnDie()
+    void Attack()
     {
-        animator.SetTrigger("Die");
-        state = State.die;
-        Destroy(gameObject, 3f);
-        base.Die();
+        animator.SetTrigger("attack");
+        target.GetComponent<EntityBase>().Hit(damage);
+        if(target.GetComponent<EntityBase>().curHp < 0)
+        {
+            state = Define.MobState.retargeting;
+        }
+        StartCoroutine(AttackCoolDown());
+        state = Define.MobState.move;
     }
 
-    protected IEnumerator Attack()
+    void Move()
     {
-        while(true)
+        animator.SetBool("isMove", true);
+        navMashAgent.SetDestination(target.position);
+        if(Vector3.Distance(transform.position, target.position) < attackRange)
         {
-            if(target == null)
-            {
-               state = State.retargeting;
-               break;
-            }
-
-            if(attackRange >= (target.position - transform.position).sqrMagnitude)
-            {
-               transform.LookAt(target);
-               target.GetComponent<UnitBase>().Hit(damage);
-               yield return second;
-            }
-            else
-            {
-               state = State.move;
-               break;
-            }
-        }
-    }
-
-    //move function for trace
-    protected virtual void Move()
-    {
-        //check, is it out homebase
-        if(outToBase < Vector3.Distance(originPos, transform.position) || outToBase < Vector3.Distance(originPos, target.position))
-        {
-            state = State.reset;
+            state = Define.MobState.attack;
+            return;
         }
 
-        //check is target in my attack range
-        if(attackRange < (target.position - transform.position).sqrMagnitude)
+        if(Vector3.Distance(transform.position, originPos) > eyeSight)
         {
-            navMashAgent.SetDestination(target.position);
-            //transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-            //transform.LookAt(target.position);
-        }
-        else
-        {
-            //in range
-            if(state != State.attack)
-            {
-                navMashAgent.ResetPath();
-                state = State.attack;
-                StartCoroutine("Attack");
-            }
-        }
-    }
-
-    protected void Reset()
-    {
-        //0.1f is move mistake proofread
-        if(0.1f < (originPos - transform.position).sqrMagnitude)
-        {
-            //transform.position = Vector3.MoveTowards(transform.position, originPos, moveSpeed * Time.deltaTime);
-            navMashAgent.SetDestination(originPos);
-            //transform.LookAt(originPos);
-        }
-        else
-        {
-            target = null;
-            state = State.idle;
+            state = Define.MobState.reset;
         }
     }
 
     public virtual void Hit(float hitDamage, Transform attacker)
     {
-        PV.RPC("OnHit", RpcTarget.All, hitDamage, attacker);
+        //PV.RPC("OnHit", RpcTarget.All, hitDamage, attacker);
+        OnHit(hitDamage, target);
     }
 
-    [PunRPC]
-    private void OnHit(float hitDamage, Transform attacker)
+    //[PunRPC]
+    private void OnHit(float hitDamage, Transform targetTransform)
     {
+        Debug.Log("OnHit");
         base.Hit(hitDamage);
 
-        if (state != State.attack)
+        if (isResetting == false && isFighting == false)
         {
-            state = State.attack;
-            target = attacker;
-            StartCoroutine(Attack());
+            target = targetTransform;
+            state = Define.MobState.move;
+        }
+    }
+    
+    void Reset()
+    {
+        animator.SetBool("isMove", true);
+        navMashAgent.SetDestination(originPos);
+        if(Vector3.Distance(transform.position, originPos) < 4)
+        {
+            animator.SetBool("isMove", false);
+            state = Define.MobState.idle;
         }
     }
 
-    protected void Retargeting()
+    IEnumerator AttackCoolDown()
     {
+        isAttackable = false;
+        yield return new WaitForSeconds(attackSpeed);   
+        isAttackable = true;
+    }
+
+    void Retarget()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, eyeSight, GameProgress.instance.selectableLayer);
         
+        foreach(Collider collider in colliders)
+        {
+            if(collider.gameObject.GetComponent<EntityBase>().curHp < 0) continue;
+            target = collider.transform;
+            break;
+        }
+        state = Define.MobState.move;
     }
 }
