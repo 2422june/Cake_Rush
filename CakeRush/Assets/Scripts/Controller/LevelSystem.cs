@@ -8,7 +8,7 @@ public class LevelSystem : MonoBehaviour
     private PlayerController playerController;
     public float curExp { get; private set; }
     public int curLevel { get; private set; }
-    public int skillPoint { get; private set; }
+    public int skillPoint { get; private set; } = 1;
 
     private const int maxLevel = 9;     //max index number
     [SerializeField] private float []maxExp;
@@ -20,8 +20,6 @@ public class LevelSystem : MonoBehaviour
 
     public int SetLevel()
     {
-
-        Debug.Log("Level Up");
         skillPoint++;
         return curLevel++;
     }
@@ -32,6 +30,8 @@ public class LevelSystem : MonoBehaviour
         {
             curExp = 0;
             SetLevel();
+            playerController.AbilltyUp();
+            UiManager.instance.SetPlayerStat();
         }
     }
 
@@ -52,12 +52,12 @@ public class LevelSystem : MonoBehaviour
             if (skill.maxSkillLevel > skill.level)
             {
                 skill.LevelUp();
+                skill.skillStat[skill.level].currentCoolTime = skill.skillStat[skill.level - 1].currentCoolTime;
             }
         }
 
         skillPoint--;
-        skill.skillStat[skill.level].currentCoolTime = skill.skillStat[skill.level - 1].currentCoolTime;
-        StartCoroutine(skill.skillStat[curLevel].CurrentCoolTime());
+        
         Debug.Log($"{skill.GetType()} skill level up {skill.level} / current skill point : {skillPoint}");
     }
 }

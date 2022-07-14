@@ -13,8 +13,9 @@ public class SugarMinerController : BuildBase
         base.Awake();
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         StartCoroutine(MineSugar());
     }
 

@@ -31,7 +31,10 @@ public class MobBase : CharacterBase
         navMashAgent.speed = moveSpeed;
         //target = null;
     }
-
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void Update()
     {
         switch(state)
@@ -50,7 +53,7 @@ public class MobBase : CharacterBase
             case State.reset:
                 Reset();
                 break;
-
+            
             default:
                 break;
         }

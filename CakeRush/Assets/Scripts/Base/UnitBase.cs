@@ -26,15 +26,18 @@ public class UnitBase : CharacterBase
 
 
         if (PV.IsMine)
-            tag = $"Me_Unit";
+            tag = "Me_Unit";
         else
-            tag = $"Other_Unit";
+            tag = "Other_Unit";
 
         teamCamera = Camera.main;
         state = CharacterState.Idle;
         navMashAgent.speed = moveSpeed;
     }
-
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void Update()
     {
         base.Update();

@@ -10,7 +10,10 @@ public class HalfCrabController : MobBase
         base.Awake();
         navMashAgent.speed = moveSpeed;
     }
-
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void Update()
     {
         base.Update();

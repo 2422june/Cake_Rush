@@ -48,4 +48,12 @@ public class SoundManager : MonoSingleton<SoundManager>
     {
         source.PlayOneShot(ReturnClip(sound));
     }
+
+    public bool isClipEqualSourceClip(ref AudioSource source, Define.GameSound sound)
+    {
+        if(source.clip == SoundManager.instance.GameSounds[(int)sound].clip)
+            return true;
+        else 
+            return false;
+    }
 }

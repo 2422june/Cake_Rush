@@ -157,9 +157,10 @@ public class GameProgress : MonoBehaviourPunCallbacks
 
     private void SetingMap()
     {
+        GameObject go;
         if (GameManager.instance.DevelopMode)
         {
-            PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+            go = PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
             PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
             PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
             return;
@@ -167,17 +168,19 @@ public class GameProgress : MonoBehaviourPunCallbacks
         
         if (tag == "Team_1")
         {
-            PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+            go = PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
             PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
             camera.transform.localPosition = ((Vector3.right * 4) + (Vector3.up * 5) + (Vector3.forward)) * 10;
         }
         else
         {
-            PN.Instantiate("Prefabs/Units/Player", ((Vector3.right + Vector3.forward) * 300), Quaternion.identity);
+            go = PN.Instantiate("Prefabs/Units/Player", ((Vector3.right + Vector3.forward) * 300), Quaternion.identity);
             PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
             camera.transform.localPosition = ((Vector3.right * 26) + (Vector3.up * 5) + (Vector3.forward * 30)) * 10;
             camera.transform.rotation = Quaternion.Euler(((Vector3.right * 7) + (Vector3.up * 18)) * 10);
         }
+
+        rtsController.unitList.Add(go.GetComponent<PlayerController>());
     }
 
     public void FinalGame()

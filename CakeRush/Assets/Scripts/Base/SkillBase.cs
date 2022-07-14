@@ -9,20 +9,28 @@ public class SkillStat
     public float currentCoolTime;   //Current cool time
     public bool isCoolTime;         //Is the current skill available?
 
-    public IEnumerator CurrentCoolTime()
+    public IEnumerator CurrentCoolTime(TMPro.TMP_Text skillCoolTime, GameObject go)
     {
+        string currentCoolTimeText;
         isCoolTime = true;
 
         currentCoolTime = coolTime;
+        go.SetActive(true);
 
-        while (currentCoolTime >= 0)
+        while (true)
         {
-            currentCoolTime -= Time.deltaTime;
+            if (currentCoolTime <= 0.01) break;
 
+            currentCoolTimeText = string.Format("{0:0.0}", currentCoolTime);
+            skillCoolTime.text = $"{currentCoolTimeText}";
+            currentCoolTime -= Time.deltaTime;
+                
             yield return null;
         }
 
         isCoolTime = false;
+        skillCoolTime.text = "";
+        go.SetActive(false);
         currentCoolTime = 0;
     }
 }
@@ -51,15 +59,7 @@ public class SkillBase : MonoBehaviour
 
     public virtual void UseSkill(int skillLevel, Vector3 point)
     {
-        if (!skillStat[skillLevel].isCoolTime && isSkillable == true)
-        {
-            Debug.Log("Check");
-            StartCoroutine(skillStat[skillLevel].CurrentCoolTime());
-        }
-        else
-        {
-            return;
-        }
+
     }
 
     public virtual void LevelUp()
