@@ -170,7 +170,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         skillShotingStar = SetGameObj(characterInfoPanel, "ShotingStar");
         skillLightning   = SetGameObj(characterInfoPanel, "Lightning");
 
-        cakeRushActive   = SetGameObj(skillCokeShot, "SkillActive");
+        cokeShotActive   = SetGameObj(skillCokeShot, "SkillActive");
         cakeRushActive   = SetGameObj(skillCakeRush, "SkillActive");
         shootingStarActive = SetGameObj(skillShotingStar, "SkillActive");
         lightningActive  = SetGameObj(skillLightning, "SkillActive");
