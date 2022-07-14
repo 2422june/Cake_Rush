@@ -50,7 +50,7 @@ public class MobBase : CharacterBase
             case State.reset:
                 Reset();
                 break;
-
+            
             default:
                 break;
         }
