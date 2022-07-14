@@ -11,14 +11,14 @@ public class LevelSystem : MonoBehaviour
     public int skillPoint { get; private set; } = 1;
 
     private const int maxLevel = 11;     //max index number
-    public float[] maxExp { get; private set; } = new float[11];
+    public float[] maxExp { get; private set; } = new float[10];
 
     private void Awake()
     {
         int needMaxExp = 100;
         playerController = GetComponent<PlayerController>();
 
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < maxLevel - 1; i++)
         {
             maxExp[i] = needMaxExp;
             needMaxExp += 100;
@@ -33,17 +33,20 @@ public class LevelSystem : MonoBehaviour
 
     private void LevelUp()
     {
-        if(curExp >= maxExp[curLevel] && maxLevel - 1> curLevel)
+        if (maxLevel <= curLevel + 1) return;
+        
+        if(curExp >= maxExp[curLevel])
         {
-            SetLevel();
-
-            if(curLevel == maxLevel)
+            if(curLevel + 1 == maxLevel)
             {
+                SetLevel();
                 playerController.AbilltyUp();
                 playerController.AbilltyUp();
                 UiManager.instance.SetPlayerStat();
                 return;                
             }
+
+            SetLevel();
 
             curExp = 0;
             playerController.AbilltyUp();
@@ -67,10 +70,14 @@ public class LevelSystem : MonoBehaviour
 
     public void GetExp(float returnExp)
     {
-        curExp += returnExp;
-        LevelUp();
+        if(curLevel < maxLevel)
+        {
+            curExp += returnExp;
+            LevelUp();
+            UiManager.instance.SetPlayerExp();
+        }
 
-        UiManager.instance.SetPlayerExp();
+        Debug.Log(curLevel);
     }
 
     public void SkillLevelUp <T> (T skill) where T : SkillBase
@@ -78,6 +85,7 @@ public class LevelSystem : MonoBehaviour
         if (skill.isSkillable == false)
         {
             skill.isSkillable = true;
+            skillPoint--;
         }
         else
         {
@@ -85,11 +93,10 @@ public class LevelSystem : MonoBehaviour
             {
                 skill.LevelUp();
                 skill.skillStat[skill.level].currentCoolTime = skill.skillStat[skill.level - 1].currentCoolTime;
+                skillPoint--;
             }
         }
 
-        skillPoint--;
-        
         if(skillPoint == 0)
         {
             UiManager.instance.lightningLevelUp.SetActive(false);

@@ -263,9 +263,18 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     }
     public void SetPlayerExp()
     {
-        expBar.value = player.levelSystem.curExp / player.levelSystem.maxExp[player.levelSystem.curLevel];
-        exp.text = $"{player.levelSystem.curExp} / {player.levelSystem.maxExp[player.levelSystem.curLevel]}";
-        
+        if(player.levelSystem.curLevel < 10)
+        {
+            expBar.value = player.levelSystem.curExp / player.levelSystem.maxExp[player.levelSystem.curLevel];
+            exp.text = $"{player.levelSystem.curExp} / {player.levelSystem.maxExp[player.levelSystem.curLevel]}";
+        }
+        else
+        {
+            expBar.value = 1;
+            exp.text = "1000 / 1000";
+            Debug.Log("Check");
+        }
+
     }
     //private IEnumerator Loading()
     //{
