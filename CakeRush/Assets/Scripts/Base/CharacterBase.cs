@@ -10,7 +10,7 @@ public class CharacterBase : EntityBase
 {
     public NavMeshAgent navMashAgent;
     protected Animator animator;
-    protected Data.StatureAbillty statureAbillty;
+    [SerializeField] protected Data.StatureAbillty statureAbillty;
     protected bool isStun;
     float curStunTime;
 
@@ -48,17 +48,21 @@ public class CharacterBase : EntityBase
         isStun = false;
     }
 
+<<<<<<< HEAD
     public void AbilltyUp()
+=======
+    public virtual void AbilltyUp()
+>>>>>>> BiN_
     {
-        maxHp += statureAbillty.s_hp;
-        damage += statureAbillty.s_damage;
-        defensive += statureAbillty.s_defensive;
+        maxHp += statureAbillty.hp;
+        damage += statureAbillty.damage;
+        defensive += statureAbillty.defensive;
     }
 
-    protected void AbilltyLoad(string data)
+    protected void AbilltyLoad(string path)
     {
         statureAbillty = new Data.StatureAbillty();
-        TextAsset dataFile = Resources.Load<TextAsset>($"Data/{data}");
+        TextAsset dataFile = Resources.Load<TextAsset>($"Data/{path}");
         statureAbillty = JsonUtility.FromJson<Data.StatureAbillty>(dataFile.text);
     }
 }

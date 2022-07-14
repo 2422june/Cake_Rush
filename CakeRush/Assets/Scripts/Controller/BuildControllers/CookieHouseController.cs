@@ -24,7 +24,10 @@ public class CookieHouseController : BuildBase
 
     protected override void Start()
     {
+<<<<<<< HEAD
         unitSpawnPos = transform.Find("UnitSpawnPos");
+=======
+>>>>>>> BiN_
         base.Start();
     }
 

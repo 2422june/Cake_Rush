@@ -491,8 +491,11 @@ GameObject:
   - component: {fileID: 68751289501283795}
   - component: {fileID: -4179619477864201839}
   - component: {fileID: -7330973883142437978}
+<<<<<<< HEAD
   - component: {fileID: 7973410363033595146}
   - component: {fileID: 406004501995418280}
+=======
+>>>>>>> BiN_
   m_Layer: 7
   m_Name: Unit_Egg
   m_TagString: Unit
@@ -744,6 +747,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
+<<<<<<< HEAD
   ObservedComponents:
   - {fileID: 7973410363033595146}
   - {fileID: 406004501995418280}
@@ -793,6 +797,12 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+=======
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+>>>>>>> BiN_
 --- !u!1001 &4827436992553966564
 PrefabInstance:
   m_ObjectHideFlags: 0

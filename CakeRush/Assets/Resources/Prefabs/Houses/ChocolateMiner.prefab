@@ -177,7 +177,14 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
+<<<<<<< HEAD
   ObservedComponents: []
+=======
+  ObservedComponents:
+  - {fileID: 3321248767054817797, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  - {fileID: 8931262190440449700, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  - {fileID: 7207796372604515227, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+>>>>>>> BiN_
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

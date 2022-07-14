@@ -68,6 +68,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     private GameObject skillCakeRush;
     private GameObject skillShotingStar;
     private GameObject skillLightning;
+<<<<<<< HEAD
 
     public TMP_Text lightningCooltime;
     public TMP_Text shotingStarCooltime;
@@ -78,7 +79,19 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     public GameObject cokeShotActive;
     public GameObject shootingStarActive;
     public GameObject cakeRushActive;
+=======
+>>>>>>> BiN_
 
+    public TMP_Text lightningCooltime;
+    public TMP_Text shotingStarCooltime;
+    public TMP_Text cakeRushCooltime;
+    public TMP_Text cokeShotCooltime;
+
+    public GameObject lightningActive;
+    public GameObject cokeShotActive;
+    public GameObject shootingStarActive;
+    public GameObject cakeRushActive;
+    
     private TMP_Text timeTxt;
 
     private TMP_Text chocolateTxt;
@@ -96,6 +109,9 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
 
     private Button nextInDefeat;
 
+    public Slider hpBar;
+    private Slider expBar;
+    private TMP_Text exp;
     #endregion
 
     protected GameObject FindElement(string path)
@@ -118,7 +134,11 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         return parent.transform.Find(name).GetComponent<T>();
     }
     public void FindPlayer() => player = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
+<<<<<<< HEAD
 
+=======
+    //public void UpdatePlayerHp() => 
+>>>>>>> BiN_
     public void Init()
     {
         DontDestroyOnLoad(this);
@@ -188,7 +208,15 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         cokeShotCooltime = SetText(skillCokeShot, "Cooltime");
         shotingStarCooltime = SetText(skillShotingStar, "Cooltime");
 
+<<<<<<< HEAD
         playerHealth = SetText(statPanel, "HP");
+=======
+        hpBar = SetAny<Slider>(characterInfoPanel, "HPBar");
+        expBar = SetAny<Slider>(characterInfoPanel, "EXPBar");
+                                                          
+        playerHealth = SetText(hpBar.gameObject, "HP");
+        exp = SetText(expBar.gameObject, "EXP");
+>>>>>>> BiN_
         playerDamage = SetText(statPanel, "Damage");
         playerAttackrange = SetText(statPanel, "AttackRange");
         playerAttacSpeed = SetText(statPanel, "AttackSpeed");
@@ -211,6 +239,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         nextInDefeat.onClick.AddListener(EndGame);
         nextInVictory.onClick.AddListener(EndGame);
 
+        
         //skillCakeRush.onClick.AddListener(OnClickCakeRush);
         //skillShotingStar.onClick.AddListener(OnClickShotingStar);
         //skillCokeShot.onClick.AddListener(OnClickCokeShot);
@@ -228,11 +257,31 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         playerDamage.text = $"{player.damage}";
         playerAttackrange.text = $"{player.attackRange}";
         playerAttacSpeed.text = $"{player.attackSpeed}";
+<<<<<<< HEAD
         playerHealth.text = $"{player.curHp} / {player.maxHp}";
         playerSpeed.text = $"{player.moveSpeed}";
         playerDefense.text = $"{player.defensive}";
     }
 
+=======
+        playerSpeed.text = $"{player.moveSpeed}";
+        playerDefense.text = $"{player.defensive}";
+
+        SetPlayerHp();
+    }
+
+    public void SetPlayerHp()
+    {
+        playerHealth.text = $"{player.curHp} / {player.maxHp}";
+        hpBar.value = player.curHp / player.maxHp;
+    }
+    public void SetPlayerExp()
+    {
+        expBar.value = player.levelSystem.curExp / player.levelSystem.maxExp[player.levelSystem.curLevel];
+        exp.text = $"{player.levelSystem.curExp} / {player.levelSystem.maxExp[player.levelSystem.curLevel]}";
+        
+    }
+>>>>>>> BiN_
     //private IEnumerator Loading()
     //{
     //    while(true)

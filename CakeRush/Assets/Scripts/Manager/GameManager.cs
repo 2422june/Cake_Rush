@@ -312,6 +312,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         if (targetScene.Equals("lobby"))
         {
+<<<<<<< HEAD
             if(SceneManager.GetActiveScene().name == "InGame")
             {
                 for (int i = 0; i < rtsController.unitList.Count; i++)
@@ -329,6 +330,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Destroy(this.gameObject);
                 SceneManager.LoadScene("TitleLobby");
             }
+=======
+>>>>>>> BiN_
             nowScene = Define.Scene.lobby;
         }
         if (targetScene.Equals("inGame"))

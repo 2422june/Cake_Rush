@@ -161,6 +161,7 @@ public class GameProgress : MonoBehaviourPunCallbacks
         GameObject go;
         if (GameManager.instance.DevelopMode)
         {
+<<<<<<< HEAD
             go = PN.Instantiate("Prefabs/Units/Player", (Vector3.right + Vector3.forward) * 9, Quaternion.identity);
             rtsController.unitList.Add(go.GetComponent<PlayerController>());
             go = PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
@@ -181,11 +182,17 @@ public class GameProgress : MonoBehaviourPunCallbacks
             rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
             go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 240) + (Vector3.forward * 18), Quaternion.Euler(Vector3.right * -90));
             rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+=======
+            go = PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+            PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
+            PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
+>>>>>>> BiN_
             return;
         }
         
         if (tag == "Team_1")
         {
+<<<<<<< HEAD
             go = PN.Instantiate("Prefabs/Units/Player", (Vector3.right + Vector3.forward) * 9, Quaternion.identity);
             rtsController.unitList.Add(go.GetComponent<PlayerController>());
             go = PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
@@ -198,10 +205,15 @@ public class GameProgress : MonoBehaviourPunCallbacks
             go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 240) + (Vector3.forward * 18), Quaternion.Euler(Vector3.right * -90));
             rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
 
+=======
+            go = PN.Instantiate("Prefabs/Units/Player", Vector3.zero, Quaternion.identity);
+            PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
+>>>>>>> BiN_
             camera.transform.localPosition = ((Vector3.right * 4) + (Vector3.up * 5) + (Vector3.forward)) * 10;
         }
         else
         {
+<<<<<<< HEAD
             go = PN.Instantiate("Prefabs/Units/Player", (((Vector3.right + Vector3.forward) * 300) - (Vector3.right + Vector3.forward) * 9), Quaternion.identity);
             rtsController.unitList.Add(go.GetComponent<PlayerController>());
             go = PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
@@ -214,10 +226,18 @@ public class GameProgress : MonoBehaviourPunCallbacks
             go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 282) + (Vector3.forward * 59.5f), Quaternion.Euler(Vector3.right * -90));
             rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
 
+=======
+            go = PN.Instantiate("Prefabs/Units/Player", ((Vector3.right + Vector3.forward) * 300), Quaternion.identity);
+            PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
+>>>>>>> BiN_
             camera.transform.localPosition = ((Vector3.right * 26) + (Vector3.up * 5) + (Vector3.forward * 30)) * 10;
             camera.transform.rotation = Quaternion.Euler(((Vector3.right * 7) + (Vector3.up * 18)) * 10);
         }
 
+<<<<<<< HEAD
+=======
+        rtsController.unitList.Add(go.GetComponent<PlayerController>());
+>>>>>>> BiN_
     }
 
     public void FinalGame()
