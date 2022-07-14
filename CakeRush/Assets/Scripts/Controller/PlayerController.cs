@@ -16,7 +16,7 @@ public class PlayerController : UnitBase
     protected override void Awake()
     {
         DataLoad("Player");
-        
+        UiManager.instance.FindPlayer();
         levelSystem  = GetComponent<LevelSystem>();
         cakeRush     = GetComponent<CakeRush>();
         shootingStar = GetComponent<ShootingStar>();
@@ -24,15 +24,21 @@ public class PlayerController : UnitBase
         cokeShot     = GetComponent<CokeShot>();
         build        = GetComponent<Build>();
         UIMng        = GameManager.instance.UIManager;
-
         base.Awake();
-
-
+        
         if (PV.IsMine)
             tag = $"Me_Player";
         else
             tag = $"Other_Player";
         SkillInit();
+        UiManager.instance.buildPanel.SetActive(false);
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        rtsController.unitList.Add(this);
+        UiManager.instance.SetPlayerStat();
     }
 
     protected override void Update()
@@ -44,25 +50,25 @@ public class PlayerController : UnitBase
         rtsController.isSkill = true;
         
         #region //Use Skill
-        if (Input.GetKey(KeyCode.Q) && lightning.isSkillUsed == true)             //Lightning
+        if (Input.GetKey(KeyCode.Q) && lightning.isSkillUsed == true && lightning.isSkillable == true)             //Lightning
         {
             StartCoroutine(Lightning());
             cokeShot.isSkillUsed = false;
             shootingStar.isSkillUsed = false;
         }
-        else if (Input.GetKey(KeyCode.W) && cokeShot.isSkillUsed == true)        //Coke shot
+        else if (Input.GetKey(KeyCode.W) && cokeShot.isSkillUsed == true && cokeShot.isSkillable == true)        //Coke shot
         {
             StartCoroutine(CokeShot());
             lightning.isSkillUsed = false;
             shootingStar.isSkillUsed = false;
         }
-        else if (Input.GetKey(KeyCode.E) && shootingStar.isSkillUsed == true)        //Shooting star
+        else if (Input.GetKey(KeyCode.E) && shootingStar.isSkillUsed == true && shootingStar.isSkillable == true)        //Shooting star
         {
             StartCoroutine(ShootingStar());
             lightning.isSkillUsed = false;
             cokeShot.isSkillUsed = false;
         }
-        else if (Input.GetKeyDown(KeyCode.R))        //Cake rush
+        else if (Input.GetKeyDown(KeyCode.R) && cakeRush.isSkillable == true)        //Cake rush
         {
             CakeRush();
         }
@@ -86,18 +92,22 @@ public class PlayerController : UnitBase
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 levelSystem.SkillLevelUp(lightning);
+                UiManager.instance.lightningActive.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.W))
             {
                 levelSystem.SkillLevelUp(cokeShot);
+                UiManager.instance.cokeShotActive.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
                 levelSystem.SkillLevelUp(shootingStar);
+                UiManager.instance.shootingStarActive.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.R) && levelSystem.curLevel > 6)
             {
                 levelSystem.SkillLevelUp(cakeRush);
+                UiManager.instance.cakeRushActive.SetActive(false);
             }
         }
         #endregion
@@ -154,10 +164,10 @@ public class PlayerController : UnitBase
     #region //Skill method
     private void SkillInit()
     {
-        cokeShot.isSkillable = true;
-        lightning.isSkillable = true;
-        shootingStar.isSkillable = true;
-        cakeRush.isSkillable = true;
+        cokeShot.isSkillable = false;
+        lightning.isSkillable = false;
+        shootingStar.isSkillable = false;
+        cakeRush.isSkillable = false;
 
         UIMng.lightningActive.SetActive(true);
         UIMng.cokeShotActive.SetActive(true);
@@ -184,22 +194,25 @@ public class PlayerController : UnitBase
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, GameProgress.instance.selectableLayer))
                 {
-                    while (lightning.range < (hit.transform.position - transform.position).sqrMagnitude)
+                    if(!hit.collider.CompareTag("Build"))
                     {
-                        base.Move(hit.transform.position);
-                        yield return null;
+                        while (lightning.range < (hit.transform.position - transform.position).sqrMagnitude)
+                        {
+                            base.Move(hit.transform.position);
+                            yield return null;
+                        }
+
+                        navMashAgent.Stop();
+                        animator.SetTrigger("Lightning");
+                        yield return new WaitForSeconds(0.2f);
+
+                        animator.SetBool("Move", false);
+                        state = CharacterState.Idle;
+                        lightning.UseSkill(lightning.level, hit.collider);
+
+                        animator.SetBool("Idle", true);
+                        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_Lightning);
                     }
-
-                    navMashAgent.Stop();
-                    animator.SetTrigger("Lightning");
-                    yield return new WaitForSeconds(0.2f);
-                
-                    animator.SetBool("Move", false);
-                    state = CharacterState.Idle;
-                    lightning.UseSkill(lightning.level, hit.collider);
-
-                    animator.SetBool("Idle", true);
-                    SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_Lightning);
                 }
             }
         }
@@ -270,14 +283,20 @@ public class PlayerController : UnitBase
 
     private IEnumerator BuildMode()
     {
-        if (build.isBuildMode == true) yield break;
+        if (build.isBuildMode == true)
+        {
+            build.isBuildMode = false;
+            UiManager.instance.buildPanel.SetActive(build.isBuildMode);
+            yield break;
+        }
         Debug.Log("BuildMode");
         build.isBuildMode = true;
+        UiManager.instance.buildPanel.SetActive(build.isBuildMode);
         GameObject go = null;
         RaycastHit hit;
         BuildBase buildBase = null;
         string curBuildName = null;
-
+        
         yield return null;
         while (true)
         {
@@ -345,6 +364,7 @@ public class PlayerController : UnitBase
                     Debug.Log("Build Canceled");
                 }
                 build.isBuildMode = false;
+                UiManager.instance.buildPanel.SetActive(build.isBuildMode);
                 yield break;
             }
             yield return null;

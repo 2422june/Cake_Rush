@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6424830567606060228}
   - component: {fileID: 2681193850549394072}
   - component: {fileID: 6764911351327988092}
+  - component: {fileID: 1069135160284181965}
   m_Layer: 0
   m_Name: CokeTower
   m_TagString: Untagged
@@ -223,6 +224,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1069135160284181965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321768382332557657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 3321248767054817797, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  - {fileID: 8931262190440449700, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  - {fileID: 7207796372604515227, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6194608874532855176
 GameObject:
   m_ObjectHideFlags: 0

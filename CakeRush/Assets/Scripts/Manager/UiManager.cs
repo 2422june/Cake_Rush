@@ -38,7 +38,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     //inGame
     private GameObject playerPanel;
     private GameObject statPanel;
-    private GameObject buildPanel;
+    public GameObject buildPanel { get; set; }
     private GameObject defaultPanel;
     private GameObject playerUnitSlot;
     private GameObject downUnitSlot;
@@ -46,7 +46,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     private Button buildButton;
 
     private Slider loadingBar;
-    private bool isExitLoading;
+    public bool isExitLoading;
 
     private Button startInTitle;
     private Button optionInTitle;
@@ -59,7 +59,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     private Button exitInLobby;
     private TMP_Text noticeText;
     private Button infoInLobby;
-
+     
     private bool callNotice;
     private float noticeTime;
     private float noticeTimer;
@@ -84,8 +84,16 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     private TMP_Text chocolateTxt;
     private TMP_Text sugarTxt;
     private TMP_Text doughTxt;
+    
+    private TMP_Text playerDamage;
+    private TMP_Text playerHealth;
+    private TMP_Text playerSpeed;
+    private TMP_Text playerDefense;
+    private TMP_Text playerAttacSpeed;
+    private TMP_Text playerAttackrange;
 
     private Button nextInVictory;
+
     private Button nextInDefeat;
 
     #endregion
@@ -109,11 +117,11 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     {
         return parent.transform.Find(name).GetComponent<T>();
     }
+    public void FindPlayer() => player = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
 
     public void Init()
     {
         DontDestroyOnLoad(this);
-
         sceneUICanvas  = GetComponentInChildren<Canvas>();
         canvasOBJ      = sceneUICanvas.gameObject;
 
@@ -180,6 +188,12 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         cokeShotCooltime = SetText(skillCokeShot, "Cooltime");
         shotingStarCooltime = SetText(skillShotingStar, "Cooltime");
 
+        playerHealth = SetText(statPanel, "HP");
+        playerDamage = SetText(statPanel, "Damage");
+        playerAttackrange = SetText(statPanel, "AttackRange");
+        playerAttacSpeed = SetText(statPanel, "AttackSpeed");
+        playerDefense = SetText(statPanel, "Defense");
+        playerSpeed = SetText(statPanel, "MoveSpeed");
         loadingPanel.transform.SetAsLastSibling();
 
         startInTitle.onClick.AddListener(OnClickStartInTitle);
@@ -207,6 +221,16 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     {
         loadingBar.value = 0;
         isExitLoading = false;
+    }
+
+    public void SetPlayerStat()
+    {
+        playerDamage.text = $"{player.damage}";
+        playerAttackrange.text = $"{player.attackRange}";
+        playerAttacSpeed.text = $"{player.attackSpeed}";
+        playerHealth.text = $"{player.curHp} / {player.maxHp}";
+        playerSpeed.text = $"{player.moveSpeed}";
+        playerDefense.text = $"{player.defensive}";
     }
 
     //private IEnumerator Loading()
@@ -489,11 +513,11 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     }
 
     #endregion
-    public void ShowUI(Scene nowScene)
+    public void ShowUI(Define.Scene nowScene)
     {
-        titlePanel.SetActive(nowScene == Scene.title);
-        lobbyPanel.SetActive(nowScene == Scene.lobby);
-        victoryPanel.SetActive(nowScene == Scene.victory);
-        defeatPanel.SetActive(nowScene == Scene.defeat);
+        titlePanel.SetActive(nowScene == Define.Scene.title);
+        lobbyPanel.SetActive(nowScene == Define.Scene.lobby);
+        victoryPanel.SetActive(nowScene == Define.Scene.victory);
+        defeatPanel.SetActive(nowScene == Define.Scene.defeat);
     }
 }

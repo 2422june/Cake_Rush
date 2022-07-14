@@ -14,6 +14,8 @@ public class TowerBulletController : MonoBehaviour
         hitEffect = transform.Find("TowerBullet_Hit").gameObject;
     }
 
+
+
     void Update()
     {
         transform.position += (target.position - transform.position).normalized * Time.deltaTime * 40f;

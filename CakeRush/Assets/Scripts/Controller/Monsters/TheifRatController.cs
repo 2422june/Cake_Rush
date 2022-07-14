@@ -10,9 +10,8 @@ public class TheifRatController : MobBase
         base.Awake();        
         navMashAgent.speed = moveSpeed;
     }
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
-
 }

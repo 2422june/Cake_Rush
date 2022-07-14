@@ -13,13 +13,14 @@ public class EntityBase : MonoBehaviourPunCallbacks
     public float curHp { get; set; }
     public float attackSpeed { get; set; }
     public float moveSpeed { get; set; }
+    public float defensive { get; set; }
     public float spawnTime { get; set; }
     public float returnExp { get; set; }
-    [SerializeField] protected float attackRange;
+    public float attackRange;
     protected float eyeSight;
     public int[] cost;
     [SerializeField] protected int[] dropCost = new int[3];
-    protected float defensive;
+    
 
     protected Data.Stat stat;
     [SerializeField]
@@ -56,7 +57,7 @@ public class EntityBase : MonoBehaviourPunCallbacks
         Init();
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         rtsController = GameManager.instance.rtsController;
     }

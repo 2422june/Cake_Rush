@@ -36,7 +36,11 @@ public class BuildBase : EntityBase
             buildEffect = transform.Find("BuildEffect").gameObject;
         }
     }
-    
+
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void Update()
     {
         if(Input.GetKeyDown(KeyCode.P) && isSelected)

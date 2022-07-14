@@ -21,7 +21,10 @@ public class CharacterBase : EntityBase
         animator = GetComponent<Animator>();
         base.Awake();
     }
-    
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void Update()
     {
         if (isStun) return;
@@ -45,7 +48,7 @@ public class CharacterBase : EntityBase
         isStun = false;
     }
 
-    protected void AbilltyUp()
+    public void AbilltyUp()
     {
         maxHp += statureAbillty.s_hp;
         damage += statureAbillty.s_damage;

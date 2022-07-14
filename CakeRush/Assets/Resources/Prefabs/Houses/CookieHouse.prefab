@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4598853871110824519}
   - component: {fileID: 3807890332125272633}
   - component: {fileID: 1090796516068354825}
+  - component: {fileID: 5668307627803775343}
   m_Layer: 0
   m_Name: CookieHouse
   m_TagString: Untagged
@@ -117,9 +118,11 @@ MonoBehaviour:
   attackRange: 0
   cost: 000000000000000000000000
   dropCost: 000000000000000000000000
+  rtsController: {fileID: 0}
   Marker: {fileID: 0}
   isSelected: 0
   isActive: 0
+  team: 0
   buildEffect: {fileID: 0}
   isSpawnable: 0
   isOnSelectable: 0
@@ -162,6 +165,31 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 1.042, y: 6.6460004, z: -0.634}
   m_TimeToStationary: 0.5
+--- !u!114 &5668307627803775343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321768382332557657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 3321248767054817797, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  - {fileID: 8931262190440449700, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  - {fileID: 7207796372604515227, guid: f6079c212e0aab146ba7541181fe87a6, type: 3}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1811521588883921244
 PrefabInstance:
   m_ObjectHideFlags: 0

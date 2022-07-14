@@ -11,18 +11,20 @@ public class SkillStat
 
     public IEnumerator CurrentCoolTime(TMPro.TMP_Text skillCoolTime, GameObject go)
     {
-        int currentCoolTimeText;
+        string currentCoolTimeText;
         isCoolTime = true;
 
         currentCoolTime = coolTime;
         go.SetActive(true);
 
-        while (currentCoolTime >= 0)
+        while (true)
         {
-            currentCoolTimeText = (int)currentCoolTime;
-            skillCoolTime.text = currentCoolTimeText.ToString();
-            currentCoolTime -= Time.deltaTime;
+            if (currentCoolTime <= 0.01) break;
 
+            currentCoolTimeText = string.Format("{0:0.0}", currentCoolTime);
+            skillCoolTime.text = $"{currentCoolTimeText}";
+            currentCoolTime -= Time.deltaTime;
+                
             yield return null;
         }
 
