@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1321768382332557657}
   m_LocalRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 4, y: 4, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3269197350307402576}
@@ -115,9 +115,11 @@ MonoBehaviour:
   attackRange: 0
   cost: 000000000000000000000000
   dropCost: 000000000000000000000000
+  rtsController: {fileID: 0}
   Marker: {fileID: 0}
   isSelected: 0
   isActive: 0
+  team: 0
   buildEffect: {fileID: 0}
   isSpawnable: 0
   isOnSelectable: 0
