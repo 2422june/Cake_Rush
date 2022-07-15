@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 88c467166db994146961f1ecc5fc214e, type: 3}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43718457, g: 0.75444883, b: 1.0290297, a: 1}
+  m_IndirectSpecularColor: {r: 0.43718317, g: 0.75444984, b: 1.0290304, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2397,6 +2397,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7330973883142437978, guid: d7d03bc6c503745129fc8dc6f3f6eb28, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 68751288377536070, guid: d7d03bc6c503745129fc8dc6f3f6eb28, type: 3}
       propertyPath: m_Size
       value: 3
@@ -6018,7 +6022,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 0}
-  developMode: 0
   nowScene: 0
   playerLevel: 0
   cost: 
@@ -6027,9 +6030,9 @@ MonoBehaviour:
   nowCloseMatching: 0
   nowInRoom: 0
   UIManager: {fileID: 0}
-  inGameStart: 0
   UIManagerOBJ: {fileID: 0}
   rtsController: {fileID: 1101986879}
+  DevelopMode: 0
 --- !u!4 &708012812
 Transform:
   m_ObjectHideFlags: 0
@@ -8062,6 +8065,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5785078325728743579, guid: 637dd8bab9fab4856aeb3768bd32c20f, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6491628616671243276, guid: 637dd8bab9fab4856aeb3768bd32c20f, type: 3}
       propertyPath: m_Name
       value: Unit_SlimeJelly
@@ -15462,6 +15469,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit_Stone
       objectReference: {fileID: 0}
+    - target: {fileID: 3863294618928637745, guid: 31f4d4a490fa14042b815af1308a3680, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2554932333613993866, guid: 31f4d4a490fa14042b815af1308a3680, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 31f4d4a490fa14042b815af1308a3680, type: 3}
@@ -18177,6 +18188,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5785078325728743579, guid: 637dd8bab9fab4856aeb3768bd32c20f, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6491628616671243276, guid: 637dd8bab9fab4856aeb3768bd32c20f, type: 3}
       propertyPath: m_Name
       value: SlimePBR
