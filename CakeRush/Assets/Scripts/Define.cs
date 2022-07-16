@@ -23,11 +23,23 @@ public class Define
         FX_Build_BuildSuccess,
 
         FX_Unit_Attack,
+        FX_CokeTower_Awake,
+        FX_CokeTower_Attack,
+        FX_CokeTower_Hit,
 
+        
         FX_Game_Win,
         FX_Game_Loss,
         BGM_Title_Main,
+    }
 
-        
+    public enum Scene
+    {
+        noting, title, lobby, inGame, victory, defeat
+    };
+    
+    public enum MobState
+    {
+        idle, attack, move, reset, retargeting, die
     }
 }

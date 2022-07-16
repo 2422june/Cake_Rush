@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : MonoBehaviour //GameManager
+public class UiManager : MonoSingleton<UiManager> //GameManager
 {
 
     #region elements
@@ -31,11 +31,14 @@ public class UiManager : MonoBehaviour //GameManager
     private GameObject noticePanel;
     private GameObject timePanel;
     private GameObject resourcePanel;
+    private GameObject victoryPanel;
+    private GameObject defeatPanel;
+    private GameObject characterInfoPanel;
 
     //inGame
     private GameObject playerPanel;
     private GameObject statPanel;
-    private GameObject buildPanel;
+    public GameObject buildPanel { get; set; }
     private GameObject defaultPanel;
     private GameObject playerUnitSlot;
     private GameObject downUnitSlot;
@@ -43,7 +46,7 @@ public class UiManager : MonoBehaviour //GameManager
     private Button buildButton;
 
     private Slider loadingBar;
-    private bool isExitLoading;
+    public bool isExitLoading;
 
     private Button startInTitle;
     private Button optionInTitle;
@@ -52,26 +55,55 @@ public class UiManager : MonoBehaviour //GameManager
     private Button startInLobby;
     private TMP_Text startTextInLobby;
     private Button optionInLobby;
-    private TMP_InputField nameInputInLoby;
+    private TMP_InputField nameInputInLobby;
     private Button exitInLobby;
     private TMP_Text noticeText;
     private Button infoInLobby;
-
+     
     private bool callNotice;
     private float noticeTime;
     private float noticeTimer;
 
-    private Button skillCokeShot;
-    private Button skillCakeRush;
-    private Button skillShotingStar;
-    private Button skillLightning;
+    private GameObject skillCokeShot;
+    private GameObject skillCakeRush;
+    private GameObject skillShotingStar;
+    private GameObject skillLightning;
 
+    public GameObject lightningLevelUp;
+    public GameObject cokeShotLevelUp;
+    public GameObject shootingStarLevelUp;
+    public GameObject cakeRushLevelUp;
+
+    public TMP_Text lightningCooltime;
+    public TMP_Text shotingStarCooltime;
+    public TMP_Text cakeRushCooltime;
+    public TMP_Text cokeShotCooltime;
+
+    public GameObject lightningActive;
+    public GameObject cokeShotActive;
+    public GameObject shootingStarActive;
+    public GameObject cakeRushActive;
+    
     private TMP_Text timeTxt;
 
     private TMP_Text chocolateTxt;
     private TMP_Text sugarTxt;
     private TMP_Text doughTxt;
+    
+    private TMP_Text playerDamage;
+    private TMP_Text playerHealth;
+    private TMP_Text playerSpeed;
+    private TMP_Text playerDefense;
+    private TMP_Text playerAttacSpeed;
+    private TMP_Text playerAttackrange;
+    private TMP_Text playerLevel;
+    private Button nextInVictory;
 
+    private Button nextInDefeat;
+
+    public Slider hpBar;
+    private Slider expBar;
+    private TMP_Text exp;
     #endregion
 
     protected GameObject FindElement(string path)
@@ -93,11 +125,11 @@ public class UiManager : MonoBehaviour //GameManager
     {
         return parent.transform.Find(name).GetComponent<T>();
     }
+    public void FindPlayer() => player = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
 
     public void Init()
     {
         DontDestroyOnLoad(this);
-
         sceneUICanvas  = GetComponentInChildren<Canvas>();
         canvasOBJ      = sceneUICanvas.gameObject;
 
@@ -118,6 +150,11 @@ public class UiManager : MonoBehaviour //GameManager
         playerUnitSlot   = FindElement("UnitListPanel");
         downUnitSlot     = FindElement("UnitListPanelDown");
 
+        characterInfoPanel = SetGameObj(playerPanel, "CharacterInfoPanel");
+
+        victoryPanel     = FindElement("VictoryPanel");
+        defeatPanel      = FindElement("DefeatPanel");
+
         startInTitle     = SetAny<Button>(titlePanel, "StartButton");
         exitInTitle      = SetAny<Button>(titlePanel, "ExitButton");
 
@@ -125,7 +162,7 @@ public class UiManager : MonoBehaviour //GameManager
         startTextInLobby = SetText(startInLobby.gameObject, "Text");
         optionInLobby    = SetAny<Button>(lobbyPanel, "OptionButton");
         matchingPanel    = SetGameObj(lobbyPanel, "MatchingPanel");
-        nameInputInLoby  = SetAny<TMP_InputField>(matchingPanel, "NameInput");
+        nameInputInLobby  = SetAny<TMP_InputField>(matchingPanel, "NameInput");
         exitInLobby      = SetAny<Button>(lobbyOptionPanel, "ExitButton");
         infoInLobby      = SetAny<Button>(lobbyOptionPanel, "InfoButton");
 
@@ -140,11 +177,37 @@ public class UiManager : MonoBehaviour //GameManager
         chocolateTxt     = SetText(resourcePanel, "Chocolate");
         sugarTxt         = SetText(resourcePanel, "Sugar");
         doughTxt         = SetText(resourcePanel, "Dough");
-        //skillCokeShot    = SetAny<Button>(playerPanel, "CokeShot");
-        //skillCakeRush    = SetAny<Button>(playerPanel, "CakeRush");
-        //skillShotingStar = SetAny<Button>(playerPanel, "ShotingStar");
-        //skillLightning   = SetAny<Button>(playerPanel, "Lightning");
 
+        nextInDefeat     = SetAny<Button>(defeatPanel, "Next");
+        nextInVictory    = SetAny<Button>(victoryPanel, "Next");
+
+        skillCokeShot    = SetGameObj(characterInfoPanel, "CokeShot");
+        skillCakeRush    = SetGameObj(characterInfoPanel, "CakeRush");
+        skillShotingStar = SetGameObj(characterInfoPanel, "ShotingStar");
+        skillLightning   = SetGameObj(characterInfoPanel, "Lightning");
+
+        cokeShotActive   = SetGameObj(skillCokeShot, "SkillActive");
+        cakeRushActive   = SetGameObj(skillCakeRush, "SkillActive");
+        shootingStarActive = SetGameObj(skillShotingStar, "SkillActive");
+        lightningActive  = SetGameObj(skillLightning, "SkillActive");
+
+        lightningCooltime = SetText(skillLightning, "Cooltime");
+        cakeRushCooltime = SetText(skillCakeRush, "Cooltime");
+        cokeShotCooltime = SetText(skillCokeShot, "Cooltime");
+        shotingStarCooltime = SetText(skillShotingStar, "Cooltime");
+
+        hpBar = SetAny<Slider>(characterInfoPanel, "HPBar");
+        expBar = SetAny<Slider>(characterInfoPanel, "EXPBar");
+                                                          
+        playerHealth = SetText(hpBar.gameObject, "HP");
+        exp = SetText(expBar.gameObject, "EXP");
+
+        playerDamage = SetText(statPanel, "Damage");
+        playerAttackrange = SetText(statPanel, "AttackRange");
+        playerAttacSpeed = SetText(statPanel, "AttackSpeed");
+        playerDefense = SetText(statPanel, "Defense");
+        playerSpeed = SetText(statPanel, "MoveSpeed");
+        playerLevel = SetText(statPanel, "Level");
         loadingPanel.transform.SetAsLastSibling();
 
         startInTitle.onClick.AddListener(OnClickStartInTitle);
@@ -154,10 +217,23 @@ public class UiManager : MonoBehaviour //GameManager
         exitInLobby.onClick.AddListener(OnClickExit);
         optionInLobby.onClick.AddListener(OnClickOption);
         infoInLobby.onClick.AddListener(OnClickInfo);
-        nameInputInLoby.onEndEdit.AddListener(OnClickNameSubmit);
+        nameInputInLobby.onEndEdit.AddListener(OnClickNameSubmit);
 
         statButton.onClick.AddListener(OnClickStat);
         buildButton.onClick.AddListener(OnClickBuild);
+
+        nextInDefeat.onClick.AddListener(EndGame);
+        nextInVictory.onClick.AddListener(EndGame);
+
+        lightningLevelUp = SetGameObj(skillLightning, "LevelUp");
+        cokeShotLevelUp = SetGameObj(skillCokeShot, "LevelUp");
+        shootingStarLevelUp = SetGameObj(skillShotingStar, "LevelUp");
+        cakeRushLevelUp = SetGameObj(skillCakeRush, "LevelUp");
+        
+        lightningLevelUp.SetActive(true);
+        cokeShotLevelUp.SetActive(true);
+        shootingStarLevelUp.SetActive(true);
+        cakeRushLevelUp.SetActive(false);
 
         //skillCakeRush.onClick.AddListener(OnClickCakeRush);
         //skillShotingStar.onClick.AddListener(OnClickShotingStar);
@@ -171,6 +247,37 @@ public class UiManager : MonoBehaviour //GameManager
         isExitLoading = false;
     }
 
+    public void SetPlayerStat()
+    {
+        playerDamage.text = $"{player.damage}";
+        playerAttackrange.text = $"{player.attackRange}";
+        playerAttacSpeed.text = $"{player.attackSpeed}";
+        playerSpeed.text = $"{player.moveSpeed}";
+        playerDefense.text = $"{player.defensive}";
+        playerLevel.text = $"{player.levelSystem.curLevel + 1}";
+        SetPlayerHp();
+    }
+
+    public void SetPlayerHp()
+    {
+        playerHealth.text = $"{player.curHp} / {player.maxHp}";
+        hpBar.value = player.curHp / player.maxHp;
+    }
+    public void SetPlayerExp()
+    {
+        if(player.levelSystem.curLevel < 10)
+        {
+            expBar.value = player.levelSystem.curExp / player.levelSystem.maxExp[player.levelSystem.curLevel];
+            exp.text = $"{player.levelSystem.curExp} / {player.levelSystem.maxExp[player.levelSystem.curLevel]}";
+        }
+        else
+        {
+            expBar.value = 1;
+            exp.text = "1000 / 1000";
+            Debug.Log("Check");
+        }
+
+    }
     //private IEnumerator Loading()
     //{
     //    while(true)
@@ -204,6 +311,7 @@ public class UiManager : MonoBehaviour //GameManager
     //    }
     //}
 
+    #region Loading && Notice
     private IEnumerator LoadingAndNotice()
     {
         while (true)
@@ -256,6 +364,7 @@ public class UiManager : MonoBehaviour //GameManager
         isExitLoading = true;
         //loadingBar.value = 70;
     }
+    #endregion
 
     #region skill
     private void OnClickShotingStar()
@@ -279,7 +388,6 @@ public class UiManager : MonoBehaviour //GameManager
     }
     #endregion
 
-
     #region server
     public void OnConnectedToMaster()
     {
@@ -297,7 +405,7 @@ public class UiManager : MonoBehaviour //GameManager
     {
         if(GameManager.instance.nowCloseMatching)
         {
-            NoticeInLoby("매칭을 취소하는 중 입니다.", 1);
+            NoticeInLobby("매칭을 취소하는 중 입니다.", 1);
         }
         else
         {
@@ -306,42 +414,42 @@ public class UiManager : MonoBehaviour //GameManager
                 if(GameManager.instance.nowInRoom)
                 {
                     GameManager.instance.nowCloseMatching = true;
-                    NoticeInLoby("매칭을 취소합니다.", 1);
-                    SetStartTextInLoby("매칭 취소중");
+                    NoticeInLobby("매칭을 취소합니다.", 1);
+                    SetStartTextInLobby("매칭 취소중");
                     GameManager.instance.LeaveRoom();
                 }
                 else
                 {
-                    NoticeInLoby("방에 입장하는 중 입니다.", 1);
+                    NoticeInLobby("방에 입장하는 중 입니다.", 1);
                 }
             }
             else
             {
                 if (GameManager.instance.isNullableNickName())
                 {
-                    NoticeInLoby("닉네임을 입력해 주세요.", 1);
+                    NoticeInLobby("닉네임을 입력해 주세요.", 1);
                 }
                 else if(!GameManager.instance.nowInRoom)
                 {
                     GameManager.instance.OnClickStartInLobby();
                     GameManager.instance.nowMatching = true;
-                    NoticeInLoby("매칭을 시작했습니다.", 1);
-                    SetStartTextInLoby("매칭 취소");
+                    NoticeInLobby("매칭을 시작했습니다.", 1);
+                    SetStartTextInLobby("매칭 취소");
                 }
                 else
                 {
-                    NoticeInLoby("방에서 나가는 중 입니다.", 1);
+                    NoticeInLobby("방에서 나가는 중 입니다.", 1);
                 }
             }
         }
     }
 
-    public void SetStartTextInLoby(string text)
+    public void SetStartTextInLobby(string text)
     {
         startTextInLobby.text = text;
     }
 
-    public void NoticeInLoby(string text, float time)
+    public void NoticeInLobby(string text, float time)
     {
         noticePanel.transform.localPosition = Vector3.zero;
         noticeText.text = text;
@@ -371,7 +479,7 @@ public class UiManager : MonoBehaviour //GameManager
     public void OnClickNameSubmit(string text)
     {
         GameManager.instance.SetNickName(text);
-        NoticeInLoby($"닉네임을 '{text}'로 지정했습니다.", 1);
+        NoticeInLobby($"닉네임을 '{text}'로 지정했습니다.", 1);
     }
     #endregion
 
@@ -444,11 +552,17 @@ public class UiManager : MonoBehaviour //GameManager
         }
     }
 
-    #endregion
-    public void ShowUI(Scene nowScene)
+    private void EndGame()
     {
-        titlePanel.SetActive(nowScene == Scene.title);
-        lobbyPanel.SetActive(nowScene == Scene.lobby);
+        GameManager.instance.SetScene("lobby");
+    }
 
+    #endregion
+    public void ShowUI(Define.Scene nowScene)
+    {
+        titlePanel.SetActive(nowScene == Define.Scene.title);
+        lobbyPanel.SetActive(nowScene == Define.Scene.lobby);
+        victoryPanel.SetActive(nowScene == Define.Scene.victory);
+        defeatPanel.SetActive(nowScene == Define.Scene.defeat);
     }
 }

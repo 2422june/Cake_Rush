@@ -13,7 +13,7 @@ public struct Sound
 public class SoundManager : MonoSingleton<SoundManager>
 {
     public Sound[] GameSounds;
-    
+
     void Awake()
     {
         GameSounds = new Sound[Enum.GetValues(typeof(Define.GameSound)).Length];
@@ -26,6 +26,7 @@ public class SoundManager : MonoSingleton<SoundManager>
             else
                 Debug.Log("AudioClip is not loaded, " + GameSounds[i].sound.ToString());
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     AudioClip ReturnClip(Define.GameSound sound)
@@ -47,5 +48,13 @@ public class SoundManager : MonoSingleton<SoundManager>
     public void PlayClip(ref AudioSource source, Define.GameSound sound)
     {
         source.PlayOneShot(ReturnClip(sound));
+    }
+
+    public bool isClipEqualSourceClip(ref AudioSource source, Define.GameSound sound)
+    {
+        if(source.clip == SoundManager.instance.GameSounds[(int)sound].clip)
+            return true;
+        else 
+            return false;
     }
 }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -1027284959297551051}
   - component: {fileID: 5216083786589787135}
   - component: {fileID: 4836138935745460262}
+  - component: {fileID: 5748523301181615324}
   m_Layer: 0
   m_Name: ChocolateMiner
   m_TagString: Untagged
@@ -117,9 +118,11 @@ MonoBehaviour:
   attackRange: 0
   cost: 000000000000000000000000
   dropCost: 000000000000000000000000
+  rtsController: {fileID: 0}
   Marker: {fileID: 0}
   isSelected: 0
   isActive: 0
+  team: 0
   buildEffect: {fileID: 0}
   isSpawnable: 0
   isOnSelectable: 0
@@ -147,15 +150,37 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321768382332557657}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 7.576, y: 7.089, z: 5.065}
+  m_Extents: {x: 7.55, y: 4.915, z: 4.85}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: -1.605, y: 7.0750003, z: 0.45800003}
+  m_Center: {x: -1.605, y: 4.7, z: 0.45800003}
   m_TimeToStationary: 0.5
+--- !u!114 &5748523301181615324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321768382332557657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &6935380099994050383
 PrefabInstance:
   m_ObjectHideFlags: 0

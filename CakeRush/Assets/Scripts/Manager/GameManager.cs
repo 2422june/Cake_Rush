@@ -8,10 +8,6 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
 using PN = Photon.Pun.PhotonNetwork;
-public enum Scene
-{
-    noting, title, lobby, inGame, victory, defeat
-};
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -25,7 +21,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public PhotonView PV;
 
-    public Scene nowScene;
+    public Define.Scene nowScene;
 
 
     public float playerLevel;
@@ -34,7 +30,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     private bool nowInGame;
     public bool nowMatching, nowCloseMatching, nowInRoom;
     public UiManager UIManager;
-    public bool inGameStart;
 
     [SerializeField]
     private GameObject UIManagerOBJ;
@@ -62,6 +57,53 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
+    //private void Awake()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = this;
+    //        PV = GetComponent<PhotonView>();
+    //        GameProgress.instance = GetComponent<GameProgress>();
+    //        DontDestroyOnLoad(instance);
+    //    }
+    //    else if (instance != this)
+    //    {
+    //        Destroy(this.gameObject);
+    //    }
+    //    /*if (instance == null)
+    //    {
+    //        GameObject GM = Resources.Load<GameObject>("Prefabs/Systems/GameManager");
+    //        instance = GM.GetComponent<GameManager>();
+    //        Destroy(this.gameObject);
+    //    }
+    //    else if (instance != this)
+    //    {
+    //        Destroy(this.gameObject);
+    //    }
+    //    else
+    //    {
+    //        PV = GetComponent<PhotonView>();
+    //        GameProgress.instance = GetComponent<GameProgress>();
+    //        DontDestroyOnLoad(instance);
+    //    }*/
+
+
+    //    if (SceneManager.GetActiveScene().name.Contains("Title"))
+    //    {
+    //        nowInGame = false;
+
+    //        UIManagerOBJ = Instantiate(Resources.Load<GameObject>("Prefabs/UI/UIManager"), transform);
+    //        UIManager = UIManagerOBJ.GetComponent<UiManager>();
+
+    //        UIManager.Init();
+
+    //        SetScene("title");
+    //    }
+    //    else if (SceneManager.GetActiveScene().name.Contains("InGame"))
+    //    {
+    //        rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
+    //    }
+    //}
     private void Awake()
     {
         if (instance == null)
@@ -71,7 +113,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             GameProgress.instance = GetComponent<GameProgress>();
             DontDestroyOnLoad(instance);
         }
-
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
 
         if (SceneManager.GetActiveScene().name.Contains("Title"))
         {
@@ -140,7 +185,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        SetScene("loby");
+        SetScene("lobby");
     }
 
     public override void OnJoinedRoom()
@@ -149,17 +194,18 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (DevelopMode)
         {
-            UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            UIManager.SetStartTextInLobby("매칭 시작");
+            UIManager.NoticeInLobby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
+            return;
         }
 
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             instance.tag = "Team_2";
-            UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            UIManager.SetStartTextInLobby("매칭 시작");
+            UIManager.NoticeInLobby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
         }
@@ -167,7 +213,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void JoinedRoom()
     {
-        UIManager.NoticeInLoby("방에 입장했습니다.", 1);
+        UIManager.NoticeInLobby("방에 입장했습니다.", 1);
         nowInRoom = true;
     }
 
@@ -175,16 +221,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if(DevelopMode)
         {
-            UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            UIManager.SetStartTextInLobby("매칭 시작");
+            UIManager.NoticeInLobby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
+            return;
         }
 
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
-            UIManager.SetStartTextInLoby("매칭 시작");
-            UIManager.NoticeInLoby("매칭이 성공했습니다.", 1);
+            UIManager.SetStartTextInLobby("매칭 시작");
+            UIManager.NoticeInLobby("매칭이 성공했습니다.", 1);
             nowMatching = false;
             SetScene("inGame");
         }
@@ -221,7 +268,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         nowInRoom = false;
-        UIManager.NoticeInLoby("방에서 나갔습니다.", 1);
+        UIManager.NoticeInLobby("방에서 나갔습니다.", 1);
         PN.LeaveRoom();
     }
     public override void OnLeftRoom()
@@ -232,8 +279,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void EndExitingMatching()
     {
-        UIManager.NoticeInLoby("매칭을 취소했습니다.", 1);
-        UIManager.SetStartTextInLoby("매칭 시작");
+        UIManager.NoticeInLobby("매칭을 취소했습니다.", 1);
+        UIManager.SetStartTextInLobby("매칭 시작");
         nowCloseMatching = false;
         nowMatching = false;
     }
@@ -261,24 +308,41 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 PN.ConnectUsingSettings();
             }
-            nowScene = Scene.title;
+            nowScene = Define.Scene.title;
         }
-        if (targetScene.Equals("loby"))
+        if (targetScene.Equals("lobby"))
         {
-            nowScene = Scene.lobby;
+            if(SceneManager.GetActiveScene().name == "InGame")
+            {
+                for (int i = 0; i < rtsController.unitList.Count; i++)
+                {
+                    Destroy(rtsController.unitList[i].gameObject);
+                }
+                rtsController.unitList.Clear();
+                for (int i = 0; i < rtsController.buildList.Count; i++)
+                {
+                    Destroy(rtsController.buildList[i].gameObject);
+                }
+                rtsController.buildList.Clear();
+                nowInGame = false;
+                PN.LeaveRoom();
+                Destroy(this.gameObject);
+                SceneManager.LoadScene("TitleLobby");
+            }
+            nowScene = Define.Scene.lobby;
         }
         if (targetScene.Equals("inGame"))
         {
-            nowScene = Scene.inGame;
+            nowScene = Define.Scene.inGame;
             Invoke("EnterInGame", 2f);
         }
         if (targetScene.Equals("victory"))
         {
-            nowScene = Scene.victory;
+            nowScene = Define.Scene.victory;
         }
         if (targetScene.Equals("defeat"))
         {
-            nowScene = Scene.defeat;
+            nowScene = Define.Scene.defeat;
         }
 
         UIManager.ShowUI(nowScene);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.AI;
 
 //Character and Building GameObject's Base Class
 public class EntityBase : MonoBehaviourPunCallbacks
@@ -13,13 +14,14 @@ public class EntityBase : MonoBehaviourPunCallbacks
     public float curHp { get; set; }
     public float attackSpeed { get; set; }
     public float moveSpeed { get; set; }
+    public float defensive { get; set; }
     public float spawnTime { get; set; }
     public float returnExp { get; set; }
-    [SerializeField] protected float attackRange;
+    public float attackRange;
     protected float eyeSight;
     public int[] cost;
     [SerializeField] protected int[] dropCost = new int[3];
-    protected float defensive;
+    
 
     protected Data.Stat stat;
     [SerializeField]
@@ -56,7 +58,7 @@ public class EntityBase : MonoBehaviourPunCallbacks
         Init();
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         rtsController = GameManager.instance.rtsController;
     }
@@ -80,10 +82,17 @@ public class EntityBase : MonoBehaviourPunCallbacks
     #region function
     public virtual void Hit(float hitDamage)
     {
+        PV.RPC("OnHit", RpcTarget.All, hitDamage);
+    }
+
+    [PunRPC]
+    protected virtual void OnHit(float hitDamage)
+    {
         curHp -= hitDamage;
 
-        Debug.Log($"Current {gameObject.name} HP : {curHp}");
-        if(curHp <= 0)
+        //Debug.Log($"Current {gameObject.name} HP : {curHp}");
+        Debug.Log("GetDamage");
+        if (curHp <= 0)
         {
             Die();
         }

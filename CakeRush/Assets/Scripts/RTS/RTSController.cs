@@ -38,6 +38,7 @@ public class RTSController : MonoBehaviour
 	void Awake()
 	{
 		cost = new int[3];
+		unitList.Clear();
 		defaultCursor = Resources.Load<Texture2D>("Textures/MouseCursor/DefaultCursor");
 		attackCursor = Resources.Load<Texture2D>("Textures/MouseCursor/AttackCursor");
 		teamCursor = Resources.Load<Texture2D>("Textures/MouseCursor/TeamCursor");

@@ -26,15 +26,18 @@ public class UnitBase : CharacterBase
 
 
         if (PV.IsMine)
-            tag = $"Me_Unit";
+            tag = "Me_Unit";
         else
-            tag = $"Other_Unit";
+            tag = "Other_Unit";
 
         teamCamera = Camera.main;
         state = CharacterState.Idle;
         navMashAgent.speed = moveSpeed;
     }
-
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void Update()
     {
         base.Update();
@@ -59,12 +62,6 @@ public class UnitBase : CharacterBase
 
         animator.SetBool("Move", false);
         animator.SetBool("Attack", true);
-
-        if(target.CompareTag("Monster"))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), 90);
-            target.GetComponent<MobBase>().Hit(damage, transform);
-        }
     }
 
     void Idle()

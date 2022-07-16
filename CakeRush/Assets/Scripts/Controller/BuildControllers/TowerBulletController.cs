@@ -7,11 +7,14 @@ public class TowerBulletController : MonoBehaviour
     float damage;
     public Transform target;
     [SerializeField] GameObject hitEffect;
+    AudioSource source;
     void Awake()
     {
         damage = transform.parent.gameObject.GetComponent<CokeTowerController>().damage;
         hitEffect = transform.Find("TowerBullet_Hit").gameObject;
     }
+
+
 
     void Update()
     {
@@ -21,6 +24,7 @@ public class TowerBulletController : MonoBehaviour
             target.gameObject.GetComponent<EntityBase>().Hit(damage);
             hitEffect.GetComponent<ParticleSystem>().Play();
             hitEffect.transform.parent = transform.parent.parent;
+            SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_CokeTower_Hit);
             Destroy(gameObject);
         }
     }

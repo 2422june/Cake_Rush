@@ -427,10 +427,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c1bfbd00860f64daf9a806a67d7cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 0}
+  nowScene: 0
   playerLevel: 0
-  rtsController: {fileID: 889880315}
   cost: 
   isSpawnable: 0
+  nowMatching: 0
+  nowCloseMatching: 0
+  nowInRoom: 0
+  UIManager: {fileID: 0}
+  UIManagerOBJ: {fileID: 0}
+  rtsController: {fileID: 889880315}
+  DevelopMode: 0
 --- !u!4 &652280597
 Transform:
   m_ObjectHideFlags: 0
@@ -828,22 +836,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecd67485abf3df488652db296a46b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedUnitList: []
+  clickEffectPrefab: {fileID: 0}
   unitList:
   - {fileID: 217145603}
   - {fileID: 59108934}
   - {fileID: 24590915}
   - {fileID: 1651520171}
-  selectedBuildList: []
   buildList: []
-  selectedEnemyEntity: {fileID: 0}
+  selectedEntity: {fileID: 0}
+  maxUnit: 10
   layerGround:
     serializedVersion: 2
     m_Bits: 64
   layerSelectable:
     serializedVersion: 2
     m_Bits: 128
-  dragRectangle: {fileID: 881127639}
+  cost: 
+  isSkill: 0
 --- !u!4 &889880316
 Transform:
   m_ObjectHideFlags: 0
@@ -1220,22 +1229,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac7ea06fdef7414fbee35183fb105b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curHp: 0
-  attackSpeed: 0
   attackRange: 0
-  criticalChance: 0
-  criticalDamage: 0
-  returnExp: 0
-  eyeSight: 0
   cost: 000000000000000000000000
   dropCost: 000000000000000000000000
-  defensive: 0
-  spawnTime: 0
+  rtsController: {fileID: 0}
   Marker: {fileID: 816869147}
   isSelected: 0
   isActive: 0
-  state: 0
+  team: 0
+  navMashAgent: {fileID: 0}
+  statureAbillty:
+    hp: 0
+    damage: 0
+    defensive: 0
+    spawnTime: 0
   target: {fileID: 0}
+  state: 0
+  isResetting: 0
+  isFighting: 0
+  isAttackable: 1
 --- !u!1 &1413232516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1344,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit_Stone
       objectReference: {fileID: 0}
+    - target: {fileID: 3863294618928637745, guid: 31f4d4a490fa14042b815af1308a3680, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31f4d4a490fa14042b815af1308a3680, type: 3}
 --- !u!114 &1651520171 stripped
@@ -1352,6 +1368,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7330973883142437978, guid: d7d03bc6c503745129fc8dc6f3f6eb28, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 68751289501283793, guid: d7d03bc6c503745129fc8dc6f3f6eb28, type: 3}
       propertyPath: cakeRush
       value: 
@@ -1423,6 +1443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d5a8507f608f2448773b7f4072a4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillEffect: {fileID: 0}
+  rangeViewObj: {fileID: 0}
   skillStat:
   - coolTime: 5
     currentCoolTime: 0
@@ -1445,6 +1467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4a75dc4eba89148a044da0289ea21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillEffect: {fileID: 0}
+  rangeViewObj: {fileID: 0}
   skillStat:
   - coolTime: 6
     currentCoolTime: 0
@@ -1452,6 +1476,9 @@ MonoBehaviour:
   - coolTime: 6
     currentCoolTime: 0
     isCoolTime: 0
+  angleRange: []
+  skillPos: {fileID: 0}
+  slashEffect: {fileID: 0}
 --- !u!1 &2135286115
 GameObject:
   m_ObjectHideFlags: 0

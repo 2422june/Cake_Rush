@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class EggCandyController : UnitBase
 {
+    protected override void Start()
+    {
+        base.Start();
 
+    }
     protected override void Awake()
     {
         DataLoad("EggCandy");

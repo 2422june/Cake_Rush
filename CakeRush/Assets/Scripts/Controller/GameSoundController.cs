@@ -15,6 +15,6 @@ public class GameSoundController : MonoBehaviour
 
     void Start()
     {
-        SoundManager.instance.PlayClip(ref fxSource, Define.GameSound.BGM_Game_Main);
+        SoundManager.instance.ChangeOrPlayBGM(ref fxSource, Define.GameSound.BGM_Game_Main);
     }
 }
