@@ -1,4 +1,4 @@
-### [CakeRush-GitHub.io](https://kyloud.github.io/Cake-Rush/)
+### [CakeRush-GitHub.io](https://yong-gyun.github.io/Cake-Rush/)
 --------
 ### [게임 제목] ###
 > **Cake Rush**
