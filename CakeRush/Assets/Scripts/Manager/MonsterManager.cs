@@ -8,10 +8,9 @@ public class MonsterManager : MonoBehaviour
 
     void Start()
     {
-        PhotonNetwork.Instantiate("Prefabs/Monsters/ThiefRat", new Vector3(5,0,5), Quaternion.identity);
+        PhotonNetwork.Instantiate("Prefabs/Monsters/ThiefRat", new Vector3(8,0,5), Quaternion.identity);
     }
 
-    
     void Update()
     {
         

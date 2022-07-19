@@ -154,7 +154,7 @@ public class PlayerController : UnitBase
         Debug.Log("Hit");
 
         if (target is MobBase)
-            (target as MobBase).Hit(damage, transform);
+            (target as MobBase).Hit(damage, transform.position);
 
         else if (target is UnitBase)
             (target as UnitBase).Hit(damage);

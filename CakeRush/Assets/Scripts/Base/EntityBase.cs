@@ -60,7 +60,7 @@ public class EntityBase : MonoBehaviourPunCallbacks
 
     protected virtual void Start()
     {
-        rtsController = GameManager.instance.rtsController;
+        rtsController = GameManager.instance .rtsController;
     }
 
     protected virtual void Init()
@@ -82,17 +82,10 @@ public class EntityBase : MonoBehaviourPunCallbacks
     #region function
     public virtual void Hit(float hitDamage)
     {
-        PV.RPC("OnHit", RpcTarget.All, hitDamage);
-    }
-
-    [PunRPC]
-    protected virtual void OnHit(float hitDamage)
-    {
         curHp -= hitDamage;
 
-        //Debug.Log($"Current {gameObject.name} HP : {curHp}");
-        Debug.Log("GetDamage");
-        if (curHp <= 0)
+        Debug.Log($"Current {gameObject.name} HP : {curHp}");
+        if(curHp <= 0)
         {
             Die();
         }

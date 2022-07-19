@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.AI;
 
 //중립 몬스터의 부모 클래스
 public class MobBase : CharacterBase
 {
-    [SerializeField] protected Transform target;
+    [SerializeField] protected Vector3 targetPos;
+    [SerializeField] protected EntityBase targetEntity;
+
     [SerializeField] protected Define.MobState state;
     protected Vector3 originPos;
 
@@ -38,19 +41,15 @@ public class MobBase : CharacterBase
             case Define.MobState.attack:
                 Attack();
                 break;
-
             case Define.MobState.move:
                 Move();
                 break;
-
             case Define.MobState.retargeting:
                 Retarget();
                 break;
-
             case Define.MobState.reset:
                 Reset();
                 break;
-            
             default:
                 break;
         }
@@ -64,8 +63,8 @@ public class MobBase : CharacterBase
     void Attack()
     {
         animator.SetTrigger("attack");
-        target.GetComponent<EntityBase>().Hit(damage);
-        if(target.GetComponent<EntityBase>().curHp < 0)
+        targetEntity.Hit(damage);
+        if(targetEntity.curHp < 0)
         {
             state = Define.MobState.retargeting;
         }
@@ -76,8 +75,8 @@ public class MobBase : CharacterBase
     void Move()
     {
         animator.SetBool("isMove", true);
-        navMashAgent.SetDestination(target.position);
-        if(Vector3.Distance(transform.position, target.position) < attackRange)
+        navMashAgent.SetDestination(targetPos);
+        if(Vector3.Distance(transform.position, targetPos) < attackRange)
         {
             state = Define.MobState.attack;
             return;
@@ -89,21 +88,20 @@ public class MobBase : CharacterBase
         }
     }
 
-    public virtual void Hit(float hitDamage, Transform attacker)
+    public virtual void Hit(float hitDamage, Vector3 targetPos)
     {
-        //PV.RPC("OnHit", RpcTarget.All, hitDamage, attacker);
-        OnHit(hitDamage, target);
+        PV.RPC("OnHit", RpcTarget.All, hitDamage, targetPos);
+        //OnHit(hitDamage, target);
     }
 
-    //[PunRPC]
-    private void OnHit(float hitDamage, Transform targetTransform)
+    [PunRPC]
+    protected void OnHit(float hitDamage, Vector3 targetPos)
     {
         Debug.Log("OnHit");
         base.Hit(hitDamage);
-
         if (isResetting == false && isFighting == false)
         {
-            target = targetTransform;
+            this.targetPos = targetPos;
             state = Define.MobState.move;
         }
     }
@@ -133,7 +131,8 @@ public class MobBase : CharacterBase
         foreach(Collider collider in colliders)
         {
             if(collider.gameObject.GetComponent<EntityBase>().curHp < 0) continue;
-            target = collider.transform;
+            targetEntity = collider.gameObject.GetComponent<EntityBase>();
+            targetPos = collider.transform.position;
             break;
         }
         state = Define.MobState.move;

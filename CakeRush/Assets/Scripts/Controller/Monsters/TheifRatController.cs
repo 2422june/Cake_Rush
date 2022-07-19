@@ -14,4 +14,9 @@ public class TheifRatController : MobBase
     {
         base.Start();
     }
+
+    protected override void Update()
+    {
+        base.Update();
+    }
 }
