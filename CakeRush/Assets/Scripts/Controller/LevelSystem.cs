@@ -42,7 +42,7 @@ public class LevelSystem : MonoBehaviour
                 SetLevel();
                 playerController.AbilltyUp();
                 playerController.AbilltyUp();
-                UiManager.instance.SetPlayerStat();
+                UIManager.instance.SetPlayerStat();
                 return;                
             }
 
@@ -50,20 +50,20 @@ public class LevelSystem : MonoBehaviour
 
             curExp = 0;
             playerController.AbilltyUp();
-            UiManager.instance.SetPlayerStat();
+            UIManager.instance.SetPlayerStat();
 
 
             if (playerController.lightning.level < playerController.lightning.maxSkillLevel)
-                UiManager.instance.lightningLevelUp.SetActive(true);
+                UIManager.instance.lightningLevelUp.SetActive(true);
 
             if (playerController.cokeShot.level < playerController.cokeShot.maxSkillLevel)
-                UiManager.instance.cokeShotLevelUp.SetActive(true);
+                UIManager.instance.cokeShotLevelUp.SetActive(true);
 
             if (playerController.shootingStar.level < playerController.shootingStar.maxSkillLevel)
-                UiManager.instance.shootingStarLevelUp.SetActive(true);
+                UIManager.instance.shootingStarLevelUp.SetActive(true);
 
             if (playerController.levelSystem.curLevel > 5 && playerController.cakeRush.isSkillable == false)
-                UiManager.instance.cakeRushLevelUp.SetActive(true);
+                UIManager.instance.cakeRushLevelUp.SetActive(true);
 
         }
     }
@@ -74,7 +74,7 @@ public class LevelSystem : MonoBehaviour
         {
             curExp += returnExp;
             LevelUp();
-            UiManager.instance.SetPlayerExp();
+            UIManager.instance.SetPlayerExp();
         }
 
         Debug.Log(curLevel);
@@ -99,14 +99,14 @@ public class LevelSystem : MonoBehaviour
 
         if(skillPoint == 0)
         {
-            UiManager.instance.lightningLevelUp.SetActive(false);
-            UiManager.instance.cokeShotLevelUp.SetActive(false);
-            UiManager.instance.shootingStarLevelUp.SetActive(false);
-            UiManager.instance.cakeRushLevelUp.SetActive(false);
+            UIManager.instance.lightningLevelUp.SetActive(false);
+            UIManager.instance.cokeShotLevelUp.SetActive(false);
+            UIManager.instance.shootingStarLevelUp.SetActive(false);
+            UIManager.instance.cakeRushLevelUp.SetActive(false);
         }
 
         if (playerController.cakeRush.isSkillable == true)
-            UiManager.instance.cakeRushLevelUp.SetActive(false);
+            UIManager.instance.cakeRushLevelUp.SetActive(false);
 
         Debug.Log($"{skill.GetType()} skill level up {skill.level} / current skill point : {skillPoint}");
     }

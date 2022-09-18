@@ -28,14 +28,14 @@ public class LobbySoundController : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.instance.nowScene == Define.Scene.title && UiManager.instance.isExitLoading && fxSource.isPlaying == false)
+        if(GameManager.instance.nowScene == Define.Scene.Title && UIManager.instance.isLoadingOff && fxSource.isPlaying == false)
         {
             if(bgmSource.isPlaying) 
                 return;
             SoundManager.instance.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Title_Main);
         }
 
-        if(GameManager.instance.nowScene == Define.Scene.lobby)
+        if(GameManager.instance.nowScene == Define.Scene.Lobby)
         {
 
             if(GameManager.instance.nowMatching == true)
@@ -60,7 +60,7 @@ public class LobbySoundController : MonoBehaviour
             }
         }
 
-        if(GameManager.instance.nowScene == Define.Scene.inGame && isGameStarted == false)
+        if(GameManager.instance.nowScene == Define.Scene.InGame && isGameStarted == false)
         {
             isGameStarted = true;
             bgmSource.Stop();

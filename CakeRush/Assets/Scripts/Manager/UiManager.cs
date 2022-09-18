@@ -4,128 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : MonoSingleton<UiManager> //GameManager
+public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 {
+    #region singleton
 
-    #region elements
+    public static UIManager instance;
 
-    private WaitForSeconds one = new WaitForSeconds(1);
-
-    private Image infoImage;
-    private Image mapImage;
-
-    private Text playTimeText;
-    private Text unitSizeText;
-    private Text eventText;
-    private Text curCost;
-
-    private PlayerController player;
-
-    private Canvas sceneUICanvas;
-    private GameObject canvasOBJ;
-    private GameObject titlePanel;
-    private GameObject lobbyPanel;
-    private GameObject lobbyOptionPanel;
-    private GameObject matchingPanel;
-    private GameObject loadingPanel;
-    private GameObject noticePanel;
-    private GameObject timePanel;
-    private GameObject resourcePanel;
-    private GameObject victoryPanel;
-    private GameObject defeatPanel;
-    private GameObject characterInfoPanel;
-
-    //inGame
-    private GameObject playerPanel;
-    private GameObject statPanel;
-    public GameObject buildPanel { get; set; }
-    private GameObject defaultPanel;
-    private GameObject playerUnitSlot;
-    private GameObject downUnitSlot;
-    private Button statButton;
-    private Button buildButton;
-
-    private Slider loadingBar;
-    public bool isExitLoading;
-
-    private Button startInTitle;
-    private Button optionInTitle;
-    private Button exitInTitle;
-
-    private Button startInLobby;
-    private TMP_Text startTextInLobby;
-    private Button optionInLobby;
-    private TMP_InputField nameInputInLobby;
-    private Button exitInLobby;
-    private TMP_Text noticeText;
-    private Button infoInLobby;
-     
-    private bool callNotice;
-    private float noticeTime;
-    private float noticeTimer;
-
-    private GameObject skillCokeShot;
-    private GameObject skillCakeRush;
-    private GameObject skillShotingStar;
-    private GameObject skillLightning;
-
-    public GameObject lightningLevelUp;
-    public GameObject cokeShotLevelUp;
-    public GameObject shootingStarLevelUp;
-    public GameObject cakeRushLevelUp;
-
-    public TMP_Text lightningCooltime;
-    public TMP_Text shotingStarCooltime;
-    public TMP_Text cakeRushCooltime;
-    public TMP_Text cokeShotCooltime;
-
-    public GameObject lightningActive;
-    public GameObject cokeShotActive;
-    public GameObject shootingStarActive;
-    public GameObject cakeRushActive;
-    
-    private TMP_Text timeTxt;
-
-    private TMP_Text chocolateTxt;
-    private TMP_Text sugarTxt;
-    private TMP_Text doughTxt;
-    
-    private TMP_Text playerDamage;
-    private TMP_Text playerHealth;
-    private TMP_Text playerSpeed;
-    private TMP_Text playerDefense;
-    private TMP_Text playerAttacSpeed;
-    private TMP_Text playerAttackrange;
-    private TMP_Text playerLevel;
-    private Button nextInVictory;
-
-    private Button nextInDefeat;
-
-    public Slider hpBar;
-    private Slider expBar;
-    private TMP_Text exp;
     #endregion
-
-    protected GameObject FindElement(string path)
-    {
-        return Instantiate(Resources.Load<GameObject>($"Prefabs/UI/{path}"), canvasOBJ.transform);
-    }
-
-    protected virtual GameObject SetGameObj(GameObject parent, string name)
-    {
-        return parent.transform.Find(name).gameObject;
-    }
-
-    protected virtual TMP_Text SetText(GameObject parent, string name)
-    {
-        return parent.transform.Find(name).GetComponent<TMP_Text>();
-    }
-
-    protected virtual T SetAny<T>(GameObject parent, string name) where T : Selectable
-    {
-        return parent.transform.Find(name).GetComponent<T>();
-    }
-    public void FindPlayer() => player = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
 
     public void Init()
     {
@@ -135,8 +20,10 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
 
         loadingPanel  = FindElement("LoadingPanel");
         loadingBar    = SetAny<Slider>(loadingPanel, "LoadingSlider");
-        //StartCoroutine(Loading());
-        StartCoroutine(LoadingAndNotice());
+
+        StartCoroutine(Notice());
+        StartCoroutine(LoadingCycle());
+        StartFakeLoading();
 
         titlePanel       = FindElement("TitlePanel");
         lobbyPanel       = FindElement("LobbyPanel");
@@ -240,12 +127,137 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         //skillCokeShot.onClick.AddListener(OnClickCokeShot);
         //skillLightning.onClick.AddListener(OnClickLightning);
     }
+    
+    #region object Elements
 
-    public void ShowLoading()
+    private Image infoImage;
+    private Image mapImage;
+
+    private Text playTimeText;
+    private Text unitSizeText;
+    private Text eventText;
+    private Text curCost;
+
+    private PlayerController player;
+
+    private Canvas sceneUICanvas;
+    private GameObject canvasOBJ;
+    private GameObject titlePanel;
+    private GameObject lobbyPanel;
+    private GameObject lobbyOptionPanel;
+    private GameObject matchingPanel;
+    private GameObject loadingPanel;
+    private GameObject noticePanel;
+    private GameObject timePanel;
+    private GameObject resourcePanel;
+    private GameObject victoryPanel;
+    private GameObject defeatPanel;
+    private GameObject characterInfoPanel;
+
+    //inGame
+    private GameObject playerPanel;
+    private GameObject statPanel;
+    public GameObject buildPanel { get; set; }
+    private GameObject defaultPanel;
+    private GameObject playerUnitSlot;
+    private GameObject downUnitSlot;
+    private Button statButton;
+    private Button buildButton;
+
+    private Slider loadingBar;
+
+    private Button startInTitle;
+    private Button optionInTitle;
+    private Button exitInTitle;
+
+    private Button startInLobby;
+    private TMP_Text startTextInLobby;
+    private Button optionInLobby;
+    private TMP_InputField nameInputInLobby;
+    private Button exitInLobby;
+    private TMP_Text noticeText;
+    private Button infoInLobby;
+
+    private GameObject skillCokeShot;
+    private GameObject skillCakeRush;
+    private GameObject skillShotingStar;
+    private GameObject skillLightning;
+
+    public GameObject lightningLevelUp;
+    public GameObject cokeShotLevelUp;
+    public GameObject shootingStarLevelUp;
+    public GameObject cakeRushLevelUp;
+
+    public TMP_Text lightningCooltime;
+    public TMP_Text shotingStarCooltime;
+    public TMP_Text cakeRushCooltime;
+    public TMP_Text cokeShotCooltime;
+
+    public GameObject lightningActive;
+    public GameObject cokeShotActive;
+    public GameObject shootingStarActive;
+    public GameObject cakeRushActive;
+    
+    private TMP_Text timeTxt;
+
+    private TMP_Text chocolateTxt;
+    private TMP_Text sugarTxt;
+    private TMP_Text doughTxt;
+    
+    private TMP_Text playerDamage;
+    private TMP_Text playerHealth;
+    private TMP_Text playerSpeed;
+    private TMP_Text playerDefense;
+    private TMP_Text playerAttacSpeed;
+    private TMP_Text playerAttackrange;
+    private TMP_Text playerLevel;
+    private Button nextInVictory;
+
+    private Button nextInDefeat;
+
+    public Slider hpBar;
+    private Slider expBar;
+    private TMP_Text exp;
+    #endregion
+
+    #region value elements
+
+    private WaitForSeconds one = new WaitForSeconds(1);
+    public bool isLoadingOn, isLoadingOff, isFakeLoading, isCompletlyLoading;
+
+    private bool callNotice;
+    private float noticeTime;
+    private float noticeTimer;
+
+    #endregion
+
+
+    #region Find Functions
+    protected GameObject FindElement(string path)
     {
-        loadingBar.value = 0;
-        isExitLoading = false;
+        return canvasOBJ.transform.Find(path).gameObject;
     }
+
+    protected virtual GameObject SetGameObj(GameObject parent, string name)
+    {
+        return parent.transform.Find(name).gameObject;
+    }
+
+    protected virtual TMP_Text SetText(GameObject parent, string name)
+    {
+        return parent.transform.Find(name).GetComponent<TMP_Text>();
+    }
+
+    protected virtual T SetAny<T>(GameObject parent, string name) where T : Selectable
+    {
+        return parent.transform.Find(name).GetComponent<T>();
+    }
+
+    public void FindPlayer() => player = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
+
+    #endregion
+    
+    #region Player Info
 
     public void SetPlayerStat()
     {
@@ -263,6 +275,7 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
         playerHealth.text = $"{player.curHp} / {player.maxHp}";
         hpBar.value = player.curHp / player.maxHp;
     }
+
     public void SetPlayerExp()
     {
         if(player.levelSystem.curLevel < 10)
@@ -276,51 +289,130 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
             exp.text = "1000 / 1000";
             Debug.Log("Check");
         }
-
     }
-    //private IEnumerator Loading()
-    //{
-    //    while(true)
-    //    {
-    //        if(loadingBar.value == 0)
-    //        {
-    //            loadingPanel.SetActive(true);
 
-    //            while (loadingBar.value < 80)
-    //            {
-    //                loadingBar.value += 35 * Time.deltaTime;
-    //                yield return null;
-    //            }
+    #endregion
 
-    //            loadingBar.value = 80;
-    //        }
-    //        else if(isExitLoading && loadingBar.value >= 80)
-    //        {
-    //            isExitLoading = false;
-    //            while (loadingBar.value < 100)
-    //            {
-    //                loadingBar.value += 40 * Time.deltaTime;
-    //                yield return null;
-    //            }
+    #region Loading
 
-    //            loadingBar.value = 100;
-    //            loadingPanel.SetActive(false);
-    //        }
+    public void StartCompletlyLoading()
+    {
+        loadingBar.value = 0;
+        loadingPanel.SetActive(true);
 
-    //        yield return null;
-    //    }
-    //}
+        isCompletlyLoading = true;
+    }
 
-    #region Loading && Notice
-    private IEnumerator LoadingAndNotice()
+    public void StartFakeLoading()
+    {
+        loadingBar.value = 0;
+        isFakeLoading = true;
+        loadingPanel.SetActive(true);
+    }
+
+    public void StartLoading()
+    {
+        isFakeLoading = false;
+        isCompletlyLoading = false;
+
+        if (isLoadingOn)
+            return;
+
+        loadingBar.value = 0;
+        isLoadingOn = true;
+        loadingPanel.SetActive(true);
+    }
+
+    public void OffLoading()
+    {
+        isLoadingOff = true;
+    }
+
+    private void OnStartLoading()
+    {
+        isLoadingOn = false;
+        loadingBar.value = 80;
+
+        if (!isFakeLoading)
+            GameManager.instance.OnFadeOut();
+    }
+
+    private void OnOffLoading()
+    {
+        isLoadingOff = false;
+        isFakeLoading = false;
+
+        loadingBar.value = 100;
+        loadingPanel.SetActive(false);
+
+        GameManager.instance.OnFadeIn();
+    }
+
+    private void OnCompletlyLoading()
+    {
+        isCompletlyLoading = false;
+
+        GameManager.instance.OnCompletlyLoading();
+    }
+
+    private IEnumerator LoadingCycle()
     {
         while (true)
         {
-            if(callNotice)
+            if (isLoadingOn)
+            {
+                if (loadingBar.value < 80)
+                {
+                    loadingBar.value += 35 * Time.deltaTime;
+                }
+                else
+                {
+                    loadingBar.value = 80;
+                    OnStartLoading();
+                }
+            }
+            else if (isLoadingOff)
+            {
+                if (loadingBar.value < 100)
+                {
+                    loadingBar.value += 50 * Time.deltaTime;
+                }
+                else
+                {
+                    loadingBar.value = 100;
+                    OnOffLoading();
+                }
+            }
+            else if (isCompletlyLoading)
+            {
+                if (loadingBar.value < 100)
+                {
+                    loadingBar.value += 50 * Time.deltaTime;
+                }
+                else
+                {
+                    loadingBar.value = 100;
+                    OnCompletlyLoading();
+                }
+            }
+
+            yield return null;
+        }
+    }
+
+    #endregion
+
+    #region Notice
+
+    private IEnumerator Notice()
+    {
+        while (true)
+        {
+            if (callNotice)
             {
                 callNotice = false;
                 noticePanel.SetActive(true);
-                while(noticeTime >= noticeTimer)
+                while (noticeTime >= noticeTimer)
                 {
                     if (callNotice)
                         break;
@@ -329,41 +421,19 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
                 }
                 noticePanel.SetActive(false);
             }
-
-            if (loadingBar.value == 0)
-            {
-                loadingPanel.SetActive(true);
-
-                while (loadingBar.value < 80)
-                {
-                    loadingBar.value += 35 * Time.deltaTime;
-                    yield return null;
-                }
-
-                loadingBar.value = 80;
-            }
-            else if (isExitLoading && loadingBar.value >= 80)
-            {
-                isExitLoading = false;
-                while (loadingBar.value < 100)
-                {
-                    loadingBar.value += 40 * Time.deltaTime;
-                    yield return null;
-                }
-
-                loadingBar.value = 100;
-                loadingPanel.SetActive(false);
-            }
-
             yield return null;
         }
     }
-
-    public void ExitLoading()
+    
+    public void Notice(string text, float time)
     {
-        isExitLoading = true;
-        //loadingBar.value = 70;
+        noticePanel.transform.localPosition = Vector3.zero;
+        noticeText.text = text;
+        noticeTime = time;
+        noticeTimer = 0;
+        callNotice = true;
     }
+    
     #endregion
 
     #region skill
@@ -388,24 +458,34 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
     }
     #endregion
 
-    #region server
-    public void OnConnectedToMaster()
+    #region Function
+
+    public void SetStartTextInLobby(string text)
     {
-        ExitLoading();
+        startTextInLobby.text = text;
+    }
+    public void ShowUI(Define.Scene nowScene)
+    {
+        titlePanel.SetActive(nowScene == Define.Scene.Title);
+        lobbyPanel.SetActive(nowScene == Define.Scene.Lobby);
+        victoryPanel.SetActive(nowScene == Define.Scene.Victory);
+        defeatPanel.SetActive(nowScene == Define.Scene.Defeat);
     }
 
     #endregion
 
     #region button
+
     public void OnClickStartInTitle()
     {
         GameManager.instance.OnClickStartInTitle();
     }
+
     public void OnClickStartInLobby()
     {
         if(GameManager.instance.nowCloseMatching)
         {
-            NoticeInLobby("매칭을 취소하는 중 입니다.", 1);
+            Notice("매칭을 취소하는 중 입니다.", 1);
         }
         else
         {
@@ -414,73 +494,56 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
                 if(GameManager.instance.nowInRoom)
                 {
                     GameManager.instance.nowCloseMatching = true;
-                    NoticeInLobby("매칭을 취소합니다.", 1);
+                    Notice("매칭을 취소합니다.", 1);
                     SetStartTextInLobby("매칭 취소중");
-                    GameManager.instance.LeaveRoom();
                 }
                 else
                 {
-                    NoticeInLobby("방에 입장하는 중 입니다.", 1);
+                    Notice("방에 입장하는 중 입니다.", 1);
                 }
             }
             else
             {
-                if (GameManager.instance.isNullableNickName())
+                if (ServerManager.instance.isNullableNickName())
                 {
-                    NoticeInLobby("닉네임을 입력해 주세요.", 1);
+                    Notice("닉네임을 입력해 주세요.", 1);
                 }
                 else if(!GameManager.instance.nowInRoom)
                 {
-                    GameManager.instance.OnClickStartInLobby();
+                    //GameManager.instance.OnClickStartInLobby();
                     GameManager.instance.nowMatching = true;
-                    NoticeInLobby("매칭을 시작했습니다.", 1);
+                    Notice("매칭을 시작했습니다.", 1);
                     SetStartTextInLobby("매칭 취소");
                 }
                 else
                 {
-                    NoticeInLobby("방에서 나가는 중 입니다.", 1);
+                    Notice("방에서 나가는 중 입니다.", 1);
                 }
             }
         }
     }
 
-    public void SetStartTextInLobby(string text)
-    {
-        startTextInLobby.text = text;
-    }
-
-    public void NoticeInLobby(string text, float time)
-    {
-        noticePanel.transform.localPosition = Vector3.zero;
-        noticeText.text = text;
-        noticeTime = time;
-        noticeTimer = 0;
-        callNotice = true;
-    }
-
-    //private void UnNoticeInLoby()
-    //{
-    //    noticePanel.SetActive(false);
-    //    noticeText.text = "";
-    //}
-
     public void OnClickExit()
     {
-        GameManager.instance.OnClickExit();
+        StartCompletlyLoading();
     }
+    
     public void OnClickOption()
     {
         lobbyOptionPanel.SetActive(!lobbyOptionPanel.active);
     }
+
     public void OnClickInfo()
     {
-        GameManager.instance.OnClickInfo();
+        Notice($"기능 준비중..", 1);
     }
+    
     public void OnClickNameSubmit(string text)
     {
-        GameManager.instance.SetNickName(text);
-        NoticeInLobby($"닉네임을 '{text}'로 지정했습니다.", 1);
+        ServerManager.instance.SetNickName(text);
+        Notice($"닉네임을 '{text}'로 지정했습니다.", 1);
     }
+    
     #endregion
 
     #region inGame
@@ -554,15 +617,9 @@ public class UiManager : MonoSingleton<UiManager> //GameManager
 
     private void EndGame()
     {
-        GameManager.instance.SetScene("lobby");
+        GameManager.instance.SetScene(Define.Scene.Lobby);
     }
 
     #endregion
-    public void ShowUI(Define.Scene nowScene)
-    {
-        titlePanel.SetActive(nowScene == Define.Scene.title);
-        lobbyPanel.SetActive(nowScene == Define.Scene.lobby);
-        victoryPanel.SetActive(nowScene == Define.Scene.victory);
-        defeatPanel.SetActive(nowScene == Define.Scene.defeat);
-    }
+    
 }
