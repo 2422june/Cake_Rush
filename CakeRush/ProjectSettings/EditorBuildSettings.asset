@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Game/AwakeLoad.unity
+    path: Assets/Scenes/AwakeLoad.unity
     guid: e66a8b8608089814f849c1cad9e5dae7
   - enabled: 1
-    path: Assets/Scenes/Game/Title.unity
+    path: Assets/Scenes/Title.unity
     guid: a6d2b5e66172f19438f959baf15024c4
   - enabled: 1
-    path: Assets/Scenes/Game/Lobby.unity
+    path: Assets/Scenes/Lobby.unity
     guid: 8593160b0bf81824a94d85f2ec612389
   - enabled: 1
-    path: Assets/Scenes/Game/InGame.unity
+    path: Assets/Scenes/InGame.unity
     guid: fc88f6848fddd314d92c7a92f5402b1e
   m_configObjects: {}
