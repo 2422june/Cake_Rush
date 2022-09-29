@@ -231,7 +231,6 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
     #endregion
 
-
     #region Find Functions
     protected GameObject FindElement(string path)
     {

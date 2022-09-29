@@ -44,22 +44,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region find Function
-    protected virtual GameObject FindElement(string folder, string path)
-    {
-        return Instantiate(Resources.Load<GameObject>($"Prefabs/${folder}/{path}"));
-    }
-    protected virtual GameObject FindElement(string path)
-    {
-        return Instantiate(Resources.Load<GameObject>($"Prefabs/UI/{path}"));
-    }
-
-    protected virtual GameObject FindElement(GameObject parent, string name)
-    {
-        return parent.transform.Find(name).gameObject;
-    }
-    #endregion
-
     #region Setting
 
     private void Init()
@@ -287,3 +271,19 @@ public class GameManager : MonoBehaviour
     #endregion
 
 }
+
+    /*#region find Function
+    protected virtual GameObject FindElement(string folder, string path)
+    {
+        return Instantiate(Resources.Load<GameObject>($"Prefabs/${folder}/{path}"));
+    }
+    protected virtual GameObject FindElement(string path)
+    {
+        return Instantiate(Resources.Load<GameObject>($"Prefabs/UI/{path}"));
+    }
+
+    protected virtual GameObject FindElement(GameObject parent, string name)
+    {
+        return parent.transform.Find(name).gameObject;
+    }
+    #endregion*/
