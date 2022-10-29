@@ -24,11 +24,10 @@ public class GameProgress : MonoBehaviourPunCallbacks
     public bool team2Ready;
     private bool startProcess;
 
-    private UiManager UIManager;
     private int timeI;
     private float timeF;
 
-    private void Awake()
+    public void Init()
     {
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
         selectableLayer = 1 << LayerMask.NameToLayer("Selectable");
@@ -49,12 +48,11 @@ public class GameProgress : MonoBehaviourPunCallbacks
         tag = GameManager.instance.tag;
 
         rtsController = GameManager.instance.rtsController;
-        UIManager = GameManager.instance.UIManager;
         camera = GameObject.Find("MainCamera");
 
         SetingMap();
-        UIManager.ShowInGameStaticPanel();
-        UIManager.ShowInGameDynamicPanel(UiManager.inGameUIs.main);
+        UIManager.instance.ShowInGameStaticPanel();
+        UIManager.instance.ShowInGameDynamicPanel(UIManager.inGameUIs.main);
 
 
         if (tag == "Team_1")
@@ -88,6 +86,7 @@ public class GameProgress : MonoBehaviourPunCallbacks
             yield return null;
             if (team1Ready && team2Ready)
             {
+<<<<<<< HEAD
                 UIManager.NoticeInLobby("5", 0.8f);
                 yield return one;
                 UIManager.NoticeInLobby("4", 0.8f);
@@ -101,6 +100,21 @@ public class GameProgress : MonoBehaviourPunCallbacks
                 UIManager.NoticeInLobby("0", 0.8f);
                 yield return one;
                 UIManager.NoticeInLobby("GameStart!!", 1f);
+=======
+                UIManager.instance.Notice("5", 0.8f);
+                yield return one;
+                UIManager.instance.Notice("4", 0.8f);
+                yield return one;
+                UIManager.instance.Notice("3", 0.8f);
+                yield return one;
+                UIManager.instance.Notice("2", 0.8f);
+                yield return one;
+                UIManager.instance.Notice("1", 0.8f);
+                yield return one;
+                UIManager.instance.Notice("0", 0.8f);
+                yield return one;
+                UIManager.instance.Notice("GameStart!!", 1f);
+>>>>>>> ReMake
                 inGameStart = true;
                 break;
             }
@@ -126,12 +140,12 @@ public class GameProgress : MonoBehaviourPunCallbacks
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                UIManager.OnClickOption();
+                UIManager.instance.OnClickOption();
             }
 
             if(timeF - timeI >= 1)
             {
-                timeI = UIManager.FlowTime(timeI);
+                timeI = UIManager.instance.FlowTime(timeI);
             }
 
             timeF += Time.deltaTime;

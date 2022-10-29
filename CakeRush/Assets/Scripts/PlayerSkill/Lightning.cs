@@ -20,7 +20,11 @@ public class Lightning : SkillBase
         if (!skillStat[skillLevel].isCoolTime && isSkillable == true)
         {
             Debug.Log("Check");
+<<<<<<< HEAD
             StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UiManager.instance.lightningCooltime, UiManager.instance.lightningActive));
+=======
+            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UIManager.instance.lightningCooltime, UIManager.instance.lightningActive));
+>>>>>>> ReMake
         }
         else
         {

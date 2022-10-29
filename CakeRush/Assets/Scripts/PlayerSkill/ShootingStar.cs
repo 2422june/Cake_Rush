@@ -26,7 +26,7 @@ public class ShootingStar : SkillBase
     {
         if (!skillStat[skillLevel].isCoolTime && isSkillable == true)
         {
-            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UiManager.instance.shotingStarCooltime, UiManager.instance.shootingStarActive));
+            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UIManager.instance.shotingStarCooltime, UIManager.instance.shootingStarActive));
         }
         else
         {

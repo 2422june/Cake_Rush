@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using SM = UnityEngine.SceneManagement.SceneManager;
 
 using MirzaBeig.Scripting.Effects;
 
@@ -164,7 +164,7 @@ public class ParticleForceFieldsDemo : MonoBehaviour
 
     public void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SM.LoadScene(SM.GetActiveScene().buildIndex);
     }
 
     // Particle system settings.

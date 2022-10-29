@@ -28,7 +28,11 @@ public class CokeShot : SkillBase
     {
         if (!skillStat[skillLevel].isCoolTime && isSkillable == true)
         {
+<<<<<<< HEAD
             StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UiManager.instance.cokeShotCooltime, UiManager.instance.cokeShotActive));
+=======
+            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UIManager.instance.cokeShotCooltime, UIManager.instance.cokeShotActive));
+>>>>>>> ReMake
         }
         else
         {
