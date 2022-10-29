@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,68 +15,68 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
     public void Init()
     {
         DontDestroyOnLoad(this);
-        sceneUICanvas  = GetComponentInChildren<Canvas>();
-        canvasOBJ      = sceneUICanvas.gameObject;
+        sceneUICanvas = GetComponentInChildren<Canvas>();
+        canvasOBJ = sceneUICanvas.gameObject;
 
-        loadingPanel  = FindElement("LoadingPanel");
-        loadingBar    = SetAny<Slider>(loadingPanel, "LoadingSlider");
+        loadingPanel = FindElement("LoadingPanel");
+        loadingBar = SetAny<Slider>(loadingPanel, "LoadingSlider");
 
         StartCoroutine(Notice());
         StartCoroutine(LoadingCycle());
         StartFakeLoading();
 
-        titlePanel       = FindElement("TitlePanel");
-        lobbyPanel       = FindElement("LobbyPanel");
-        noticePanel      = FindElement("NoticePanel");
+        titlePanel = FindElement("TitlePanel");
+        lobbyPanel = FindElement("LobbyPanel");
+        noticePanel = FindElement("NoticePanel");
         lobbyOptionPanel = SetGameObj(lobbyPanel, "OptionMenus");
-        noticeText       = SetText(noticePanel, "Text");
-        timePanel        = FindElement("TimePanel");
-        defaultPanel     = FindElement("DefaultPanel");
+        noticeText = SetText(noticePanel, "Text");
+        timePanel = FindElement("TimePanel");
+        defaultPanel = FindElement("DefaultPanel");
 
-        playerPanel      = FindElement("PlayerPanel");
-        playerUnitSlot   = FindElement("UnitListPanel");
-        downUnitSlot     = FindElement("UnitListPanelDown");
+        playerPanel = FindElement("PlayerPanel");
+        playerUnitSlot = FindElement("UnitListPanel");
+        downUnitSlot = FindElement("UnitListPanelDown");
 
         characterInfoPanel = SetGameObj(playerPanel, "CharacterInfoPanel");
 
-        victoryPanel     = FindElement("VictoryPanel");
-        defeatPanel      = FindElement("DefeatPanel");
+        victoryPanel = FindElement("VictoryPanel");
+        defeatPanel = FindElement("DefeatPanel");
 
-        startInTitle     = SetAny<Button>(titlePanel, "StartButton");
-        exitInTitle      = SetAny<Button>(titlePanel, "ExitButton");
+        startInTitle = SetAny<Button>(titlePanel, "StartButton");
+        exitInTitle = SetAny<Button>(titlePanel, "ExitButton");
 
-        startInLobby     = SetAny<Button>(lobbyPanel, "StartButton");
+        startInLobby = SetAny<Button>(lobbyPanel, "StartButton");
         startTextInLobby = SetText(startInLobby.gameObject, "Text");
-        optionInLobby    = SetAny<Button>(lobbyPanel, "OptionButton");
-        matchingPanel    = SetGameObj(lobbyPanel, "MatchingPanel");
-        nameInputInLobby  = SetAny<TMP_InputField>(matchingPanel, "NameInput");
-        exitInLobby      = SetAny<Button>(lobbyOptionPanel, "ExitButton");
-        infoInLobby      = SetAny<Button>(lobbyOptionPanel, "InfoButton");
+        optionInLobby = SetAny<Button>(lobbyPanel, "OptionButton");
+        matchingPanel = SetGameObj(lobbyPanel, "MatchingPanel");
+        nameInputInLobby = SetAny<TMP_InputField>(matchingPanel, "NameInput");
+        exitInLobby = SetAny<Button>(lobbyOptionPanel, "ExitButton");
+        infoInLobby = SetAny<Button>(lobbyOptionPanel, "InfoButton");
 
 
-        statPanel        = SetGameObj(playerPanel, "AbilltyPanel");
-        buildPanel       = SetGameObj(playerPanel, "BuildingPanel");
-        buildButton      = SetAny<Button>(playerPanel, "BuildButton");
-        statButton       = SetAny<Button>(playerPanel, "StatButton");
-        timeTxt          = SetText(timePanel, "time");
+        statPanel = SetGameObj(playerPanel, "AbilltyPanel");
+        buildPanel = SetGameObj(playerPanel, "BuildingPanel");
+        buildButton = SetAny<Button>(playerPanel, "BuildButton");
+        statButton = SetAny<Button>(playerPanel, "StatButton");
+        timeTxt = SetText(timePanel, "time");
 
-        resourcePanel    = FindElement("ResourcePanel");
-        chocolateTxt     = SetText(resourcePanel, "Chocolate");
-        sugarTxt         = SetText(resourcePanel, "Sugar");
-        doughTxt         = SetText(resourcePanel, "Dough");
+        resourcePanel = FindElement("ResourcePanel");
+        chocolateTxt = SetText(resourcePanel, "Chocolate");
+        sugarTxt = SetText(resourcePanel, "Sugar");
+        doughTxt = SetText(resourcePanel, "Dough");
 
-        nextInDefeat     = SetAny<Button>(defeatPanel, "Next");
-        nextInVictory    = SetAny<Button>(victoryPanel, "Next");
+        nextInDefeat = SetAny<Button>(defeatPanel, "Next");
+        nextInVictory = SetAny<Button>(victoryPanel, "Next");
 
-        skillCokeShot    = SetGameObj(characterInfoPanel, "CokeShot");
-        skillCakeRush    = SetGameObj(characterInfoPanel, "CakeRush");
+        skillCokeShot = SetGameObj(characterInfoPanel, "CokeShot");
+        skillCakeRush = SetGameObj(characterInfoPanel, "CakeRush");
         skillShotingStar = SetGameObj(characterInfoPanel, "ShotingStar");
-        skillLightning   = SetGameObj(characterInfoPanel, "Lightning");
+        skillLightning = SetGameObj(characterInfoPanel, "Lightning");
 
-        cokeShotActive   = SetGameObj(skillCokeShot, "SkillActive");
-        cakeRushActive   = SetGameObj(skillCakeRush, "SkillActive");
+        cokeShotActive = SetGameObj(skillCokeShot, "SkillActive");
+        cakeRushActive = SetGameObj(skillCakeRush, "SkillActive");
         shootingStarActive = SetGameObj(skillShotingStar, "SkillActive");
-        lightningActive  = SetGameObj(skillLightning, "SkillActive");
+        lightningActive = SetGameObj(skillLightning, "SkillActive");
 
         lightningCooltime = SetText(skillLightning, "Cooltime");
         cakeRushCooltime = SetText(skillCakeRush, "Cooltime");
@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
         hpBar = SetAny<Slider>(characterInfoPanel, "HPBar");
         expBar = SetAny<Slider>(characterInfoPanel, "EXPBar");
-                                                          
+
         playerHealth = SetText(hpBar.gameObject, "HP");
         exp = SetText(expBar.gameObject, "EXP");
 
@@ -116,7 +116,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
         cokeShotLevelUp = SetGameObj(skillCokeShot, "LevelUp");
         shootingStarLevelUp = SetGameObj(skillShotingStar, "LevelUp");
         cakeRushLevelUp = SetGameObj(skillCakeRush, "LevelUp");
-        
+
         lightningLevelUp.SetActive(true);
         cokeShotLevelUp.SetActive(true);
         shootingStarLevelUp.SetActive(true);
@@ -127,7 +127,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
         //skillCokeShot.onClick.AddListener(OnClickCokeShot);
         //skillLightning.onClick.AddListener(OnClickLightning);
     }
-    
+
     #region object Elements
 
     private Image infoImage;
@@ -197,13 +197,13 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
     public GameObject cokeShotActive;
     public GameObject shootingStarActive;
     public GameObject cakeRushActive;
-    
+
     private TMP_Text timeTxt;
 
     private TMP_Text chocolateTxt;
     private TMP_Text sugarTxt;
     private TMP_Text doughTxt;
-    
+
     private TMP_Text playerDamage;
     private TMP_Text playerHealth;
     private TMP_Text playerSpeed;
@@ -255,7 +255,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
 
     #endregion
-    
+
     #region Player Info
 
     public void SetPlayerStat()
@@ -277,7 +277,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
     public void SetPlayerExp()
     {
-        if(player.levelSystem.curLevel < 10)
+        if (player.levelSystem.curLevel < 10)
         {
             expBar.value = player.levelSystem.curExp / player.levelSystem.maxExp[player.levelSystem.curLevel];
             exp.text = $"{player.levelSystem.curExp} / {player.levelSystem.maxExp[player.levelSystem.curLevel]}";
@@ -423,7 +423,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
             yield return null;
         }
     }
-    
+
     public void Notice(string text, float time)
     {
         noticePanel.transform.localPosition = Vector3.zero;
@@ -432,7 +432,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
         noticeTimer = 0;
         callNotice = true;
     }
-    
+
     #endregion
 
     #region skill
@@ -482,7 +482,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
     public void OnClickStartInLobby()
     {
-        if(GameManager.instance.nowCloseMatching)
+        if (GameManager.instance.nowCloseMatching)
         {
             Notice("��Ī�� ����ϴ� �� �Դϴ�.", 1);
         }
@@ -490,7 +490,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
         {
             if (GameManager.instance.nowMatching)
             {
-                if(GameManager.instance.nowInRoom)
+                if (GameManager.instance.nowInRoom)
                 {
                     GameManager.instance.nowCloseMatching = true;
                     Notice("��Ī�� ����մϴ�.", 1);
@@ -507,7 +507,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
                 {
                     Notice("�г����� �Է��� �ּ���.", 1);
                 }
-                else if(!GameManager.instance.nowInRoom)
+                else if (!GameManager.instance.nowInRoom)
                 {
                     //GameManager.instance.OnClickStartInLobby();
                     GameManager.instance.nowMatching = true;
@@ -526,7 +526,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
     {
         StartCompletlyLoading();
     }
-    
+
     public void OnClickOption()
     {
         lobbyOptionPanel.SetActive(!lobbyOptionPanel.active);
@@ -536,13 +536,13 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
     {
         Notice($"��� �غ���..", 1);
     }
-    
+
     public void OnClickNameSubmit(string text)
     {
         ServerManager.instance.SetNickName(text);
         Notice($"�г����� '{text}'�� �����߽��ϴ�.", 1);
     }
-    
+
     #endregion
 
     #region inGame
@@ -554,8 +554,8 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
     public void ChangeCost(int cho, int sug, int dou)
     {
         chocolateTxt.text = $"{cho}";
-        sugarTxt.text     = $"{sug}";
-        doughTxt.text     = $"{dou}";
+        sugarTxt.text = $"{sug}";
+        doughTxt.text = $"{dou}";
     }
 
     private void OnClickBuild()
@@ -620,5 +620,5 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
     }
 
     #endregion
-    
+
 }
