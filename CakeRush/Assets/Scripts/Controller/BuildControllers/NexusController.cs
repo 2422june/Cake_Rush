@@ -22,15 +22,9 @@ public class NexusController : BuildBase
     {
         base.Die();
         if(PV.IsMine)
-<<<<<<< HEAD
-            GameManager.instance.SetScene("defeat");
-        else
-            GameManager.instance.SetScene("victory");
-=======
             GameManager.instance.SetScene(Define.Scene.Defeat);
         else
             GameManager.instance.SetScene(Define.Scene.Victory);
->>>>>>> ReMake
     }
 
 }

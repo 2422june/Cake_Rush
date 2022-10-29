@@ -86,21 +86,6 @@ public class GameProgress : MonoBehaviourPunCallbacks
             yield return null;
             if (team1Ready && team2Ready)
             {
-<<<<<<< HEAD
-                UIManager.NoticeInLobby("5", 0.8f);
-                yield return one;
-                UIManager.NoticeInLobby("4", 0.8f);
-                yield return one;
-                UIManager.NoticeInLobby("3", 0.8f);
-                yield return one;
-                UIManager.NoticeInLobby("2", 0.8f);
-                yield return one;
-                UIManager.NoticeInLobby("1", 0.8f);
-                yield return one;
-                UIManager.NoticeInLobby("0", 0.8f);
-                yield return one;
-                UIManager.NoticeInLobby("GameStart!!", 1f);
-=======
                 UIManager.instance.Notice("5", 0.8f);
                 yield return one;
                 UIManager.instance.Notice("4", 0.8f);
@@ -114,7 +99,6 @@ public class GameProgress : MonoBehaviourPunCallbacks
                 UIManager.instance.Notice("0", 0.8f);
                 yield return one;
                 UIManager.instance.Notice("GameStart!!", 1f);
->>>>>>> ReMake
                 inGameStart = true;
                 break;
             }

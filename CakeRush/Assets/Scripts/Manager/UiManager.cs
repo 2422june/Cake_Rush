@@ -212,12 +212,6 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
     private TMP_Text playerAttackrange;
     private TMP_Text playerLevel;
     private Button nextInVictory;
-
-    private Button nextInDefeat;
-
-    public Slider hpBar;
-    private Slider expBar;
-    private TMP_Text exp;
     #endregion
 
     #region value elements
@@ -256,9 +250,9 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
     {
         return parent.transform.Find(name).GetComponent<T>();
     }
-    public void FindPlayer() => player = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
 
     public void FindPlayer() => player = GameObject.Find("Player(Clone)").GetComponent<PlayerController>();
+
 
     #endregion
     

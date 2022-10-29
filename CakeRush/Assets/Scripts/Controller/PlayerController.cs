@@ -16,21 +16,14 @@ public class PlayerController : UnitBase
     {
         DataLoad("Player");
         AbilltyLoad("Player_Statup");
-<<<<<<< HEAD
-        UiManager.instance.FindPlayer();
-=======
         UIManager.instance.FindPlayer();
->>>>>>> ReMake
         levelSystem  = GetComponent<LevelSystem>();
         cakeRush     = GetComponent<CakeRush>();
         shootingStar = GetComponent<ShootingStar>();
         lightning    = GetComponent<Lightning>();
         cokeShot     = GetComponent<CokeShot>();
         build        = GetComponent<Build>();
-<<<<<<< HEAD
-        UIMng        = GameManager.instance.UIManager;
-=======
->>>>>>> ReMake
+        
         base.Awake();
         
         if (PV.IsMine)
@@ -38,24 +31,15 @@ public class PlayerController : UnitBase
         else
             tag = "Other_Player";
         SkillInit();
-<<<<<<< HEAD
-        UiManager.instance.buildPanel.SetActive(false);
-=======
         UIManager.instance.buildPanel.SetActive(false);
->>>>>>> ReMake
     }
 
     protected override void Start()
     {
         base.Start();
         rtsController.unitList.Add(this);
-<<<<<<< HEAD
-        UiManager.instance.SetPlayerStat();
-        UiManager.instance.SetPlayerExp();
-=======
         UIManager.instance.SetPlayerStat();
         UIManager.instance.SetPlayerExp();
->>>>>>> ReMake
     }
 
     protected override void Update()
@@ -109,38 +93,22 @@ public class PlayerController : UnitBase
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 levelSystem.SkillLevelUp(lightning);
-<<<<<<< HEAD
-                UiManager.instance.lightningActive.SetActive(false);
-=======
                 UIManager.instance.lightningActive.SetActive(false);
->>>>>>> ReMake
             }
             else if (Input.GetKeyDown(KeyCode.W))
             {
                 levelSystem.SkillLevelUp(cokeShot);
-<<<<<<< HEAD
-                UiManager.instance.cokeShotActive.SetActive(false);
-=======
                 UIManager.instance.cokeShotActive.SetActive(false);
->>>>>>> ReMake
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
                 levelSystem.SkillLevelUp(shootingStar);
-<<<<<<< HEAD
-                UiManager.instance.shootingStarActive.SetActive(false);
-=======
                 UIManager.instance.shootingStarActive.SetActive(false);
->>>>>>> ReMake
             }
             else if (Input.GetKeyDown(KeyCode.R) && levelSystem.curLevel > 5)
             {
                 levelSystem.SkillLevelUp(cakeRush);
-<<<<<<< HEAD
-                UiManager.instance.cakeRushActive.SetActive(false);
-=======
                 UIManager.instance.cakeRushActive.SetActive(false);
->>>>>>> ReMake
             }
         }
         #endregion
@@ -211,17 +179,10 @@ public class PlayerController : UnitBase
         shootingStar.isSkillable = false;
         cakeRush.isSkillable = false;
 
-<<<<<<< HEAD
-        UIMng.lightningActive.SetActive(true);
-        UIMng.cokeShotActive.SetActive(true);
-        UIMng.shootingStarActive.SetActive(true);
-        UIMng.cakeRushActive.SetActive(true);
-=======
         UIManager.instance.lightningActive.SetActive(true);
         UIManager.instance.cokeShotActive.SetActive(true);
         UIManager.instance.shootingStarActive.SetActive(true);
         UIManager.instance.cakeRushActive.SetActive(true);
->>>>>>> ReMake
 
         shootingStar.range = 10f;
         lightning.range = 30f;
@@ -335,20 +296,12 @@ public class PlayerController : UnitBase
         if (build.isBuildMode == true)
         {
             build.isBuildMode = false;
-<<<<<<< HEAD
-            UiManager.instance.buildPanel.SetActive(build.isBuildMode);
-=======
             UIManager.instance.buildPanel.SetActive(build.isBuildMode);
->>>>>>> ReMake
             yield break;
         }
         Debug.Log("BuildMode");
         build.isBuildMode = true;
-<<<<<<< HEAD
-        UiManager.instance.buildPanel.SetActive(build.isBuildMode);
-=======
         UIManager.instance.buildPanel.SetActive(build.isBuildMode);
->>>>>>> ReMake
         GameObject go = null;
         RaycastHit hit;
         BuildBase buildBase = null;
@@ -423,11 +376,8 @@ public class PlayerController : UnitBase
                     Debug.Log("Build Canceled");
                 }
                 build.isBuildMode = false;
-<<<<<<< HEAD
-                UiManager.instance.buildPanel.SetActive(build.isBuildMode);
-=======
+
                 UIManager.instance.buildPanel.SetActive(build.isBuildMode);
->>>>>>> ReMake
                 yield break;
             }
             yield return null;
@@ -463,13 +413,8 @@ public class PlayerController : UnitBase
     public override void Hit(float hitDamage)
     {
         base.Hit(hitDamage);
-<<<<<<< HEAD
-        UiManager.instance.hpBar.value = curHp / maxHp;
-        UiManager.instance.SetPlayerHp();
-=======
         UIManager.instance.hpBar.value = curHp / maxHp;
         UIManager.instance.SetPlayerHp();
->>>>>>> ReMake
     }
 
     public override void AbilltyUp()
@@ -482,11 +427,7 @@ public class PlayerController : UnitBase
     private void PlayDie()
     {
         animator.SetTrigger("Die");
-<<<<<<< HEAD
-        UIMng.ShowInGameDynamicPanel(UiManager.inGameUIs.main);
-=======
         UIManager.instance.ShowInGameDynamicPanel(UIManager.inGameUIs.main);
->>>>>>> ReMake
         base.Die();
     }
 }
