@@ -12,12 +12,10 @@ public class GameProgress : MonoBehaviourPunCallbacks
     public bool inGameStart;
     public bool isGameOver;
 
-    private float inGameTime = 0;
-
     public LayerMask groundLayer;
     public LayerMask selectableLayer;
     public RTSController rtsController;
-    private GameObject camera;
+    private GameObject _camera;
     private PhotonView PV;
 
     public bool team1Ready;
@@ -40,30 +38,28 @@ public class GameProgress : MonoBehaviourPunCallbacks
         inGameStart = false;
         team1Ready = false;
         team2Ready = false;
-        if (Managers.instance._game.DevelopMode)
-            team2Ready = true;
 
         startProcess = false;
 
         tag = Managers.instance._game.tag;
 
         rtsController = Managers.instance._game.rtsController;
-        camera = GameObject.Find("MainCamera");
+        _camera = GameObject.Find("MainCamera");
 
         SetingMap();
-        UIManager.instance.ShowInGameStaticPanel();
-        UIManager.instance.ShowInGameDynamicPanel(UIManager.inGameUIs.main);
+        Managers.instance._ui.ShowInGameStaticPanel();
+        Managers.instance._ui.ShowInGameDynamicPanel(UIManager.inGameUIs.main);
 
 
         if (tag == "Team_1")
         {
             PV.RPC("Team1Ready", RpcTarget.All);
-            camera.GetComponent<CameraController>().SetUpsideDown(false);
+            _camera.GetComponent<CameraController>().SetUpsideDown(false);
         }
         else
         {
             PV.RPC("Team2Ready", RpcTarget.All);
-            camera.GetComponent<CameraController>().SetUpsideDown(true);
+            _camera.GetComponent<CameraController>().SetUpsideDown(true);
         }
 
         PV.RPC("CountDownStarter", RpcTarget.All);
@@ -86,19 +82,19 @@ public class GameProgress : MonoBehaviourPunCallbacks
             yield return null;
             if (team1Ready && team2Ready)
             {
-                UIManager.instance.Notice("5", 0.8f);
+                Managers.instance._ui.Notice("5", 0.8f);
                 yield return one;
-                UIManager.instance.Notice("4", 0.8f);
+                Managers.instance._ui.Notice("4", 0.8f);
                 yield return one;
-                UIManager.instance.Notice("3", 0.8f);
+                Managers.instance._ui.Notice("3", 0.8f);
                 yield return one;
-                UIManager.instance.Notice("2", 0.8f);
+                Managers.instance._ui.Notice("2", 0.8f);
                 yield return one;
-                UIManager.instance.Notice("1", 0.8f);
+                Managers.instance._ui.Notice("1", 0.8f);
                 yield return one;
-                UIManager.instance.Notice("0", 0.8f);
+                Managers.instance._ui.Notice("0", 0.8f);
                 yield return one;
-                UIManager.instance.Notice("GameStart!!", 1f);
+                Managers.instance._ui.Notice("GameStart!!", 1f);
                 inGameStart = true;
                 break;
             }
@@ -124,12 +120,12 @@ public class GameProgress : MonoBehaviourPunCallbacks
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                UIManager.instance.OnClickOption();
+                Managers.instance._ui.OnClickOption();
             }
 
             if(timeF - timeI >= 1)
             {
-                timeI = UIManager.instance.FlowTime(timeI);
+                timeI = Managers.instance._ui.FlowTime(timeI);
             }
 
             timeF += Time.deltaTime;
@@ -142,45 +138,41 @@ public class GameProgress : MonoBehaviourPunCallbacks
     private void Team1Ready()
     {
         team1Ready = true;
-        if (Managers.instance._game.DevelopMode)
-            team2Ready = true;
     }
 
     [PunRPC]
     private void Team2Ready()
     {
         team2Ready = true;
-        if (Managers.instance._game.DevelopMode)
-            team1Ready = true;
     }
 
     private void SetingMap()
     {
         GameObject go;
-        if (Managers.instance._game.DevelopMode)
-        {
-            go = PN.Instantiate("Prefabs/Units/Player", (Vector3.right + Vector3.forward) * 9, Quaternion.identity);
-            rtsController.unitList.Add(go.GetComponent<PlayerController>());
-            go = PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
-            rtsController.buildList.Add(go.GetComponent<NexusController>());
-            go = PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
-            rtsController.buildList.Add(go.GetComponent<NexusController>());
+        //if (false)//Managers.instance._game.DevelopMode)
+        //{
+        //    go = PN.Instantiate("Prefabs/Units/Player", (Vector3.right + Vector3.forward) * 9, Quaternion.identity);
+        //    rtsController.unitList.Add(go.GetComponent<PlayerController>());
+        //    go = PN.Instantiate("Prefabs/Houses/A_Nexus", (Vector3.right * 24.5f) + (Vector3.forward * 24.5f), Quaternion.identity);
+        //    rtsController.buildList.Add(go.GetComponent<NexusController>());
+        //    go = PN.Instantiate("Prefabs/Houses/B_Nexus", (Vector3.right * 274.6f) + (Vector3.forward * 274.6f), Quaternion.identity);
+        //    rtsController.buildList.Add(go.GetComponent<NexusController>());
 
-            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 60) + (Vector3.forward * 281.8f), Quaternion.Euler(Vector3.right * -90));
-            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
-            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 165) + (Vector3.forward * 185), Quaternion.Euler(Vector3.right * -90));
-            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
-            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 282) + (Vector3.forward * 59.5f), Quaternion.Euler(Vector3.right * -90));
-            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+        //    go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 60) + (Vector3.forward * 281.8f), Quaternion.Euler(Vector3.right * -90));
+        //    rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+        //    go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 165) + (Vector3.forward * 185), Quaternion.Euler(Vector3.right * -90));
+        //    rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+        //    go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 282) + (Vector3.forward * 59.5f), Quaternion.Euler(Vector3.right * -90));
+        //    rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
 
-            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 19) + (Vector3.forward * 238), Quaternion.Euler(Vector3.right * -90));
-            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
-            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 135) + (Vector3.forward * 115), Quaternion.Euler(Vector3.right * -90));
-            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
-            go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 240) + (Vector3.forward * 18), Quaternion.Euler(Vector3.right * -90));
-            rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
-            return;
-        }
+        //    go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 19) + (Vector3.forward * 238), Quaternion.Euler(Vector3.right * -90));
+        //    rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+        //    go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 135) + (Vector3.forward * 115), Quaternion.Euler(Vector3.right * -90));
+        //    rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+        //    go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 240) + (Vector3.forward * 18), Quaternion.Euler(Vector3.right * -90));
+        //    rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
+        //    return;
+        //}
         
         if (tag == "Team_1")
         {
@@ -196,7 +188,7 @@ public class GameProgress : MonoBehaviourPunCallbacks
             go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 240) + (Vector3.forward * 18), Quaternion.Euler(Vector3.right * -90));
             rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
 
-            camera.transform.localPosition = ((Vector3.right * 4) + (Vector3.up * 5) + (Vector3.forward)) * 10;
+            _camera.transform.localPosition = ((Vector3.right * 4) + (Vector3.up * 5) + (Vector3.forward)) * 10;
         }
         else
         {
@@ -212,8 +204,8 @@ public class GameProgress : MonoBehaviourPunCallbacks
             go = PN.Instantiate("Prefabs/Houses/CokeTower", (Vector3.right * 282) + (Vector3.forward * 59.5f), Quaternion.Euler(Vector3.right * -90));
             rtsController.buildList.Add(go.GetComponent<CokeTowerController>());
 
-            camera.transform.localPosition = ((Vector3.right * 26) + (Vector3.up * 5) + (Vector3.forward * 30)) * 10;
-            camera.transform.rotation = Quaternion.Euler(((Vector3.right * 7) + (Vector3.up * 18)) * 10);
+            _camera.transform.localPosition = ((Vector3.right * 26) + (Vector3.up * 5) + (Vector3.forward * 30)) * 10;
+            _camera.transform.rotation = Quaternion.Euler(((Vector3.right * 7) + (Vector3.up * 18)) * 10);
         }
 
     }

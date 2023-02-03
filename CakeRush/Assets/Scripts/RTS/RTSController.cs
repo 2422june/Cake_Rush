@@ -68,7 +68,7 @@ public class RTSController : MonoBehaviour
 		cost[1] += sug;
 		cost[2] += dou;
 
-		UIManager.instance.ChangeCost(cost[0], cost[1], cost[2]);
+		Managers.instance._ui.ChangeCost(cost[0], cost[1], cost[2]);
     }
 
 	private void Click()
@@ -98,7 +98,7 @@ public class RTSController : MonoBehaviour
 			{
 				if(selectedEntity != null)
 				{
-					UIManager.instance.ShowInGameDynamicPanel(UIManager.inGameUIs.main);
+					Managers.instance._ui.ShowInGameDynamicPanel(UIManager.inGameUIs.main);
 					selectedEntity.Deselect();	
 					selectedEntity = null;
 				}
@@ -189,13 +189,13 @@ public class RTSController : MonoBehaviour
 	{
 		if (selectedEntity is PlayerController && selectedEntity.gameObject.tag.Contains("Me"))
 		{
-			UIManager.instance.ShowInGameDynamicPanel(UIManager.inGameUIs.player);
+			Managers.instance._ui.ShowInGameDynamicPanel(UIManager.inGameUIs.player);
 			return;
 		}
 
 		if (selectedEntity.gameObject.tag.Contains("Other") || selectedEntity is UnitBase || selectedEntity is MobBase || selectedEntity is BuildBase)
 		{
-			UIManager.instance.ShowInGameDynamicPanel(UIManager.inGameUIs.other);
+			Managers.instance._ui.ShowInGameDynamicPanel(UIManager.inGameUIs.other);
 			return;
 		}
 	}

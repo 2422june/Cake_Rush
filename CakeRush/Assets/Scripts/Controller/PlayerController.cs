@@ -16,7 +16,7 @@ public class PlayerController : UnitBase
     {
         DataLoad("Player");
         AbilltyLoad("Player_Statup");
-        UIManager.instance.FindPlayer();
+        Managers.instance._ui.FindPlayer();
         levelSystem  = GetComponent<LevelSystem>();
         cakeRush     = GetComponent<CakeRush>();
         shootingStar = GetComponent<ShootingStar>();
@@ -31,15 +31,15 @@ public class PlayerController : UnitBase
         else
             tag = "Other_Player";
         SkillInit();
-        UIManager.instance.buildPanel.SetActive(false);
+        Managers.instance._ui.buildPanel.SetActive(false);
     }
 
     protected override void Start()
     {
         base.Start();
         rtsController.unitList.Add(this);
-        UIManager.instance.SetPlayerStat();
-        UIManager.instance.SetPlayerExp();
+        Managers.instance._ui.SetPlayerStat();
+        Managers.instance._ui.SetPlayerExp();
     }
 
     protected override void Update()
@@ -93,22 +93,22 @@ public class PlayerController : UnitBase
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 levelSystem.SkillLevelUp(lightning);
-                UIManager.instance.lightningActive.SetActive(false);
+                Managers.instance._ui.lightningActive.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.W))
             {
                 levelSystem.SkillLevelUp(cokeShot);
-                UIManager.instance.cokeShotActive.SetActive(false);
+                Managers.instance._ui.cokeShotActive.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
                 levelSystem.SkillLevelUp(shootingStar);
-                UIManager.instance.shootingStarActive.SetActive(false);
+                Managers.instance._ui.shootingStarActive.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.R) && levelSystem.curLevel > 5)
             {
                 levelSystem.SkillLevelUp(cakeRush);
-                UIManager.instance.cakeRushActive.SetActive(false);
+                Managers.instance._ui.cakeRushActive.SetActive(false);
             }
         }
         #endregion
@@ -125,7 +125,7 @@ public class PlayerController : UnitBase
 
     protected override void Attack(Transform target)
     {
-        if (!target.gameObject.active) return;
+        if (!target.gameObject.activeSelf) return;
 
         Debug.Log("Attack Triger");
         state = CharacterState.Attack;
@@ -179,10 +179,10 @@ public class PlayerController : UnitBase
         shootingStar.isSkillable = false;
         cakeRush.isSkillable = false;
 
-        UIManager.instance.lightningActive.SetActive(true);
-        UIManager.instance.cokeShotActive.SetActive(true);
-        UIManager.instance.shootingStarActive.SetActive(true);
-        UIManager.instance.cakeRushActive.SetActive(true);
+        Managers.instance._ui.lightningActive.SetActive(true);
+        Managers.instance._ui.cokeShotActive.SetActive(true);
+        Managers.instance._ui.shootingStarActive.SetActive(true);
+        Managers.instance._ui.cakeRushActive.SetActive(true);
 
         shootingStar.range = 10f;
         lightning.range = 30f;
@@ -296,17 +296,16 @@ public class PlayerController : UnitBase
         if (build.isBuildMode == true)
         {
             build.isBuildMode = false;
-            UIManager.instance.buildPanel.SetActive(build.isBuildMode);
+            Managers.instance._ui.buildPanel.SetActive(build.isBuildMode);
             yield break;
         }
         Debug.Log("BuildMode");
         build.isBuildMode = true;
-        UIManager.instance.buildPanel.SetActive(build.isBuildMode);
+        Managers.instance._ui.buildPanel.SetActive(build.isBuildMode);
         GameObject go = null;
         RaycastHit hit;
         BuildBase buildBase = null;
         string curBuildName = null;
-        int curNum = -1;
         yield return null;
         
         while (true)
@@ -343,7 +342,6 @@ public class PlayerController : UnitBase
             if (Input.GetKeyDown(KeyCode.A) && curBuildName != build.cookieHouseName)
             {
                 if (go != null) Destroy(go);
-                curNum = 0;
                 Debug.Log("A");
                 go = Instantiate(build.cookieHouseObj);
                 curBuildName = build.cookieHouseName;
@@ -352,7 +350,6 @@ public class PlayerController : UnitBase
             if (Input.GetKeyDown(KeyCode.S) && curBuildName != build.sugerMinerName)
             {
                 if (go != null) Destroy(go);
-                curNum = 1;
                 Debug.Log("S");
                 go = Instantiate(build.sugarMinerObj);
                 curBuildName = build.sugerMinerName;
@@ -377,7 +374,7 @@ public class PlayerController : UnitBase
                 }
                 build.isBuildMode = false;
 
-                UIManager.instance.buildPanel.SetActive(build.isBuildMode);
+                Managers.instance._ui.buildPanel.SetActive(build.isBuildMode);
                 yield break;
             }
             yield return null;
@@ -413,8 +410,8 @@ public class PlayerController : UnitBase
     public override void Hit(float hitDamage)
     {
         base.Hit(hitDamage);
-        UIManager.instance.hpBar.value = curHp / maxHp;
-        UIManager.instance.SetPlayerHp();
+        Managers.instance._ui.hpBar.value = curHp / maxHp;
+        Managers.instance._ui.SetPlayerHp();
     }
 
     public override void AbilltyUp()
@@ -427,7 +424,7 @@ public class PlayerController : UnitBase
     private void PlayDie()
     {
         animator.SetTrigger("Die");
-        UIManager.instance.ShowInGameDynamicPanel(UIManager.inGameUIs.main);
+        Managers.instance._ui.ShowInGameDynamicPanel(UIManager.inGameUIs.main);
         base.Die();
     }
 }

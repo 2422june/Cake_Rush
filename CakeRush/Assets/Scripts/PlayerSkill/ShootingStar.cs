@@ -6,7 +6,7 @@ public class ShootingStar : SkillBase
     [SerializeField] private float[] angleRange;
     [SerializeField] private Transform skillPos;
     [SerializeField] private GameObject slashEffect;
-    private Renderer renderer;
+    private Renderer _renderer;
     private Material rangeViewMat;
 
     protected override void Awake()
@@ -14,8 +14,8 @@ public class ShootingStar : SkillBase
         skillEffect = Resources.Load<GameObject>("Effect/Skill/ShootingStar");
         rangeViewObj = Resources.Load<GameObject>("Prefabs/RangeView/ShootingStar");
         slashEffect = Resources.Load<GameObject>("Effect/Skill/ShootingStar_Slash");
-        renderer = rangeViewObj.GetComponent<Renderer>();
-        rangeViewMat = renderer.sharedMaterial;
+        _renderer = rangeViewObj.GetComponent<Renderer>();
+        rangeViewMat = _renderer.sharedMaterial;
         base.Awake();
         rangeViewMat.SetFloat("_Angle", angleRange[level]);
         maxSkillLevel = 2;
@@ -26,7 +26,7 @@ public class ShootingStar : SkillBase
     {
         if (!skillStat[skillLevel].isCoolTime && isSkillable == true)
         {
-            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UIManager.instance.shotingStarCooltime, UIManager.instance.shootingStarActive));
+            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(Managers.instance._ui.shotingStarCooltime, Managers.instance._ui.shootingStarActive));
         }
         else
         {

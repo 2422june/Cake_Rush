@@ -148,20 +148,20 @@ public class ServerManager : MonoBehaviourPunCallbacks
     {
         Invoke("NoticeJoinedRoom", 1f);
 
-        if (Managers.instance._game.DevelopMode)
-        {
-            UIManager.instance.SetStartTextInLobby("매칭 시작");
-            UIManager.instance.Notice("매칭이 성공했습니다.", 1);
-            /*nowMatching = false;
-            SetScene("inGame");*/
-            return;
-        }
+        //if (false)//Managers.instance._game.DevelopMode)
+        //{
+        //    Managers.instance._ui.SetStartTextInLobby("매칭 시작");
+        //    Managers.instance._ui.Notice("매칭이 성공했습니다.", 1);
+        //    /*nowMatching = false;
+        //    SetScene("inGame");*/
+        //    return;
+        //}
 
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
             instance.tag = "Team_2";
-            UIManager.instance.SetStartTextInLobby("매칭 시작");
-            UIManager.instance.Notice("매칭이 성공했습니다.", 1);
+            Managers.instance._ui.SetStartTextInLobby("매칭 시작");
+            Managers.instance._ui.Notice("매칭이 성공했습니다.", 1);
             /*nowMatching = false;
             SetScene("inGame");*/
         }
@@ -169,25 +169,25 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     private void NoticeJoinedRoom()
     {
-        UIManager.instance.Notice("방에 입장했습니다.", 1);
+        Managers.instance._ui.Notice("방에 입장했습니다.", 1);
         //nowInRoom = true;
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        if (Managers.instance._game.DevelopMode)
-        {
-            UIManager.instance.SetStartTextInLobby("매칭 시작");
-            UIManager.instance.Notice("매칭이 성공했습니다.", 1);
-            //nowMatching = false;
-            //SetScene("inGame");
-            return;
-        }
+        //if (false)//Managers.instance._game.DevelopMode)
+        //{
+        //    Managers.instance._ui.SetStartTextInLobby("매칭 시작");
+        //    Managers.instance._ui.Notice("매칭이 성공했습니다.", 1);
+        //    //nowMatching = false;
+        //    //SetScene("inGame");
+        //    return;
+        //}
 
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
-            UIManager.instance.SetStartTextInLobby("매칭 시작");
-            UIManager.instance.Notice("매칭이 성공했습니다.", 1);
+            Managers.instance._ui.SetStartTextInLobby("매칭 시작");
+            Managers.instance._ui.Notice("매칭이 성공했습니다.", 1);
             //nowMatching = false;
             //SetScene("inGame");
         }
@@ -195,11 +195,11 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        if (Managers.instance._game.DevelopMode)
+        /*if (Managers.instance._game.DevelopMode)
             PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 1 },
                 null, null);
 
-        else
+        else*/
             PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 2 },
                 null, null);
     }
@@ -219,7 +219,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         //nowInRoom = false;
-        UIManager.instance.Notice("방에서 나갔습니다.", 1);
+        Managers.instance._ui.Notice("방에서 나갔습니다.", 1);
         PN.LeaveRoom();
     }
     public override void OnLeftRoom()
@@ -230,8 +230,8 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     private void EndExitingMatching()
     {
-        UIManager.instance.Notice("매칭을 취소했습니다.", 1);
-        UIManager.instance.SetStartTextInLobby("매칭 시작");
+        Managers.instance._ui.Notice("매칭을 취소했습니다.", 1);
+        Managers.instance._ui.SetStartTextInLobby("매칭 시작");
         //nowCloseMatching = false;
         //nowMatching = false;
     }

@@ -13,7 +13,7 @@ public class GameManager : ManagerBase
     public float playerLevel;
     public int[] cost;
     public bool isSpawnable;
-    private bool nowInGame;
+    private bool nowInGame = false;
     public bool nowMatching, nowCloseMatching, nowInRoom;
 
     public RTSController rtsController;
@@ -56,7 +56,7 @@ public class GameManager : ManagerBase
 
     public void OnJoinedLobby()
     {
-        UIManager.instance.OffLoading();
+        Managers.instance._ui.OffLoading();
     }
 
     private void EnterInGame()
@@ -102,7 +102,7 @@ public class GameManager : ManagerBase
         isChangingScene = true;
         nextScene = next;
 
-        UIManager.instance.StartLoading();
+        Managers.instance._ui.StartLoading();
     }
 
     public void OnFadeOut()
@@ -160,9 +160,9 @@ public class GameManager : ManagerBase
                 break;
         }
 
-        UIManager.instance.ShowUI(nowScene);
+        Managers.instance._ui.ShowUI(nowScene);
 
-        UIManager.instance.OffLoading();
+        Managers.instance._ui.OffLoading();
     }
 
     public void OnFadeIn()

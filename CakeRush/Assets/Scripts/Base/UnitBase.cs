@@ -66,7 +66,7 @@ public class UnitBase : CharacterBase
 
     void Idle()
     {
-        if(Input.GetMouseButtonDown(1) && Marker.active && isStun == false)
+        if(Input.GetMouseButtonDown(1) && Marker.activeSelf && isStun == false)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

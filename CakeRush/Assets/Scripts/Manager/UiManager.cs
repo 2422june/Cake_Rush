@@ -6,16 +6,9 @@ using UnityEngine.UI;
 
 public class UIManager : ManagerBase
 {
-    #region singleton
-
-    public static UIManager instance;
-
-    #endregion
-
     public override void Init()
     {
-        DontDestroyOnLoad(this);
-        sceneUICanvas = GetComponentInChildren<Canvas>();
+        /*sceneUICanvas = GetComponentInChildren<Canvas>();
         canvasOBJ = sceneUICanvas.gameObject;
 
         loadingPanel = FindElement("LoadingPanel");
@@ -125,7 +118,7 @@ public class UIManager : ManagerBase
         //skillCakeRush.onClick.AddListener(OnClickCakeRush);
         //skillShotingStar.onClick.AddListener(OnClickShotingStar);
         //skillCokeShot.onClick.AddListener(OnClickCokeShot);
-        //skillLightning.onClick.AddListener(OnClickLightning);
+        //skillLightning.onClick.AddListener(OnClickLightning);*/
     }
 
     #region object Elements

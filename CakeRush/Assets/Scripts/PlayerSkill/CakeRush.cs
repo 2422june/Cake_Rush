@@ -34,7 +34,7 @@ public class CakeRush : SkillBase
         unitBase.moveSpeed = t_moveSpeed;
         unitBase.damage = t_damage;
         unitBase.navMashAgent.speed = unitBase.moveSpeed;
-        UIManager.instance.SetPlayerStat();
+        Managers.instance._ui.SetPlayerStat();
     }
 
     public void UseSkill(int skillLevel)
@@ -46,8 +46,8 @@ public class CakeRush : SkillBase
                 Managers.instance._game.rtsController.unitList[i].cakeRush.StartCoroutine(UnitCakeRush(Managers.instance._game.rtsController.unitList[i].transform));
             }
 
-            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UIManager.instance.cakeRushCooltime, UIManager.instance.cakeRushActive));
-            UIManager.instance.SetPlayerStat();
+            StartCoroutine(skillStat[skillLevel].CurrentCoolTime(Managers.instance._ui.cakeRushCooltime, Managers.instance._ui.cakeRushActive));
+            Managers.instance._ui.SetPlayerStat();
         }
         else
         {
