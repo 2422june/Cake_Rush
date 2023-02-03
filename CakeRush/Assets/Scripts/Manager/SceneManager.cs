@@ -1,37 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SM = UnityEngine.SceneManagement.SceneManager;
 
 public class SceneManager : ManagerBase
 {
     public static SceneManager instance;
     private WaitUntil LoadingDelay;
     private string nextSceneName;
-    public Define.Scene nowScene;
+    public string nowScene;
 
     public override void Init()
     {
-        nowScene = Define.Scene.Loading;
-        LoadingDelay = new WaitUntil(() => GetSceneName().Equals(nextSceneName));
+        nowScene = Define.Scene.Loading.ToString();
+        //LoadingDelay = new WaitUntil(() => GetSceneName().Equals(nextSceneName));
     }
 
     public string GetSceneName()
     {
-        return SM.GetActiveScene().name;
+        return nowScene;
     }
 
     public bool IsSameSceneName(Define.Scene target)
     {
 
-        return (SM.GetActiveScene().name.Equals(target.ToString()));
+        return (nowScene.Equals(target.ToString()));
     }
 
     public void LoadScene(Define.Scene next)
     {
         nextSceneName = next.ToString();
 
-        SM.LoadScene(nextSceneName);
+        //SM.LoadScene(nextSceneName);
 
         StartCoroutine(LoadingCycle());
     }

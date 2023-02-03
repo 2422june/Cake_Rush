@@ -11,8 +11,6 @@ public class ServerManager : MonoBehaviourPunCallbacks
 {
     #region singleton
 
-    public static ServerManager instance;
-
     public void Init()
     {
         PV = GetComponent<PhotonView>();
@@ -141,7 +139,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
-        instance.tag = "Team_1";
+        Managers.instance._server.tag = "Team_1";
     }
 
     public override void OnJoinedRoom()
@@ -159,7 +157,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
         if (PN.CurrentRoom.MaxPlayers == PN.CurrentRoom.PlayerCount)
         {
-            instance.tag = "Team_2";
+            Managers.instance._server.tag = "Team_2";
             Managers.instance._ui.SetStartTextInLobby("매칭 시작");
             Managers.instance._ui.Notice("매칭이 성공했습니다.", 1);
             /*nowMatching = false;

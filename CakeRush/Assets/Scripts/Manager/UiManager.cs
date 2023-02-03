@@ -496,7 +496,7 @@ public class UIManager : ManagerBase
             }
             else
             {
-                if (ServerManager.instance.isNullableNickName())
+                if (Managers.instance._server.isNullableNickName())
                 {
                     Notice("�г����� �Է��� �ּ���.", 1);
                 }
@@ -532,7 +532,7 @@ public class UIManager : ManagerBase
 
     public void OnClickNameSubmit(string text)
     {
-        ServerManager.instance.SetNickName(text);
+        Managers.instance._server.SetNickName(text);
         Notice($"�г����� '{text}'�� �����߽��ϴ�.", 1);
     }
 

@@ -113,7 +113,7 @@ public class GameManager : ManagerBase
                 break;
 
             case Define.Scene.Lobby:
-                ServerManager.instance.JoinLobby();
+                Managers.instance._server.JoinLobby();
                 break;
 
             case Define.Scene.InGame:
@@ -126,7 +126,7 @@ public class GameManager : ManagerBase
                 break;
         }
 
-        ServerManager.instance.OnFadeOuting(nowScene);
+        Managers.instance._server.OnFadeOuting(nowScene);
         SceneManager.instance.LoadScene(nextScene);
     }
 
@@ -194,7 +194,7 @@ public class GameManager : ManagerBase
         {
             case Define.Scene.Title:
             case Define.Scene.Lobby:
-                ServerManager.instance.DisconnectServer();
+                Managers.instance._server.DisconnectServer();
                 break;
 
             case Define.Scene.InGame:
