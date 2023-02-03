@@ -35,7 +35,12 @@ public class Define
 
     public enum Scene
     {
-        AwakeLoad, Title, Lobby, InGame, Victory, Defeat
+        Loading,
+        Title,
+        Lobby,
+        InGame,
+        Victory,
+        Defeat
     };
     
     public enum MobState

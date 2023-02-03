@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
+public class UIManager : ManagerBase
 {
     #region singleton
 
@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
     #endregion
 
-    public void Init()
+    public override void Init()
     {
         DontDestroyOnLoad(this);
         sceneUICanvas = GetComponentInChildren<Canvas>();
@@ -333,7 +333,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
         loadingBar.value = 80;
 
         if (!isFakeLoading)
-            GameManager.instance.OnFadeOut();
+            Managers.instance._game.OnFadeOut();
     }
 
     private void OnOffLoading()
@@ -344,14 +344,14 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
         loadingBar.value = 100;
         loadingPanel.SetActive(false);
 
-        GameManager.instance.OnFadeIn();
+        Managers.instance._game.OnFadeIn();
     }
 
     private void OnCompletlyLoading()
     {
         isCompletlyLoading = false;
 
-        GameManager.instance.OnCompletlyLoading();
+        Managers.instance._game.OnCompletlyLoading();
     }
 
     private IEnumerator LoadingCycle()
@@ -477,22 +477,22 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
     public void OnClickStartInTitle()
     {
-        GameManager.instance.OnClickStartInTitle();
+        Managers.instance._game.OnClickStartInTitle();
     }
 
     public void OnClickStartInLobby()
     {
-        if (GameManager.instance.nowCloseMatching)
+        if (Managers.instance._game.nowCloseMatching)
         {
             Notice("��Ī�� ����ϴ� �� �Դϴ�.", 1);
         }
         else
         {
-            if (GameManager.instance.nowMatching)
+            if (Managers.instance._game.nowMatching)
             {
-                if (GameManager.instance.nowInRoom)
+                if (Managers.instance._game.nowInRoom)
                 {
-                    GameManager.instance.nowCloseMatching = true;
+                    Managers.instance._game.nowCloseMatching = true;
                     Notice("��Ī�� ����մϴ�.", 1);
                     SetStartTextInLobby("��Ī �����");
                 }
@@ -507,10 +507,10 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
                 {
                     Notice("�г����� �Է��� �ּ���.", 1);
                 }
-                else if (!GameManager.instance.nowInRoom)
+                else if (!Managers.instance._game.nowInRoom)
                 {
                     //GameManager.instance.OnClickStartInLobby();
-                    GameManager.instance.nowMatching = true;
+                    Managers.instance._game.nowMatching = true;
                     Notice("��Ī�� �����߽��ϴ�.", 1);
                     SetStartTextInLobby("��Ī ���");
                 }
@@ -529,7 +529,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
     public void OnClickOption()
     {
-        lobbyOptionPanel.SetActive(!lobbyOptionPanel.active);
+        lobbyOptionPanel.SetActive(!lobbyOptionPanel.activeSelf);
     }
 
     public void OnClickInfo()
@@ -560,12 +560,12 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
     private void OnClickBuild()
     {
-        buildPanel.SetActive(!buildPanel.active);
+        buildPanel.SetActive(!buildPanel.activeSelf);
     }
 
     private void OnClickStat()
     {
-        statPanel.SetActive(!statPanel.active);
+        statPanel.SetActive(!statPanel.activeSelf);
     }
 
     public void ShowInGameStaticPanel()
@@ -616,7 +616,7 @@ public class UIManager : MonoBehaviour//MonoSingleton<UIManager> //GameManager
 
     private void EndGame()
     {
-        GameManager.instance.SetScene(Define.Scene.Lobby);
+        Managers.instance._game.SetScene(Define.Scene.Lobby);
     }
 
     #endregion

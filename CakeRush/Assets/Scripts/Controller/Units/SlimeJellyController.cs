@@ -31,7 +31,7 @@ public class SlimeJellyController : UnitBase
     {        
         animator.SetBool("Move", false);
         animator.SetBool("Attack", true);
-        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Unit_Attack);
+        Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_Unit_Attack);
     }
 
     protected override void Stop()

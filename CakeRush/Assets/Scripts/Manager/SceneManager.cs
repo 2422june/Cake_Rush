@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using SM = UnityEngine.SceneManagement.SceneManager;
 
-public class SceneManager : MonoBehaviour
+public class SceneManager : ManagerBase
 {
     public static SceneManager instance;
     private WaitUntil LoadingDelay;
     private string nextSceneName;
+    public Define.Scene nowScene;
 
-    public void Init()
+    public override void Init()
     {
+        nowScene = Define.Scene.Loading;
         LoadingDelay = new WaitUntil(() => GetSceneName().Equals(nextSceneName));
     }
 
@@ -38,6 +40,6 @@ public class SceneManager : MonoBehaviour
     {
         yield return LoadingDelay;
 
-        GameManager.instance.OnLoadingScene();
+        Managers.instance._game.OnLoadingScene();
     }
 }

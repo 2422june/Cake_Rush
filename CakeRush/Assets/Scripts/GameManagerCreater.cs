@@ -8,7 +8,7 @@ public class GameManagerCreater : MonoBehaviourPunCallbacks
 {
     void Awake()
     {
-        if(GameManager.instance == null)
+        if(Managers.instance._game == null)
         {
             PhotonNetwork.ConnectUsingSettings();
         }

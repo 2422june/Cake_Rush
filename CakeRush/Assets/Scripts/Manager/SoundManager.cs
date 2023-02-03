@@ -10,7 +10,7 @@ public struct Sound
     public AudioClip clip;
 }
 
-public class SoundManager : MonoSingleton<SoundManager>
+public class SoundManager : ManagerBase
 {
     public Sound[] GameSounds;
 
@@ -52,7 +52,7 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     public bool isClipEqualSourceClip(ref AudioSource source, Define.GameSound sound)
     {
-        if(source.clip == SoundManager.instance.GameSounds[(int)sound].clip)
+        if(source.clip == GameSounds[(int)sound].clip)
             return true;
         else 
             return false;

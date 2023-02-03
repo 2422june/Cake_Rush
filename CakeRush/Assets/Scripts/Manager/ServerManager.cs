@@ -95,7 +95,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
             case DisconnectCause.DisconnectByClientLogic:
                 Debug.Log("플레이어가 직접 끈 경우");
-                GameManager.instance.GameQuit();
+                Managers.instance._game.GameQuit();
                 break;
 
             case DisconnectCause.DisconnectByOperationLimit:
@@ -123,7 +123,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        GameManager.instance.OnConnectTedServer();
+        Managers.instance._game.OnConnectTedServer();
     }
 
     public void JoinLobby()
@@ -136,7 +136,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        GameManager.instance.OnJoinedLobby();
+        Managers.instance._game.OnJoinedLobby();
     }
 
     public override void OnCreatedRoom()
@@ -148,7 +148,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     {
         Invoke("NoticeJoinedRoom", 1f);
 
-        if (GameManager.instance.DevelopMode)
+        if (Managers.instance._game.DevelopMode)
         {
             UIManager.instance.SetStartTextInLobby("매칭 시작");
             UIManager.instance.Notice("매칭이 성공했습니다.", 1);
@@ -175,7 +175,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        if (GameManager.instance.DevelopMode)
+        if (Managers.instance._game.DevelopMode)
         {
             UIManager.instance.SetStartTextInLobby("매칭 시작");
             UIManager.instance.Notice("매칭이 성공했습니다.", 1);
@@ -195,7 +195,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        if (GameManager.instance.DevelopMode)
+        if (Managers.instance._game.DevelopMode)
             PN.CreateRoom($"{Random.Range(0, 100)}", new Photon.Realtime.RoomOptions { MaxPlayers = 1 },
                 null, null);
 

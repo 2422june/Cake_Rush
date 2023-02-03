@@ -60,7 +60,7 @@ public class CokeTowerController : BuildBase
                 }
                 GameObject newBullet = Instantiate(bullet, firePos, Quaternion.identity, transform);
                 newBullet.GetComponent<TowerBulletController>().target = target.transform;
-                SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_CokeTower_Attack);
+                Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_CokeTower_Attack);
                 Debug.Log($"{target.gameObject.name}");
                 yield return new WaitForSeconds(attackSpeed);
             }

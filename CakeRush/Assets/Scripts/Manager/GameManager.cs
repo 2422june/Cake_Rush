@@ -2,29 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : ManagerBase
 {
-    #region Singleton
-
-    public static GameManager instance;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-
-            Init();
-
-            DontDestroyOnLoad(instance);
-        }
-        else if (instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
-    #endregion
 
     #region elements
 
@@ -39,36 +18,18 @@ public class GameManager : MonoBehaviour
 
     public RTSController rtsController;
 
-    [Space(10)]
-    [Header("ONLY DEVELOPER")]
-    public bool DevelopMode;
-
     #endregion
 
     #region Setting
 
-    private void Init()
+    public override void Init()
     {
-        nowScene = Define.Scene.AwakeLoad;
 
-        ServerManager.instance = GetComponent<ServerManager>();
-        ServerManager.instance.Init();
-
-        SceneManager.instance = GetComponent<SceneManager>();
-        SceneManager.instance.Init();
-
-        UIManager.instance = GetComponent<UIManager>();
-        UIManager.instance.Init();
-
-        GameProgress.instance = GetComponent<GameProgress>();
-        GameProgress.instance.Init();
-
-        ServerManager.instance.ServerConnect();
     }
 
     public void OnConnectTedServer()
     {
-        if (SceneManager.instance.IsSameSceneName(Define.Scene.AwakeLoad))
+        if (SceneManager.instance.IsSameSceneName(Define.Scene.Loading))
         {
             nowInGame = false;
 

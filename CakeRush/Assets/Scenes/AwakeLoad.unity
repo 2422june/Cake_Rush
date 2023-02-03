@@ -11908,12 +11908,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1194138906}
-  - component: {fileID: 1194138905}
-  - component: {fileID: 1194138904}
-  - component: {fileID: 1194138903}
   - component: {fileID: 1194138907}
-  - component: {fileID: 1194138909}
-  - component: {fileID: 1194138908}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -11921,73 +11916,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1194138903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194138902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 1
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1194138904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194138902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbc73d28f0953384ca6c28098d9f7a0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inGameStart: 0
-  isGameOver: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  selectableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  rtsController: {fileID: 0}
-  team1Ready: 0
-  team2Ready: 0
---- !u!114 &1194138905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194138902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c1bfbd00860f64daf9a806a67d7cee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nowScene: 0
-  nextScene: 0
-  playerLevel: 0
-  cost: 
-  isSpawnable: 0
-  nowMatching: 0
-  nowCloseMatching: 0
-  nowInRoom: 0
-  rtsController: {fileID: 0}
-  DevelopMode: 1
 --- !u!4 &1194138906
 Transform:
   m_ObjectHideFlags: 0
@@ -12013,51 +11941,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1194138902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e39c03b9703480f4ab2854bbfe039008, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cc799eb8ae04f448ba6d7d793b508e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PV: {fileID: 0}
---- !u!114 &1194138908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194138902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64286b1ad08f6484cbcd3fcaee6fdf54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightningLevelUp: {fileID: 0}
-  cokeShotLevelUp: {fileID: 0}
-  shootingStarLevelUp: {fileID: 0}
-  cakeRushLevelUp: {fileID: 0}
-  lightningCooltime: {fileID: 0}
-  shotingStarCooltime: {fileID: 0}
-  cakeRushCooltime: {fileID: 0}
-  cokeShotCooltime: {fileID: 0}
-  lightningActive: {fileID: 0}
-  cokeShotActive: {fileID: 0}
-  shootingStarActive: {fileID: 0}
-  cakeRushActive: {fileID: 0}
-  hpBar: {fileID: 0}
-  isLoadingOn: 0
-  isLoadingOff: 0
-  isFakeLoading: 0
-  isCompletlyLoading: 0
---- !u!114 &1194138909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194138902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a54dab7de5679649a0dfb4be334114a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _game: {fileID: 0}
+  _ui: {fileID: 0}
+  _scene: {fileID: 0}
+  _sound: {fileID: 0}
+  _server: {fileID: 0}
 --- !u!1 &1194436188
 GameObject:
   m_ObjectHideFlags: 0

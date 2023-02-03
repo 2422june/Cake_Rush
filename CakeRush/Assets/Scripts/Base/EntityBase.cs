@@ -60,7 +60,7 @@ public class EntityBase : MonoBehaviourPunCallbacks
 
     protected virtual void Start()
     {
-        rtsController = GameManager.instance.rtsController;
+        rtsController = Managers.instance._game.rtsController;
     }
 
     protected virtual void Init()

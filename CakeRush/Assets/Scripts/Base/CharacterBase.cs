@@ -28,7 +28,7 @@ public class CharacterBase : EntityBase
     protected override void Update()
     {
         if (isStun) return;
-        if (!GameManager.instance.CompareTag(tag)) return;
+        if (!Managers.instance._game.CompareTag(tag)) return;
         //base.Update();
     }
 

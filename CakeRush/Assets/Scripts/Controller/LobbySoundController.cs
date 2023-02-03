@@ -23,49 +23,49 @@ public class LobbySoundController : MonoBehaviour
     }
     void Start()
     {
-        SoundManager.instance.PlayClip(ref fxSource, Define.GameSound.FX_Lobby_GameStart);
+        Managers.instance._sound.PlayClip(ref fxSource, Define.GameSound.FX_Lobby_GameStart);
     }
 
     void Update()
     {
-        if(GameManager.instance.nowScene == Define.Scene.Title && UIManager.instance.isLoadingOff && fxSource.isPlaying == false)
+        if(Managers.instance._game.nowScene == Define.Scene.Title && UIManager.instance.isLoadingOff && fxSource.isPlaying == false)
         {
             if(bgmSource.isPlaying) 
                 return;
-            SoundManager.instance.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Title_Main);
+            Managers.instance._sound.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Title_Main);
         }
 
-        if(GameManager.instance.nowScene == Define.Scene.Lobby)
+        if(Managers.instance._game.nowScene == Define.Scene.Lobby)
         {
 
-            if(GameManager.instance.nowMatching == true)
+            if(Managers.instance._game.nowMatching == true)
             {
-                if(SoundManager.instance.isClipEqualSourceClip(ref bgmSource, Define.GameSound.BGM_Lobby_GameMatching)) 
-                    return; 
-                SoundManager.instance.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Lobby_GameMatching);
+                if(Managers.instance._sound.isClipEqualSourceClip(ref bgmSource, Define.GameSound.BGM_Lobby_GameMatching)) 
+                    return;
+                Managers.instance._sound.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Lobby_GameMatching);
             }
             else
             {
-                if(SoundManager.instance.isClipEqualSourceClip(ref bgmSource, BGM_Lobby_Main)) 
-                return; 
+                if(Managers.instance._sound.isClipEqualSourceClip(ref bgmSource, BGM_Lobby_Main)) 
+                return;
 
-                SoundManager.instance.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Lobby_Main);
+                Managers.instance._sound.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Lobby_Main);
 
-                if(GameManager.instance.nowMatching == true)
+                if(Managers.instance._game.nowMatching == true)
                 {
-                    if(SoundManager.instance.isClipEqualSourceClip(ref bgmSource, Define.GameSound.BGM_Lobby_GameMatching)) 
-                        return; 
-                    SoundManager.instance.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Lobby_GameMatching);
+                    if(Managers.instance._sound.isClipEqualSourceClip(ref bgmSource, Define.GameSound.BGM_Lobby_GameMatching)) 
+                        return;
+                    Managers.instance._sound.ChangeOrPlayBGM(ref bgmSource, Define.GameSound.BGM_Lobby_GameMatching);
                 }
             }
         }
 
-        if(GameManager.instance.nowScene == Define.Scene.InGame && isGameStarted == false)
+        if(Managers.instance._game.nowScene == Define.Scene.InGame && isGameStarted == false)
         {
             isGameStarted = true;
             bgmSource.Stop();
             bgmSource.clip = null;
-            SoundManager.instance.PlayClip(ref fxSource, Define.GameSound.FX_Lobby_GameStart);
+            Managers.instance._sound.PlayClip(ref fxSource, Define.GameSound.FX_Lobby_GameStart);
         }
     }
 }

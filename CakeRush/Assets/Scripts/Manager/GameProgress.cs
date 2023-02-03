@@ -40,14 +40,14 @@ public class GameProgress : MonoBehaviourPunCallbacks
         inGameStart = false;
         team1Ready = false;
         team2Ready = false;
-        if (GameManager.instance.DevelopMode)
+        if (Managers.instance._game.DevelopMode)
             team2Ready = true;
 
         startProcess = false;
 
-        tag = GameManager.instance.tag;
+        tag = Managers.instance._game.tag;
 
-        rtsController = GameManager.instance.rtsController;
+        rtsController = Managers.instance._game.rtsController;
         camera = GameObject.Find("MainCamera");
 
         SetingMap();
@@ -142,7 +142,7 @@ public class GameProgress : MonoBehaviourPunCallbacks
     private void Team1Ready()
     {
         team1Ready = true;
-        if (GameManager.instance.DevelopMode)
+        if (Managers.instance._game.DevelopMode)
             team2Ready = true;
     }
 
@@ -150,14 +150,14 @@ public class GameProgress : MonoBehaviourPunCallbacks
     private void Team2Ready()
     {
         team2Ready = true;
-        if (GameManager.instance.DevelopMode)
+        if (Managers.instance._game.DevelopMode)
             team1Ready = true;
     }
 
     private void SetingMap()
     {
         GameObject go;
-        if (GameManager.instance.DevelopMode)
+        if (Managers.instance._game.DevelopMode)
         {
             go = PN.Instantiate("Prefabs/Units/Player", (Vector3.right + Vector3.forward) * 9, Quaternion.identity);
             rtsController.unitList.Add(go.GetComponent<PlayerController>());

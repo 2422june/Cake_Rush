@@ -22,9 +22,9 @@ public class NexusController : BuildBase
     {
         base.Die();
         if(PV.IsMine)
-            GameManager.instance.SetScene(Define.Scene.Defeat);
+            Managers.instance._game.SetScene(Define.Scene.Defeat);
         else
-            GameManager.instance.SetScene(Define.Scene.Victory);
+            Managers.instance._game.SetScene(Define.Scene.Victory);
     }
 
 }

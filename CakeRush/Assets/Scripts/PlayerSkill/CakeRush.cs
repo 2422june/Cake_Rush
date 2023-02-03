@@ -41,9 +41,9 @@ public class CakeRush : SkillBase
     {
         if(!skillStat[skillLevel].isCoolTime && isSkillable == true)
         {
-            for(int i = 0; i < GameManager.instance.rtsController.unitList.Count; i++)
+            for(int i = 0; i < Managers.instance._game.rtsController.unitList.Count; i++)
             {
-                GameManager.instance.rtsController.unitList[i].cakeRush.StartCoroutine(UnitCakeRush(GameManager.instance.rtsController.unitList[i].transform));
+                Managers.instance._game.rtsController.unitList[i].cakeRush.StartCoroutine(UnitCakeRush(Managers.instance._game.rtsController.unitList[i].transform));
             }
 
             StartCoroutine(skillStat[skillLevel].CurrentCoolTime(UIManager.instance.cakeRushCooltime, UIManager.instance.cakeRushActive));

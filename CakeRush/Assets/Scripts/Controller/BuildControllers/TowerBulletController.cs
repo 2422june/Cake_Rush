@@ -24,7 +24,7 @@ public class TowerBulletController : MonoBehaviour
             target.gameObject.GetComponent<EntityBase>().Hit(damage);
             hitEffect.GetComponent<ParticleSystem>().Play();
             hitEffect.transform.parent = transform.parent.parent;
-            SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_CokeTower_Hit);
+            Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_CokeTower_Hit);
             Destroy(gameObject);
         }
     }

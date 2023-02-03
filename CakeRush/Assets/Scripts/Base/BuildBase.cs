@@ -78,7 +78,7 @@ public class BuildBase : EntityBase
             yield return null;
         }
         curHp = maxHp;
-        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Build_BuildSuccess);
+        Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_Build_BuildSuccess);
         Debug.Log("Build() Completed");
         isActive = true;
         buildEffect.SetActive(false);
@@ -90,8 +90,8 @@ public class BuildBase : EntityBase
         // give player: returnCost / 2
         for(int i = 0; i < 2; i++)
         {
-            Debug.Log($"{GameManager.instance.cost[i]} -> {GameManager.instance.cost[i] + cost[i]/2}");
-            GameManager.instance.cost[i] += cost[i]/2;
+            Debug.Log($"{Managers.instance._game.cost[i]} -> {Managers.instance._game.cost[i] + cost[i]/2}");
+            Managers.instance._game.cost[i] += cost[i]/2;
         }
         Debug.Log("Build Cancel()");
         Destroy(gameObject);

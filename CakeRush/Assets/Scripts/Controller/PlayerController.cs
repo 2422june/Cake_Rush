@@ -145,7 +145,7 @@ public class PlayerController : UnitBase
 
         Debug.Log($"name is \"{target.gameObject.name}\", tag is \"{target.tag}\"");
         Debug.Log("FSX");
-        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_Attack);
+        Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_Player_Attack);
     }
 
     private void SearchTarget <T> (T target) where T : EntityBase
@@ -221,7 +221,7 @@ public class PlayerController : UnitBase
                         lightning.UseSkill(lightning.level, hit.collider);
 
                         animator.SetBool("Idle", true);
-                        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_Lightning);
+                        Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_Player_Lightning);
                     }
                 }
             }
@@ -249,7 +249,7 @@ public class PlayerController : UnitBase
                 animator.SetBool("Move", false);
                 state = CharacterState.Idle;
 
-                SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_CokeShot);
+                Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_Player_CokeShot);
             }
         }
     }
@@ -280,14 +280,14 @@ public class PlayerController : UnitBase
                 state = CharacterState.Idle;
                 Debug.DrawRay(Camera.main.transform.position, hit.point, Color.blue, 1f);
 
-                SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_ShootingStar);
+                Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_Player_ShootingStar);
             }
         }
     }
     private void CakeRush()
     {
         cakeRush.UseSkill(cakeRush.level);
-        SoundManager.instance.PlayClip(ref source, Define.GameSound.FX_Player_CakeRush);
+        Managers.instance._sound.PlayClip(ref source, Define.GameSound.FX_Player_CakeRush);
     }
     #endregion
 
@@ -399,7 +399,7 @@ public class PlayerController : UnitBase
 
     protected override void Respawn()
     {
-        if (GameManager.instance.tag == "Team_1")
+        if (Managers.instance._game.tag == "Team_1")
             transform.position = Vector3.zero;
         else
             transform.position = ((Vector3.right + Vector3.forward) * 300);
