@@ -6,11 +6,12 @@ public class Managers : MonoBehaviour
 {
     public static Managers instance;
 
-    public GameManager      _game    = null;
-    public UIManager        _ui      = null;
-    public SceneManager     _scene   = null;
-    public SoundManager     _sound   = null;
-    public ServerManager    _server  = null;
+    public GameManager          _game    = null;
+    public UIManager            _ui      = null;
+    public SceneManager         _scene   = null;
+    public SoundManager         _sound   = null;
+    public ServerManager        _server = null;
+    public InstantiateManager   _instantiate = null;
 
 
     T FindManager<T>() where T : MonoBehaviour
@@ -42,11 +43,13 @@ public class Managers : MonoBehaviour
 
     void SetupManagers()
     {
+        _instantiate = Init<InstantiateManager>();
         _scene = Init<SceneManager>();
         _server = Init();
         _game = Init<GameManager>();
         _ui = Init<UIManager>();
         _sound = Init<SoundManager>();
+
     }
 
     void Awake()

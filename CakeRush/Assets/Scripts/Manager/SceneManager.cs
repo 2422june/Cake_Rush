@@ -4,41 +4,64 @@ using UnityEngine;
 
 public class SceneManager : ManagerBase
 {
-    public static SceneManager instance;
-    private WaitUntil LoadingDelay;
-    private string nextSceneName;
-    public string nowScene;
+    private WaitUntil _loadingDelay;
+    private int _loadValue;
+
+    private string _nextSceneName;
+    private string _nowScene;
+
+    private Dictionary<string, GameObject> _scenes;
+    private string[] _sceneNames = {"Loading"};
 
     public override void Init()
     {
-        nowScene = Define.Scene.Loading.ToString();
-        //LoadingDelay = new WaitUntil(() => GetSceneName().Equals(nextSceneName));
+        GameObject newScene;
+        foreach (string name in _sceneNames)
+        {
+            Debug.Log(name);
+            newScene = Managers.instance._instantiate.ResourcesLoad($"Scenes/{name}");
+            _scenes.Add(name, newScene);
+        }
+
+        LoadScene(Define.Scene.Loading);
+    }
+
+    public string SetLoadingValue()
+    {
+        return _nowScene;
     }
 
     public string GetSceneName()
     {
-        return nowScene;
+        return _nowScene;
     }
 
     public bool IsSameSceneName(Define.Scene target)
     {
 
-        return (nowScene.Equals(target.ToString()));
+        return (_nowScene.Equals(target.ToString()));
     }
 
     public void LoadScene(Define.Scene next)
     {
-        nextSceneName = next.ToString();
-
-        //SM.LoadScene(nextSceneName);
+        _nextSceneName = next.ToString();
 
         StartCoroutine(LoadingCycle());
     }
 
+    public void OnLoadScene()
+    {
+        if(_scenes[_nowScene])
+            _scenes[_nowScene].SetActive(false);
+
+        _nowScene = _nextSceneName;
+        _scenes[_nowScene].SetActive(true);
+    }
+
     private IEnumerator LoadingCycle()
     {
-        yield return LoadingDelay;
+        yield return _loadingDelay;
 
-        Managers.instance._game.OnLoadingScene();
+        Debug.Log("On Loading");
     }
 }

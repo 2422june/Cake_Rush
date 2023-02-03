@@ -29,13 +29,13 @@ public class GameManager : ManagerBase
 
     public void OnConnectTedServer()
     {
-        if (SceneManager.instance.IsSameSceneName(Define.Scene.Loading))
+        if (Managers.instance._scene.IsSameSceneName(Define.Scene.Loading))
         {
             nowInGame = false;
 
             SetScene(Define.Scene.Title);
         }
-        else if (SceneManager.instance.IsSameSceneName(Define.Scene.InGame))
+        else if (Managers.instance._scene.IsSameSceneName(Define.Scene.InGame))
         {
             rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
         }
@@ -70,7 +70,7 @@ public class GameManager : ManagerBase
     {
         while(true)
         {
-            if(SceneManager.instance.GetSceneName().Equals("InGame"))
+            if(Managers.instance._scene.GetSceneName().Equals("InGame"))
             {
                 rtsController = GameObject.Find("RTSManager").GetComponent<RTSController>();
                 GameProgress.instance.NowArriveInGame();
@@ -127,7 +127,7 @@ public class GameManager : ManagerBase
         }
 
         Managers.instance._server.OnFadeOuting(nowScene);
-        SceneManager.instance.LoadScene(nextScene);
+        Managers.instance._scene.LoadScene(nextScene);
     }
 
     public void OnLoadingScene()
@@ -140,7 +140,7 @@ public class GameManager : ManagerBase
                 break;
 
             case Define.Scene.Lobby:
-                if (SceneManager.instance.GetSceneName().Equals("InGame"))
+                if (Managers.instance._scene.GetSceneName().Equals("InGame"))
                 {
                     ClearBuildList();
                     ClearUnitList();
