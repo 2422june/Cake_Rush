@@ -10,25 +10,25 @@ public class SceneManager : ManagerBase
     private string _nextSceneName;
     private string _nowScene;
 
-    private Dictionary<string, GameObject> _scenes;
-    private string[] _sceneNames = {"Loading"};
+    private Dictionary<string, GameObject> _scenes = new Dictionary<string, GameObject>();
+    private string[] _sceneNames = { "Loading", "Title" };
 
     public override void Init()
     {
         GameObject newScene;
         foreach (string name in _sceneNames)
         {
-            Debug.Log(name);
-            newScene = Managers.instance._instantiate.ResourcesLoad($"Scenes/{name}");
+            newScene = Managers.instance._instantiate.Instantiate<GameObject>($"Scenes/{name}");
+            newScene.SetActive(false);
             _scenes.Add(name, newScene);
         }
 
         LoadScene(Define.Scene.Loading);
     }
 
-    public string SetLoadingValue()
+    public void SetLoadingValue(int value)
     {
-        return _nowScene;
+        _loadValue = value;
     }
 
     public string GetSceneName()

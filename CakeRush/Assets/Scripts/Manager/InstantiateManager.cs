@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class InstantiateManager : ManagerBase
 {
-    public GameObject ResourcesLoad(string path)
+
+    public T Instantiate<T>(string path) where T : Object
     {
-        return Resources.Load<GameObject>($"Prefabs/{path}");
+        T go = Instantiate<T>(Resources.Load<T>($"Prefabs/{path}"));
+        Debug.Log(go);
+        return go;
     }
 
     public GameObject ResourcesLoad(string path, Transform parent)
     {
-        GameObject obj = Resources.Load<GameObject>($"Prefabs/{path}");
+        GameObject obj = Instantiate<GameObject>($"Prefabs/{path}");
         obj.transform.SetParent(parent);
         return obj;
     }
