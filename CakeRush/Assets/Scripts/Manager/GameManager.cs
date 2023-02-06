@@ -56,7 +56,7 @@ public class GameManager : ManagerBase
 
     public void OnJoinedLobby()
     {
-        Managers.instance._ui.OffLoading();
+        //Managers.instance._ui.OffLoading();
     }
 
     private void EnterInGame()
@@ -102,7 +102,7 @@ public class GameManager : ManagerBase
         isChangingScene = true;
         nextScene = next;
 
-        Managers.instance._ui.StartLoading();
+        //Managers.instance._ui.StartLoading();
     }
 
     public void OnFadeOut()
@@ -162,7 +162,7 @@ public class GameManager : ManagerBase
 
         Managers.instance._ui.ShowUI(nowScene);
 
-        Managers.instance._ui.OffLoading();
+        //Managers.instance._ui.OffLoading();
     }
 
     public void OnFadeIn()

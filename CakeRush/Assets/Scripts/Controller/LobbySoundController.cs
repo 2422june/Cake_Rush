@@ -28,7 +28,8 @@ public class LobbySoundController : MonoBehaviour
 
     void Update()
     {
-        if(Managers.instance._game.nowScene == Define.Scene.Title && Managers.instance._ui.isLoadingOff && fxSource.isPlaying == false)
+        //if(Managers.instance._game.nowScene == Define.Scene.Title && Managers.instance._ui.isLoadingOff && fxSource.isPlaying == false)
+        if (Managers.instance._game.nowScene == Define.Scene.Title && fxSource.isPlaying == false)
         {
             if(bgmSource.isPlaying) 
                 return;

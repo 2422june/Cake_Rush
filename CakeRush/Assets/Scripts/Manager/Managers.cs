@@ -44,10 +44,10 @@ public class Managers : MonoBehaviour
     void SetupManagers()
     {
         _instantiate = Init<InstantiateManager>();
+        _ui = Init<UIManager>();
         _scene = Init<SceneManager>();
         //_server = Init();
         //_game = Init<GameManager>();
-        //_ui = Init<UIManager>();
         //_sound = Init<SoundManager>();
 
     }

@@ -5,17 +5,15 @@ using UnityEngine;
 public class InstantiateManager : ManagerBase
 {
 
-    public T Instantiate<T>(string path) where T : Object
+    public GameObject Instantiate(string path, Transform parent = null)
     {
-        T go = Instantiate<T>(Resources.Load<T>($"Prefabs/{path}"));
-        Debug.Log(go);
-        return go;
-    }
+        GameObject go;
 
-    public GameObject ResourcesLoad(string path, Transform parent)
-    {
-        GameObject obj = Instantiate<GameObject>($"Prefabs/{path}");
-        obj.transform.SetParent(parent);
-        return obj;
+        go = Instantiate<GameObject>(Resources.Load<GameObject>($"Prefabs/{path}"));
+        if (parent != null)
+        {
+            go.transform.SetParent(parent);
+        }
+        return go;
     }
 }

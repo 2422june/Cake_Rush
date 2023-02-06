@@ -134,7 +134,6 @@ public class UIManager : ManagerBase
     private PlayerController player;
 
     private Canvas sceneUICanvas;
-    private GameObject canvasOBJ;
     private GameObject titlePanel;
     private GameObject lobbyPanel;
     private GameObject lobbyOptionPanel;
@@ -209,9 +208,6 @@ public class UIManager : ManagerBase
 
     #region value elements
 
-    private WaitForSeconds one = new WaitForSeconds(1);
-    public bool isLoadingOn, isLoadingOff, isFakeLoading, isCompletlyLoading;
-
     private bool callNotice;
     private float noticeTime;
     private float noticeTimer;
@@ -224,9 +220,10 @@ public class UIManager : ManagerBase
     #endregion
 
     #region Find Functions
-    protected GameObject FindElement(string path)
+    public T Find<T>(string name, Transform parent) where T : class
     {
-        return canvasOBJ.transform.Find(path).gameObject;
+        Transform canvas = parent.Find("Canvas");
+        return canvas.Find(name).GetComponent<T>();
     }
 
     protected virtual GameObject SetGameObj(GameObject parent, string name)
@@ -285,114 +282,6 @@ public class UIManager : ManagerBase
 
     #endregion
 
-    #region Loading
-
-    public void StartCompletlyLoading()
-    {
-        loadingBar.value = 0;
-        loadingPanel.SetActive(true);
-
-        isCompletlyLoading = true;
-    }
-
-    public void StartFakeLoading()
-    {
-        loadingBar.value = 0;
-        isFakeLoading = true;
-        loadingPanel.SetActive(true);
-    }
-
-    public void StartLoading()
-    {
-        isFakeLoading = false;
-        isCompletlyLoading = false;
-
-        if (isLoadingOn)
-            return;
-
-        loadingBar.value = 0;
-        isLoadingOn = true;
-        loadingPanel.SetActive(true);
-    }
-
-    public void OffLoading()
-    {
-        isLoadingOff = true;
-    }
-
-    private void OnStartLoading()
-    {
-        isLoadingOn = false;
-        loadingBar.value = 80;
-
-        if (!isFakeLoading)
-            Managers.instance._game.OnFadeOut();
-    }
-
-    private void OnOffLoading()
-    {
-        isLoadingOff = false;
-        isFakeLoading = false;
-
-        loadingBar.value = 100;
-        loadingPanel.SetActive(false);
-
-        Managers.instance._game.OnFadeIn();
-    }
-
-    private void OnCompletlyLoading()
-    {
-        isCompletlyLoading = false;
-
-        Managers.instance._game.OnCompletlyLoading();
-    }
-
-    private IEnumerator LoadingCycle()
-    {
-        while (true)
-        {
-            if (isLoadingOn)
-            {
-                if (loadingBar.value < 80)
-                {
-                    loadingBar.value += 35 * Time.deltaTime;
-                }
-                else
-                {
-                    loadingBar.value = 80;
-                    OnStartLoading();
-                }
-            }
-            else if (isLoadingOff)
-            {
-                if (loadingBar.value < 100)
-                {
-                    loadingBar.value += 50 * Time.deltaTime;
-                }
-                else
-                {
-                    loadingBar.value = 100;
-                    OnOffLoading();
-                }
-            }
-            else if (isCompletlyLoading)
-            {
-                if (loadingBar.value < 100)
-                {
-                    loadingBar.value += 50 * Time.deltaTime;
-                }
-                else
-                {
-                    loadingBar.value = 100;
-                    OnCompletlyLoading();
-                }
-            }
-
-            yield return null;
-        }
-    }
-
-    #endregion
 
     #region Notice
 
@@ -517,7 +406,7 @@ public class UIManager : ManagerBase
 
     public void OnClickExit()
     {
-        StartCompletlyLoading();
+        
     }
 
     public void OnClickOption()
