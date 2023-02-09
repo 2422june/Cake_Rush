@@ -29,6 +29,13 @@ public abstract class UI_Base : MonoBehaviour
         }
     }
 
+    protected void BindObject(Type type) { Bind<GameObject>(type); }
+    protected void BindText(Type type) { Bind<TMP_Text>(type); }
+    protected void BindImage(Type type) { Bind<Image>(type); }
+    protected void BindSlider(Type type) { Bind<Slider>(type); }
+    protected void BindButton(Type type) { Bind<Button>(type); }
+    protected void BindInputField(Type type) { Bind<InputField>(type); }
+
     protected T Get<T>(int idx) where T : UnityEngine.Object
     {
         UnityEngine.Object[] objects = null;
