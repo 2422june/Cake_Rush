@@ -54,4 +54,34 @@ public class Define
     {
         idle, attack, move, reset, retargeting, die
     }
+
+    public enum Creature
+    {
+        Player,
+        Mob,
+        Unit
+    }
+
+    public enum Layer
+    {
+        Player,
+        Ground,
+        Mob,
+        Unit
+    }
+
+    public enum Resource
+    {
+        Chocolate,
+        Sugar,
+        Dough
+    }
+
+    public enum Skill
+    {
+        Lightning,
+        Cokeshot,
+        Shootingstar,
+        Cakerush
+    }
 }
