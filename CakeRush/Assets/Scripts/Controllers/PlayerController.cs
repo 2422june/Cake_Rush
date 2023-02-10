@@ -58,7 +58,10 @@ public class PlayerController : BaseController
     }
     Animator animator;
     PlayerStat stat;
-    
+    Skill_Lightning skill_lightning;
+    Skill_Cokeshot skill_cokeshot;
+    Skill_Shootingstar skill_shootingstar;
+    Skill_Cakerush skill_cakerush;
     PlayerState _state;
     Vector3 destPos;
     
@@ -98,10 +101,10 @@ public class PlayerController : BaseController
     {
         base.Init();
         stat = gameObject.GetOrAddComponent<PlayerStat>();
-        gameObject.GetOrAddComponent<Skill_Lightning>();
-        gameObject.GetOrAddComponent<Skill_Cokeshot>();
-        gameObject.GetOrAddComponent<Skill_Shootingstar>();
-        gameObject.GetOrAddComponent<Skill_Cakerush>();
+        skill_lightning = gameObject.GetOrAddComponent<Skill_Lightning>();
+        skill_cokeshot = gameObject.GetOrAddComponent<Skill_Cokeshot>();
+        skill_shootingstar = gameObject.GetOrAddComponent<Skill_Shootingstar>();
+        skill_cakerush = gameObject.GetOrAddComponent<Skill_Cakerush>();
 
         navMeshAgent.speed = stat.MoveSpeed;
     }
@@ -133,15 +136,24 @@ public class PlayerController : BaseController
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            State = PlayerState.Skill_Lightning;
+            if(Input.GetMouseButtonDown(0))
+            {
+                State = PlayerState.Skill_Lightning;
+            }
         }
         else if(Input.GetKeyDown(KeyCode.W))
         {
-            State = PlayerState.Skill_Cokeshot;
+            if (Input.GetMouseButtonDown(0))
+            {
+                State = PlayerState.Skill_Cokeshot;
+            }
         }
         else if(Input.GetKeyDown(KeyCode.E))
         {
-            State = PlayerState.Skill_Shootingstar;
+            if (Input.GetMouseButtonDown(0))
+            {
+                State = PlayerState.Skill_Shootingstar;
+            }
         }
         else if(Input.GetKeyDown(KeyCode.R))
         {

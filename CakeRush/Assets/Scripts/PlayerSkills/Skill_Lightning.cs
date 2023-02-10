@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_Lightning : MonoBehaviour
+public class Skill_Lightning : BaseSkill
 {
     // Start is called before the first frame update
     void Start()
