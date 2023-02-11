@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
 
-public class BaseController : MonoBehaviour
+public class BaseController : MonoBehaviourPunCallbacks
 {
     public Define.Creature Type { get { return _type; } }
     [SerializeField] protected Define.Creature _type;
@@ -26,7 +26,7 @@ public class BaseController : MonoBehaviour
 
     }
 
-    protected virtual void UpdateAttack()
+    protected virtual void UpdateAttack() 
     {
 
     }

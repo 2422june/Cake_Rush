@@ -65,9 +65,9 @@ public class Define
     public enum Layer
     {
         Player,
-        Ground,
-        Mob,
-        Unit
+        Ground = 6,
+        Ally,
+        Enemy
     }
 
     public enum Resource
@@ -83,5 +83,11 @@ public class Define
         Cokeshot,
         Shootingstar,
         Cakerush
+    }
+
+    public enum KeyEvent
+    {
+        Down,
+        Up
     }
 }

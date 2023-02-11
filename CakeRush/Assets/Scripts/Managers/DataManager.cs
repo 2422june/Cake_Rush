@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Data;
 
-interface ILoader<T>
+public interface ILoader<T>
 {
     List<T> MakeList();
 }
 
-interface ILoader<TKey, TValue>
+public interface ILoader<TKey, TValue>
 {
     Dictionary<TKey, TValue> MakeDict();
 }

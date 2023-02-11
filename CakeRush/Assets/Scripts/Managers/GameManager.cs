@@ -8,4 +8,9 @@ public class GameManager
     PlayerController player;
     public int CurrentUnit { get; set; }
     public int[] HaveResource { get; private set; } = new int[3];
+
+    public void Init()
+    {
+        player = GameObject.FindObjectOfType<PlayerController>();
+    }
 } 

@@ -10,8 +10,8 @@ public abstract class Stat : MonoBehaviour
     [SerializeField] protected float defense;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float attackSpeed;
-    [SerializeField] protected float spawnTime;
     [SerializeField] protected float attackRange;
+    [SerializeField] protected float spawnTime;
     [SerializeField] protected float returnExp;
     [SerializeField] protected float eyeSight;
     [SerializeField] protected int[] dropResource = new int[3];
@@ -29,5 +29,5 @@ public abstract class Stat : MonoBehaviour
     public float EyeSight { get { return eyeSight; } set { eyeSight = value; } }
     public int[] DropResource { get { return DropResource; } set { DropResource = value; } }
     
-    protected abstract void Init();
+    public abstract void Init();
 }

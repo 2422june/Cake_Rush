@@ -33,16 +33,17 @@ public class PlayerController : BaseController
                     animator.CrossFade("Stun", 0);
                     break;
                 case PlayerState.Die:
-                    animator.CrossFade("Die", 0);
+                    animator.CrossFade("Die", 0.1f);
                     break;
                 case PlayerState.Idle:
-                    animator.CrossFade("Idle", 0);
+                    animator.CrossFade("Idle", 0.2f);
                     break;
                 case PlayerState.Move:
-                    animator.CrossFade("Move", 0);
+                    animator.CrossFade("Move", 0.2f);
                     break;
                 case PlayerState.Attack:
-                    animator.CrossFade("Attack", 0);
+                    animator.CrossFade("Attack", 0.1f);
+                    animator.SetFloat("AttackSpeed", stat.AttackSpeed);
                     break;
                 case PlayerState.Skill_Lightning:
                     animator.CrossFade("Lightning", 0, -1);
@@ -62,11 +63,12 @@ public class PlayerController : BaseController
     Skill_Cokeshot skill_cokeshot;
     Skill_Shootingstar skill_shootingstar;
     Skill_Cakerush skill_cakerush;
-    PlayerState _state;
-    Vector3 destPos;
+    [SerializeField] PlayerState _state;
+    [SerializeField] Vector3 destPos;
     
-    int mask = (1 << (int) Define.Layer.Ground) | (1 << (int)Define.Layer.Mob) | (1 << (int)Define.Layer.Player) | (1 << (int)Define.Layer.Unit);
-    bool useSkill = false;
+    int mask = (1 << (int) Define.Layer.Ground) | (1 << (int)Define.Layer.Player) | (1 << (int)Define.Layer.Ally) | (1 << (int)Define.Layer.Enemy);
+    
+    public bool UseSkill { get; set; } = false;
 
     void Start()
     {
@@ -100,18 +102,20 @@ public class PlayerController : BaseController
     protected override void Init()
     {
         base.Init();
+        animator = GetComponent<Animator>();
         stat = gameObject.GetOrAddComponent<PlayerStat>();
         skill_lightning = gameObject.GetOrAddComponent<Skill_Lightning>();
         skill_cokeshot = gameObject.GetOrAddComponent<Skill_Cokeshot>();
         skill_shootingstar = gameObject.GetOrAddComponent<Skill_Shootingstar>();
         skill_cakerush = gameObject.GetOrAddComponent<Skill_Cakerush>();
 
+        stat.Init();
         navMeshAgent.speed = stat.MoveSpeed;
     }
 
     void OnMouseClickEvent()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -120,7 +124,7 @@ public class PlayerController : BaseController
             {
                 if (hit.collider != null)
                 {
-                    destPos = hit.transform.position;
+                    destPos = hit.point;
                     State = PlayerState.Move;
 
                     if (hit.collider.gameObject.layer == (int)Define.Layer.Ground)
@@ -129,20 +133,35 @@ public class PlayerController : BaseController
                         target = hit.transform.gameObject;
                 }
             }
+
+            Debug.DrawRay(ray.origin, hit.point, Color.red, 1f);
         }
     }
 
     void OnKeyboardEvent()
     {
+        if (Input.anyKey == false)
+            return;
+
+        if(Input.GetKeyUp(KeyCode.Q))
+        {
+
+        }
+
         if(Input.GetKeyDown(KeyCode.Q))
         {
+            skill_lightning.ViewRange.SetActive(true);
+
             if(Input.GetMouseButtonDown(0))
             {
+                UseSkill = true;
                 State = PlayerState.Skill_Lightning;
             }
         }
         else if(Input.GetKeyDown(KeyCode.W))
         {
+            skill_cokeshot.ViewRange.SetActive(true);
+
             if (Input.GetMouseButtonDown(0))
             {
                 State = PlayerState.Skill_Cokeshot;
@@ -150,6 +169,8 @@ public class PlayerController : BaseController
         }
         else if(Input.GetKeyDown(KeyCode.E))
         {
+            skill_shootingstar.ViewRange.SetActive(true);
+
             if (Input.GetMouseButtonDown(0))
             {
                 State = PlayerState.Skill_Shootingstar;
@@ -189,6 +210,8 @@ public class PlayerController : BaseController
         {
             navMeshAgent.SetDestination(destPos);
         }
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 20 * Time.deltaTime);
     }
 
     protected override void UpdateAttack()

@@ -7,7 +7,7 @@ public class ResourceManager
 {
     public T Load<T>(string path) where T : UnityEngine.Object
     {
-        T origin = Resources.Load<T>("path");
+        T origin = Resources.Load<T>(path);
         
         if(origin == null)
         {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseSkill : MonoBehaviour
+public class Skill_Base : MonoBehaviour
 {
     public float CurrentCooltime { get; protected set; }
     public float Cooltime { get; protected set; }
@@ -29,5 +29,6 @@ public class BaseSkill : MonoBehaviour
     {
         CurrentCooltime = Cooltime;
         isSkillable = false;
+        Managers.Game.GetPlayer.UseSkill = false;
     }
 }
